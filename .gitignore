@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# shadcn/ui generated components
+# Run `npx shadcn-ui@latest add <component-name>` to regenerate
+src/components/ui/*
