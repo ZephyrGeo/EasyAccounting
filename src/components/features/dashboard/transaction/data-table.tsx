@@ -22,9 +22,11 @@ import {
 
 import { Input } from "@/components/ui/input";
 
+import AddTransaction from "./AddTransaction";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  onDataChange?: (newData: TData[]) => void;
 }
 
 export default function DataTable<TData, TValue>({
@@ -49,6 +51,11 @@ export default function DataTable<TData, TValue>({
       columnFilters,
     },
   });
+
+  const handleAddTransaction = (newTransaction: TData) => {
+    const updatedData = [...data, newTransaction];
+    onDataChange?.(updatedData);
+  };
   return (
     <>
       <div className="flex items-center py-4">
@@ -62,6 +69,7 @@ export default function DataTable<TData, TValue>({
           }
           className="max-w-sm"
         />
+        <AddTransaction onAdd={handleAddTransaction} />
       </div>
       <div className="rounded-md border">
         <Table>
