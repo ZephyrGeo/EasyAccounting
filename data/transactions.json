@@ -89,6 +89,16 @@
       "date": "24/02/06",
       "time": "21:00",
       "tags": ["Gathering"]
+    },
+    {
+      "id": "T20240106002",
+      "amount": 4000.0,
+      "category": "Food",
+      "merchant": "Weishang ",
+      "subCategory": "Lunch",
+      "date": "24/02/06",
+      "time": "21:00",
+      "tags": ["Gathering"]
     }
   ]
 }
