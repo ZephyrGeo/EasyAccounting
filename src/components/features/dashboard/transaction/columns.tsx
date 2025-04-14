@@ -31,7 +31,7 @@ export const createColumns = (
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          日期
+          Date
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -43,7 +43,7 @@ export const createColumns = (
   },
   {
     accessorKey: "merchant",
-    header: () => <div>商家</div>,
+    header: () => <div>Merchants</div>,
     cell: ({ row }) => {
       const merchant = row.getValue("merchant") as string;
       return <div className="">{merchant}</div>;
@@ -57,7 +57,7 @@ export const createColumns = (
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          金额
+          Amount
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -74,7 +74,7 @@ export const createColumns = (
   },
   {
     accessorKey: "category",
-    header: () => <div className="">类别</div>,
+    header: () => <div className="">Category</div>,
     cell: ({ row }) => {
       const category = row.getValue("category") as string;
       const subCategory = row.original.subCategory as string;
@@ -98,7 +98,7 @@ export const createColumns = (
   },
   {
     accessorKey: "tags",
-    header: () => <div className="">标签</div>,
+    header: () => <div className="">Tag</div>,
     cell: ({ row }) => {
       const tags = row.original.tags as string[];
 
@@ -127,7 +127,7 @@ export const createColumns = (
         if (options?.onEdit) {
           options.onEdit(transaction);
         } else {
-          console.log("编辑交易:", transaction.id);
+          console.log("Edit Transaction:", transaction.id);
         }
       };
 
@@ -136,7 +136,7 @@ export const createColumns = (
         if (options?.onDelete) {
           options.onDelete(transaction.id);
         } else {
-          console.log("删除交易:", transaction.id);
+          console.log("Delete Transaction:", transaction.id);
         }
       };
 
@@ -144,21 +144,21 @@ export const createColumns = (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">打开菜单</span>
+              <span className="sr-only">Open menu</span>
               <MoreHorizontal />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-[160px]">
-            <DropdownMenuLabel>操作</DropdownMenuLabel>
+            <DropdownMenuLabel>Operation</DropdownMenuLabel>
             <DropdownMenuItem onClick={handleEdit}>
               <Pencil className="mr-2 h-4 w-4" />
-              <span>编辑</span>
+              <span>Edit</span>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
 
             <DropdownMenuItem onClick={handleDelete} className="text-red-600">
               <Trash2 className="mr-2 h-4 w-4" />
-              <span>删除</span>
+              <span>Delete</span>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

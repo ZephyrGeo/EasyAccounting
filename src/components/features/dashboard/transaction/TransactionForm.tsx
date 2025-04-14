@@ -171,11 +171,11 @@ export default function TransactionForm({
     resetForm();
   };
 
-  const dialogTitle = isEditMode ? "编辑交易" : "添加交易";
+  const dialogTitle = isEditMode ? "Edit Transaction" : "Add Transaction";
   const dialogDescription = isEditMode
-    ? "请修改下方的交易信息并提交以更新记录。带 * 的字段为必填项。"
-    : "请在下方输入交易信息并提交以更新您的记录。带 * 的字段为必填项。";
-  const submitButtonText = isEditMode ? "更新" : "添加";
+    ? "Please modify the transaction information below and submit to update the record. Fields marked with * are required."
+    : "Please enter the transaction information below and submit to update your record. Fields marked with * are required.";
+  const submitButtonText = isEditMode ? "Edit" : "Apply";
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -188,112 +188,112 @@ export default function TransactionForm({
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="amount" className="text-right">
-              金额 *
+              Amount *
             </Label>
             <Input
               id="amount"
               value={formData.amount}
               onChange={(e) => handleChange("amount", e.target.value)}
               onFocus={() => handleFocus("amount")}
-              placeholder="例如: 24.99"
+              placeholder="e.g. 24.99"
               className={
                 errors.amount ? "col-span-3 border-red-500" : "col-span-3"
               }
             />
             {errors.amount && (
               <p className="col-span-3 col-start-2 text-xs text-red-500">
-                请输入有效金额
+                Please enter a valid amount
               </p>
             )}
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="category" className="text-right">
-              类别 *
+              Category *
             </Label>
             <Input
               id="category"
               value={formData.category}
               onChange={(e) => handleChange("category", e.target.value)}
               onFocus={() => handleFocus("category")}
-              placeholder="例如: 食品"
+              placeholder="e.g. Food"
               className={
                 errors.category ? "col-span-3 border-red-500" : "col-span-3"
               }
             />
             {errors.category && (
               <p className="col-span-3 col-start-2 text-xs text-red-500">
-                类别为必填项
+                Category is required
               </p>
             )}
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="subCategory" className="text-right">
-              子类别
+              Subcategory
             </Label>
             <Input
               id="subCategory"
               value={formData.subCategory}
               onChange={(e) => handleChange("subCategory", e.target.value)}
-              placeholder="例如: 午餐"
+              placeholder="e.g. Lunch"
               className="col-span-3"
             />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="merchant" className="text-right">
-              商家 *
+              Merchant *
             </Label>
             <Input
               id="merchant"
               value={formData.merchant}
               onChange={(e) => handleChange("merchant", e.target.value)}
               onFocus={() => handleFocus("merchant")}
-              placeholder="例如: 星巴克"
+              placeholder="e.g. Starbucks"
               className={
                 errors.merchant ? "col-span-3 border-red-500" : "col-span-3"
               }
             />
             {errors.merchant && (
               <p className="col-span-3 col-start-2 text-xs text-red-500">
-                商家为必填项
+                Merchant is required
               </p>
             )}
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="date" className="text-right">
-              日期 *
+              Date *
             </Label>
             <Input
               id="date"
               value={formData.date}
               onChange={(e) => handleChange("date", e.target.value)}
               onFocus={() => handleFocus("date")}
-              placeholder="格式: 20250105"
+              placeholder="Format: 20250105"
               className={
                 errors.date ? "col-span-3 border-red-500" : "col-span-3"
               }
             />
             {errors.date && (
               <p className="col-span-3 col-start-2 text-xs text-red-500">
-                请输入有效日期 (YYYYMMDD)
+                Please enter a valid date (YYYYMMDD)
               </p>
             )}
             <p className="col-span-3 col-start-2 text-xs text-gray-500">
-              输入格式为YYYYMMDD，将显示为YY/MM/DD
+              Input format is YYYYMMDD, will be displayed as YY/MM/DD
             </p>
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="tags" className="text-right">
-              标签
+              Tags
             </Label>
             <Input
               id="tags"
               value={formData.tags}
               onChange={(e) => handleChange("tags", e.target.value)}
-              placeholder="例如: 月付, 家庭"
+              placeholder="e.g. Monthly, Family"
               className="col-span-3"
             />
             <p className="col-span-3 col-start-2 text-xs text-gray-500">
-              多个标签请用逗号分隔
+              Separate multiple tags with commas
             </p>
           </div>
         </div>
@@ -321,7 +321,7 @@ export function AddTransaction({
       onAdd={onAdd}
       open={open}
       setOpen={setOpen}
-      trigger={<Button className="ml-2">添加</Button>}
+      trigger={<Button className="ml-auto">Add Transaction</Button>}
     />
   );
 }

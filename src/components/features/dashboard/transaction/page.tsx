@@ -1,17 +1,22 @@
 // @/components/features/dashboard/transaction/page.tsx
 import { createColumns } from "./columns";
 import DataTable from "./data-table";
-import MonthSelector from "./MonthSelector";
 import { Transaction, TransactionProps } from "@/types/transaction";
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useEffect, useCallback } from "react";
 import TransactionForm from "./TransactionForm";
 
 // localStorage的键名
 const STORAGE_KEY = "transactions_data";
 
+// 在TransactionsTable组件中添加onTransactionUpdate属性
+interface TransactionsTableProps extends TransactionProps {
+  onTransactionUpdate?: (transactions: Transaction[]) => void;
+}
+
 export default function TransactionsTable({
   transactions: initialTransactions,
-}: TransactionProps) {
+  onTransactionUpdate,
+}: TransactionsTableProps) {
   // 从localStorage初始化或使用props
   const [tableData, setTableData] = useState<Transaction[]>(() => {
     // 检查localStorage中是否有数据
@@ -30,42 +35,14 @@ export default function TransactionsTable({
     return initialTransactions || [];
   });
 
-  // 记录当前选择的月份，null表示所有月份
-  const [selectedMonth, setSelectedMonth] = useState<string | null>(null);
+  // 移除内部的月份筛选逻辑
+  // 删除 selectedMonth, transactionsByMonth, currentTransactions 和 handleMonthChange
 
   // 编辑功能的状态
   const [editingTransaction, setEditingTransaction] = useState<
     Transaction | undefined
   >(undefined);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
-
-  // 使用useMemo按月份缓存数据，提高性能
-  const transactionsByMonth = useMemo(() => {
-    const result: Record<string, Transaction[]> = {};
-
-    tableData.forEach((transaction) => {
-      // 提取年月部分
-      const monthKey = transaction.date.substring(0, 5);
-
-      if (!result[monthKey]) {
-        result[monthKey] = [];
-      }
-
-      result[monthKey].push(transaction);
-    });
-
-    return result;
-  }, [tableData]);
-
-  // 当前显示的交易数据（根据选择的月份筛选）
-  const currentTransactions = useMemo(() => {
-    return selectedMonth ? transactionsByMonth[selectedMonth] || [] : tableData;
-  }, [selectedMonth, transactionsByMonth, tableData]);
-
-  // 处理月份选择变化
-  const handleMonthChange = useCallback((monthKey: string | null) => {
-    setSelectedMonth(monthKey);
-  }, []);
 
   // 处理编辑交易
   const handleEditTransaction = useCallback((transaction: Transaction) => {
@@ -89,8 +66,13 @@ export default function TransactionsTable({
 
       // 清除编辑状态
       setEditingTransaction(undefined);
+      
+      // 通知父组件交易数据已更新
+      if (onTransactionUpdate) {
+        onTransactionUpdate(updatedData);
+      }
     },
-    [tableData]
+    [tableData, onTransactionUpdate]
   );
 
   // 处理删除交易
@@ -106,23 +88,37 @@ export default function TransactionsTable({
         if (typeof window !== "undefined") {
           localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedData));
         }
+        
+        // 通知父组件交易数据已更新
+        if (onTransactionUpdate) {
+          onTransactionUpdate(updatedData);
+        }
       }
     },
-    [tableData]
+    [tableData, onTransactionUpdate]
   );
-
+  
   // 处理添加新交易
   const handleAddTransaction = useCallback(
     (newTransaction: Transaction) => {
       const updatedData = [...tableData, newTransaction];
       setTableData(updatedData);
-
+  
+      // 添加日志，帮助调试
+      console.log("添加新交易:", newTransaction);
+      console.log("交易日期:", newTransaction.date);
+  
       // 保存到localStorage
       if (typeof window !== "undefined") {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedData));
       }
+      
+      // 通知父组件交易数据已更新
+      if (onTransactionUpdate) {
+        onTransactionUpdate(updatedData);
+      }
     },
-    [tableData]
+    [tableData, onTransactionUpdate]
   );
 
   // 创建包含删除和编辑处理程序的列定义
@@ -191,27 +187,19 @@ export default function TransactionsTable({
       if (typeof window !== "undefined") {
         localStorage.removeItem(STORAGE_KEY);
       }
+      
+      // 通知父组件数据已清除
+      if (onTransactionUpdate) {
+        onTransactionUpdate([]);
+      }
     }
   };
 
   return (
-    <div className="min-h-[100vh] flex-1 rounded-xl md:min-h-min">
-      <div className="flex justify-between items-center mb-4">
-        <MonthSelector
-          transactions={tableData}
-          onMonthChange={handleMonthChange}
-        />
-
-        {selectedMonth && (
-          <div className="text-sm text-muted-foreground">
-            显示 {selectedMonth} 月的 {currentTransactions.length} 笔交易
-          </div>
-        )}
-      </div>
-
+    <div className="min-h-[100vh] flex-1 rounded-xl md:min-h-min"> 
       <DataTable
         columns={columns}
-        data={currentTransactions}
+        data={initialTransactions} // 直接使用传入的已筛选数据
         onAdd={handleAddTransaction}
       />
 

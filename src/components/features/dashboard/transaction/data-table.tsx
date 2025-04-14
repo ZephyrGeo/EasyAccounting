@@ -10,6 +10,7 @@ import {
   getFilteredRowModel,
   useReactTable,
   getPaginationRowModel,
+  PaginationState,
 } from "@tanstack/react-table";
 
 import {
@@ -51,6 +52,12 @@ export default function DataTable<TData, TValue>({
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   );
+  
+  // 添加分页状态
+  const [pagination, setPagination] = React.useState<PaginationState>({
+    pageIndex: 0,
+    pageSize: 10, // 每页显示10条记录
+  });
 
   // 本地数据状态
   const [localData, setLocalData] = React.useState<TData[]>(data);
@@ -69,13 +76,11 @@ export default function DataTable<TData, TValue>({
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    onPaginationChange: setPagination, // 添加分页状态更新函数
     state: {
       sorting,
       columnFilters,
-      pagination: {
-        pageIndex: 0,
-        pageSize: 10, // 每页显示10条记录
-      },
+      pagination, // 使用状态变量而不是固定值
     },
   });
 
@@ -90,7 +95,7 @@ export default function DataTable<TData, TValue>({
     <>
       <div className="flex items-center py-4">
         <Input
-          placeholder="筛选商家..."
+          placeholder="Filter merchants..."
           value={
             (table.getColumn("merchant")?.getFilterValue() as string) ?? ""
           }
@@ -142,7 +147,7 @@ export default function DataTable<TData, TValue>({
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  无数据。
+                  No data.
                 </TableCell>
               </TableRow>
             )}
@@ -150,22 +155,23 @@ export default function DataTable<TData, TValue>({
         </Table>
       </div>
 
-      {/* 分页控件 */}
+      {/* Pagination controls */}
       {table.getRowModel().rows?.length > 0 && (
         <div className="flex items-center justify-end space-x-2 py-4">
-          {/* <div className="flex-1 text-sm text-muted-foreground">
-            共 {table.getFilteredRowModel().rows.length} 条记录
-          </div> */}
           <Pagination>
             <PaginationContent>
               <PaginationItem>
-                <PaginationPrevious
-                  onClick={() => table.previousPage()}
-                  disabled={!table.getCanPreviousPage()}
-                />
+                {table.getCanPreviousPage() ? (
+                  <PaginationPrevious onClick={() => table.previousPage()} />
+                ) : (
+                  <PaginationPrevious 
+                    className="pointer-events-none opacity-50" 
+                    aria-disabled="true"
+                  />
+                )}
               </PaginationItem>
 
-              {/* 显示页码 */}
+              {/* Page numbers */}
               {Array.from({ length: Math.min(5, table.getPageCount()) }).map(
                 (_, index) => {
                   // 显示当前页附近的页码
@@ -197,10 +203,14 @@ export default function DataTable<TData, TValue>({
               )}
 
               <PaginationItem>
-                <PaginationNext
-                  onClick={() => table.nextPage()}
-                  disabled={!table.getCanNextPage()}
-                />
+                {table.getCanNextPage() ? (
+                  <PaginationNext onClick={() => table.nextPage()} />
+                ) : (
+                  <PaginationNext 
+                    className="pointer-events-none opacity-50" 
+                    aria-disabled="true"
+                  />
+                )}
               </PaginationItem>
             </PaginationContent>
           </Pagination>
