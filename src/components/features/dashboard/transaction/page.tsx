@@ -4,206 +4,186 @@ import DataTable from "./data-table";
 import { Transaction, TransactionProps } from "@/types/transaction";
 import { useState, useEffect, useCallback } from "react";
 import TransactionForm from "./TransactionForm";
+import {
+  addTransaction,
+  updateTransaction,
+  deleteTransaction,
+  getTransactions,
+  updateAllTransactions,
+} from "@/api/transactions";
 
-// localStorage的键名
-const STORAGE_KEY = "transactions_data";
-
-// 在TransactionsTable组件中添加onTransactionUpdate属性
+// Add onTransactionUpdate property to TransactionsTable component
 interface TransactionsTableProps extends TransactionProps {
   onTransactionUpdate?: (transactions: Transaction[]) => void;
+  selectedYear?: string | null;
+  selectedMonth?: string | null;
 }
 
 export default function TransactionsTable({
   transactions: initialTransactions,
   onTransactionUpdate,
+  selectedYear,
+  selectedMonth,
 }: TransactionsTableProps) {
-  // 从localStorage初始化或使用props
-  const [tableData, setTableData] = useState<Transaction[]>(() => {
-    // 检查localStorage中是否有数据
-    if (typeof window !== "undefined") {
-      // 确保代码在浏览器环境执行
-      const savedData = localStorage.getItem(STORAGE_KEY);
-      if (savedData) {
-        try {
-          return JSON.parse(savedData);
-        } catch (e) {
-          console.error("解析localStorage数据失败:", e);
-          return initialTransactions || [];
-        }
-      }
-    }
-    return initialTransactions || [];
-  });
+  // Initialize data using props
+  const [tableData, setTableData] = useState<Transaction[]>(
+    initialTransactions || [],
+  );
 
-  // 移除内部的月份筛选逻辑
-  // 删除 selectedMonth, transactionsByMonth, currentTransactions 和 handleMonthChange
+  // Remove internal month filtering logic
+  // Delete selectedMonth, transactionsByMonth, currentTransactions and handleMonthChange
 
-  // 编辑功能的状态
+  // Edit functionality state
   const [editingTransaction, setEditingTransaction] = useState<
     Transaction | undefined
   >(undefined);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 
-  // 处理编辑交易
+  // Handle edit transaction
   const handleEditTransaction = useCallback((transaction: Transaction) => {
     setEditingTransaction(transaction);
     setIsEditDialogOpen(true);
   }, []);
 
-  // 保存编辑后的交易
+  // Save edited transaction
   const handleSaveEdit = useCallback(
-    (id: string, updatedTransaction: Transaction) => {
-      const updatedData = tableData.map((transaction) =>
-        transaction.id === id ? updatedTransaction : transaction
-      );
+    async (id: string, updatedTransaction: Transaction) => {
+      try {
+        console.log("Starting transaction update:", id, updatedTransaction);
 
-      setTableData(updatedData);
+        // Update JSON file
+        await updateTransaction(id, updatedTransaction);
+        console.log("API update successful");
 
-      // 保存到localStorage
-      if (typeof window !== "undefined") {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedData));
-      }
-
-      // 清除编辑状态
-      setEditingTransaction(undefined);
-      
-      // 通知父组件交易数据已更新
-      if (onTransactionUpdate) {
-        onTransactionUpdate(updatedData);
-      }
-    },
-    [tableData, onTransactionUpdate]
-  );
-
-  // 处理删除交易
-  const handleDeleteTransaction = useCallback(
-    (id: string) => {
-      if (window.confirm("确定要删除这条交易记录吗？此操作不可恢复。")) {
-        const updatedData = tableData.filter(
-          (transaction) => transaction.id !== id
+        // Re-fetch data to ensure synchronization
+        const refreshedData = await getTransactions();
+        console.log(
+          "Data re-fetch successful, data count:",
+          refreshedData.length,
         );
-        setTableData(updatedData);
 
-        // 保存到localStorage
-        if (typeof window !== "undefined") {
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedData));
-        }
-        
-        // 通知父组件交易数据已更新
+        setTableData(refreshedData);
+
+        // Clear edit state
+        setEditingTransaction(undefined);
+        setIsEditDialogOpen(false);
+
+        // Notify parent component that transaction data has been updated
         if (onTransactionUpdate) {
-          onTransactionUpdate(updatedData);
+          onTransactionUpdate(refreshedData);
+        }
+
+        console.log("Transaction update completed");
+      } catch (error) {
+        console.error("Failed to update transaction:", error);
+        alert("Failed to update transaction, please try again");
+      }
+    },
+    [onTransactionUpdate],
+  );
+
+  // Handle delete transaction
+  const handleDeleteTransaction = useCallback(
+    async (id: string) => {
+      if (
+        window.confirm(
+          "Are you sure you want to delete this transaction record? This action cannot be undone.",
+        )
+      ) {
+        try {
+          // Delete from JSON file
+          await deleteTransaction(id);
+
+          // Re-fetch data to ensure synchronization
+          const refreshedData = await getTransactions();
+          setTableData(refreshedData);
+
+          // Notify parent component that transaction data has been updated
+          if (onTransactionUpdate) {
+            onTransactionUpdate(refreshedData);
+          }
+        } catch (error) {
+          console.error("Failed to delete transaction:", error);
+          alert("Failed to delete transaction, please try again");
         }
       }
     },
-    [tableData, onTransactionUpdate]
-  );
-  
-  // 处理添加新交易
-  const handleAddTransaction = useCallback(
-    (newTransaction: Transaction) => {
-      const updatedData = [...tableData, newTransaction];
-      setTableData(updatedData);
-  
-      // 添加日志，帮助调试
-      console.log("添加新交易:", newTransaction);
-      console.log("交易日期:", newTransaction.date);
-  
-      // 保存到localStorage
-      if (typeof window !== "undefined") {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedData));
-      }
-      
-      // 通知父组件交易数据已更新
-      if (onTransactionUpdate) {
-        onTransactionUpdate(updatedData);
-      }
-    },
-    [tableData, onTransactionUpdate]
+    [onTransactionUpdate],
   );
 
-  // 创建包含删除和编辑处理程序的列定义
+  // Handle add new transaction
+  const handleAddTransaction = useCallback(
+    async (newTransaction: Transaction) => {
+      try {
+        // Add to JSON file
+        await addTransaction(newTransaction);
+
+        // Re-fetch data to ensure synchronization
+        const refreshedData = await getTransactions();
+        setTableData(refreshedData);
+
+        // Notify parent component that transaction data has been updated
+        if (onTransactionUpdate) {
+          onTransactionUpdate(refreshedData);
+        }
+      } catch (error) {
+        console.error("Failed to add transaction:", error);
+        alert("Failed to add transaction, please try again");
+      }
+    },
+    [onTransactionUpdate],
+  );
+
+  // Create column definitions with delete and edit handlers
   const columns = createColumns({
     onDelete: handleDeleteTransaction,
     onEdit: handleEditTransaction,
   });
 
-  // 当初始交易数据变化且本地没有保存数据时更新tableData
+  // Update tableData when initial transaction data changes
   useEffect(() => {
-    if (
-      typeof window !== "undefined" &&
-      initialTransactions &&
-      initialTransactions.length > 0
-    ) {
-      const savedData = localStorage.getItem(STORAGE_KEY);
-      // 如果localStorage为空或数据不存在，则使用initialTransactions并保存
-      if (!savedData) {
-        setTableData(initialTransactions);
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(initialTransactions));
-      } else {
-        // 合并API数据和本地存储数据
-        try {
-          const localData = JSON.parse(savedData);
-          // 使用ID作为唯一标识符合并数据
-          const mergedData = mergeTransactions(localData, initialTransactions);
-          setTableData(mergedData);
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(mergedData));
-        } catch (e) {
-          console.error("合并交易数据失败:", e);
-        }
-      }
+    if (initialTransactions && initialTransactions.length > 0) {
+      setTableData(initialTransactions);
     }
   }, [initialTransactions]);
 
-  // 合并交易数据，保留本地添加的数据
-  const mergeTransactions = (
-    localData: Transaction[],
-    apiData: Transaction[]
-  ): Transaction[] => {
-    // 创建ID到对象的映射以便快速查找
-    const localMap = new Map(localData.map((item) => [item.id, item]));
+  // Add clear all data functionality (for testing only)
+  const handleClearAllData = async () => {
+    if (
+      window.confirm(
+        "Are you sure you want to clear all transaction data? This action cannot be undone.",
+      )
+    ) {
+      try {
+        // Use batch update API to clear data
+        await updateAllTransactions([]);
 
-    // 创建结果数组
-    const result: Transaction[] = [];
+        // Re-fetch data
+        const refreshedData = await getTransactions();
+        setTableData(refreshedData);
 
-    // 添加所有本地数据
-    localData.forEach((item) => {
-      result.push(item);
-    });
-
-    // 添加API中有但本地没有的数据
-    apiData.forEach((item) => {
-      if (!localMap.has(item.id)) {
-        result.push(item);
-      }
-    });
-
-    return result;
-  };
-
-  // 添加清除所有数据的功能（仅用于测试）
-  const handleClearAllData = () => {
-    if (window.confirm("确定要清除所有交易数据吗？此操作不可恢复。")) {
-      setTableData([]);
-      if (typeof window !== "undefined") {
-        localStorage.removeItem(STORAGE_KEY);
-      }
-      
-      // 通知父组件数据已清除
-      if (onTransactionUpdate) {
-        onTransactionUpdate([]);
+        // Notify parent component that data has been cleared
+        if (onTransactionUpdate) {
+          onTransactionUpdate(refreshedData);
+        }
+      } catch (error) {
+        console.error("Failed to clear data:", error);
+        alert("Failed to clear data, please try again");
       }
     }
   };
 
   return (
-    <div className="min-h-[100vh] flex-1 rounded-xl md:min-h-min"> 
+    <div className="min-h-[100vh] flex-1 rounded-xl md:min-h-min">
       <DataTable
         columns={columns}
-        data={initialTransactions} // 直接使用传入的已筛选数据
+        data={tableData} // Use local state data, including newly added transactions
         onAdd={handleAddTransaction}
+        selectedYear={selectedYear}
+        selectedMonth={selectedMonth}
       />
 
-      {/* 编辑交易对话框 */}
+      {/* Edit transaction dialog */}
       <TransactionForm
         mode="edit"
         transaction={editingTransaction}
@@ -212,14 +192,14 @@ export default function TransactionsTable({
         setOpen={setIsEditDialogOpen}
       />
 
-      {/* 可选：添加一个清除数据按钮，仅用于开发测试 */}
+      {/* Optional: Add a clear data button for development testing only */}
       {process.env.NODE_ENV === "development" && (
         <div className="mt-4 text-right">
           <button
             onClick={handleClearAllData}
             className="text-xs text-red-500 hover:text-red-700"
           >
-            清除所有数据（仅开发环境可见）
+            Clear All Data (Development Only)
           </button>
         </div>
       )}

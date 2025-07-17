@@ -1,104 +1,4176 @@
 {
   "transactions": [
     {
-      "id": "T2024020800103",
-      "amount": 70000,
-      "category": "Rent",
-      "subCategory": "",
-      "merchant": "House Rent",
-      "date": "24/02/01",
-      "time": "12:30",
-      "tags": ""
-    },
-    {
-      "id": "T2024020800153",
-      "amount": 9900,
-      "category": "Travel",
-      "subCategory": "Dinner",
-      "merchant": "タームスイカ",
-      "date": "24/02/23",
-      "time": "12:30",
-      "tags": ""
-    },
-    {
-      "id": "T2024020823",
-      "amount": 7139.5,
-      "category": "Food",
-      "subCategory": "Dinner",
-      "merchant": "虎鮨",
-      "date": "24/02/22",
-      "time": "12:30",
-      "tags": ["Business Meal", "Reimbursable"]
-    },
-    {
-      "id": "T20240208001",
-      "amount": 128.5,
-      "category": "Food",
-      "subCategory": "Lunch",
-      "merchant": "Mc Donald's",
-      "date": "24/02/22",
-      "time": "12:30",
-      "tags": ["Business Meal", "Reimbursable"]
-    },
-    {
-      "id": "T20240208002",
-      "amount": 4500.0,
+      "id": "T17526829190420",
+      "amount": 150,
       "category": "Transportation",
-      "merchant": "Uber",
-      "subCategory": "Taxi",
-      "date": "24/02/08",
-      "time": "18:45",
-      "tags": ["Overtime", "Reimbursable"]
+      "subCategory": "Toll",
+      "merchant": "栃木県道路公社　ＥＴＣ　後納",
+      "date": "24/11/23",
+      "time": "01:21:59",
+      "tags": []
     },
     {
-      "id": "T20240207001",
-      "amount": 299.0,
+      "id": "T17526829190421",
+      "amount": 320,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "栃木県道路公社　ＥＴＣ　後納",
+      "date": "24/11/23",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T17526829190432",
+      "amount": 320,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "栃木県道路公社　ＥＴＣ　後納",
+      "date": "24/11/23",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T17526829190433",
+      "amount": 100,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "栃木県道路公社　ＥＴＣ　後納",
+      "date": "24/11/23",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T17526829190434",
+      "amount": 500,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "ＥＴＣ首都高",
+      "date": "24/11/23",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T17526829190435",
+      "amount": 970,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "ＥＴＣ首都高",
+      "date": "24/11/23",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T17526829190436",
+      "amount": 1460,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "ＥＴＣ首都高",
+      "date": "24/11/23",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T17526829190437",
+      "amount": 2500,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "ＥＴＣ　特割　関東支社",
+      "date": "24/11/23",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T17526829190438",
+      "amount": 2500,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "ＥＴＣ　特割　関東支社",
+      "date": "24/11/23",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T17526829190439",
+      "amount": 640,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "ＥＴＣ首都高",
+      "date": "24/12/01",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904310",
+      "amount": 640,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "ＥＴＣ首都高",
+      "date": "24/12/01",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904311",
+      "amount": 2040,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "ＥＴＣ　特割　八王子支社",
+      "date": "24/12/01",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904312",
+      "amount": 380,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "ＥＴＣ　特割　八王子支社",
+      "date": "24/12/01",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904313",
+      "amount": 380,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "ＥＴＣ　特割　八王子支社",
+      "date": "24/12/01",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904314",
+      "amount": 2040,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "ＥＴＣ　特割　八王子支社",
+      "date": "24/12/01",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904415",
+      "amount": 760,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "ＥＴＣ　特割　八王子支社",
+      "date": "24/12/01",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904416",
+      "amount": 693,
+      "category": "Food & Drink",
+      "subCategory": "Convenience Store",
+      "merchant": "セブン－イレブン",
+      "date": "24/12/01",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904417",
+      "amount": 50,
       "category": "Shopping",
-      "merchant": "Zara",
-      "subCategory": "Clothing",
-      "date": "24/02/07",
-      "time": "14:20",
-      "tags": ["Clothes"]
+      "subCategory": "Furniture",
+      "merchant": "ＩＫＥＡ渋谷",
+      "date": "24/12/04",
+      "time": "01:21:59",
+      "tags": []
     },
     {
-      "id": "T20240207002",
-      "amount": 5000.0,
-      "category": "Daily Necessities",
-      "merchant": "Ichiba",
-      "subCategory": "",
-      "date": "24/02/07",
-      "time": "09:00",
-      "tags": ["Monthly Pay"]
+      "id": "T175268291904418",
+      "amount": 7590,
+      "category": "Shopping",
+      "subCategory": "Department Store",
+      "merchant": "東急　二子玉川ライズショッピングセンター",
+      "date": "24/12/06",
+      "time": "01:21:59",
+      "tags": []
     },
     {
-      "id": "T20240206001",
-      "amount": 3266.0,
+      "id": "T175268291904419",
+      "amount": 1223,
+      "category": "Food & Drink",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "24/12/06",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904420",
+      "amount": 566,
+      "category": "Healthcare",
+      "subCategory": "Pharmacy",
+      "merchant": "トモズ中延店／ＮＦＣ",
+      "date": "24/12/08",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904421",
+      "amount": 6019,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "味上湖南菜館",
+      "date": "24/12/08",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904422",
+      "amount": 3006,
+      "category": "Shopping",
+      "subCategory": "Furniture",
+      "merchant": "ニトリ",
+      "date": "24/12/08",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904423",
+      "amount": 1134,
+      "category": "Food & Drink",
+      "subCategory": "Grocery",
+      "merchant": "オーケー　戸越店",
+      "date": "24/12/09",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904424",
+      "amount": 704,
+      "category": "Food & Drink",
+      "subCategory": "Convenience Store",
+      "merchant": "ローソン",
+      "date": "24/12/09",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904425",
+      "amount": 149,
+      "category": "Food & Drink",
+      "subCategory": "Convenience Store",
+      "merchant": "セブン－イレブン",
+      "date": "24/12/09",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904426",
+      "amount": 2126,
+      "category": "Food & Drink",
+      "subCategory": "Convenience Store",
+      "merchant": "ローソン",
+      "date": "24/12/10",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904427",
+      "amount": 1107,
+      "category": "Food & Drink",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "24/12/11",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904428",
+      "amount": 2610,
+      "category": "Food & Drink",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "24/12/11",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904429",
+      "amount": 343,
+      "category": "Food & Drink",
+      "subCategory": "Convenience Store",
+      "merchant": "セブン－イレブン",
+      "date": "24/12/14",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904430",
+      "amount": 9600,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "味上湖南菜館",
+      "date": "24/12/14",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904431",
+      "amount": 973,
+      "category": "Healthcare",
+      "subCategory": "Pharmacy",
+      "merchant": "トモズ中延店／ＮＦＣ",
+      "date": "24/12/15",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904432",
+      "amount": 752,
+      "category": "Food & Drink",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "24/12/17",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904433",
+      "amount": 1805,
+      "category": "Healthcare",
+      "subCategory": "Pharmacy",
+      "merchant": "ココカラファイン",
+      "date": "24/12/18",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904534",
+      "amount": 1440,
+      "category": "Food & Drink",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "24/12/18",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904535",
+      "amount": 6600,
+      "category": "Shopping",
+      "subCategory": "Online",
+      "merchant": "ＡＭＡＺＯＮ．ＣＯ．ＪＰ",
+      "date": "24/12/21",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904536",
+      "amount": 110,
+      "category": "Shopping",
+      "subCategory": "Department Store",
+      "merchant": "東急　二子玉川ライズショッピングセンター",
+      "date": "24/12/21",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904537",
+      "amount": 110,
+      "category": "Shopping",
+      "subCategory": "Department Store",
+      "merchant": "東急　二子玉川ライズショッピングセンター",
+      "date": "24/12/21",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904538",
+      "amount": 1078,
+      "category": "Food & Drink",
+      "subCategory": "Grocery",
+      "merchant": "東急ストア　（サインレス）",
+      "date": "24/12/21",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904539",
+      "amount": 138,
+      "category": "Food & Drink",
+      "subCategory": "Grocery",
+      "merchant": "東急ストア　（サインレス）",
+      "date": "24/12/21",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904540",
+      "amount": 322,
+      "category": "Food & Drink",
+      "subCategory": "Grocery",
+      "merchant": "二子玉川　Ｔｏｋｙｕ　Ｆｏｏｄ　Ｓｈｏｗ",
+      "date": "24/12/21",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904541",
+      "amount": 1799,
+      "category": "Shopping",
+      "subCategory": "Online",
+      "merchant": "ＡＭＡＺＯＮ．ＣＯ．ＪＰ",
+      "date": "24/12/22",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904542",
+      "amount": 1160,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "ファーストキッチン六本木店／ＮＦＣ",
+      "date": "24/12/22",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904543",
+      "amount": 9020,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "翠雲特製水煮魚",
+      "date": "24/12/22",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904544",
+      "amount": 108,
+      "category": "Food & Drink",
+      "subCategory": "Convenience Store",
+      "merchant": "セブン－イレブン",
+      "date": "24/12/22",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904545",
+      "amount": 1832,
+      "category": "Food & Drink",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "24/12/23",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904546",
+      "amount": 600,
+      "category": "Bills & Utilities",
+      "subCategory": "Subscription",
+      "merchant": "Ａｍａｚｏｎプライム会費",
+      "date": "24/12/25",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904547",
+      "amount": 15640,
       "category": "Entertainment",
-      "merchant": "Toho Cinemas",
-      "subCategory": "Movie",
-      "date": "24/02/06",
-      "time": "19:30",
-      "tags": ["Weekend"]
+      "subCategory": "Hotel",
+      "merchant": "リッチモンドホテル札幌駅前",
+      "date": "24/12/25",
+      "time": "01:21:59",
+      "tags": []
     },
     {
-      "id": "T20240206002",
-      "amount": 158.0,
-      "category": "Food",
-      "merchant": "Sushi Zanmai",
-      "subCategory": "Dinner",
-      "date": "24/02/06",
-      "time": "21:00",
-      "tags": ["Gathering"]
+      "id": "T175268291904548",
+      "amount": 1520,
+      "category": "Healthcare",
+      "subCategory": "Pharmacy",
+      "merchant": "６９３６マツモトキヨシ札幌南５条西３丁目",
+      "date": "24/12/25",
+      "time": "01:21:59",
+      "tags": []
     },
     {
-      "id": "T20240106002",
-      "amount": 4000.0,
+      "id": "T175268291904549",
+      "amount": 5260,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "ラクテンペイ　パフエテリアミル",
+      "date": "24/12/25",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904550",
+      "amount": 12800,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "羊師",
+      "date": "24/12/25",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904551",
+      "amount": 925,
+      "category": "Food & Drink",
+      "subCategory": "Convenience Store",
+      "merchant": "フアミリ―マ―トハネダクウコウダイニタ",
+      "date": "24/12/25",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904652",
+      "amount": 5810,
+      "category": "Food & Drink",
+      "subCategory": "Convenience Store",
+      "merchant": "フアミリ―マ―トサツポロキタサンジヨウ",
+      "date": "24/12/25",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904653",
+      "amount": 5852,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "回転寿司とっぴ～　小樽運河通り店／ＮＦＣ",
+      "date": "24/12/26",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904654",
+      "amount": 5650,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "クレイジースパイス小樽本店＊ＵＳＥＮ",
+      "date": "24/12/26",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904655",
+      "amount": 18960,
+      "category": "Entertainment",
+      "subCategory": "Hotel",
+      "merchant": "ホテル・トリフィート小樽運河",
+      "date": "24/12/26",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904656",
+      "amount": 494,
+      "category": "Food & Drink",
+      "subCategory": "Convenience Store",
+      "merchant": "ローソン",
+      "date": "24/12/26",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904657",
+      "amount": 910,
+      "category": "Food & Drink",
+      "subCategory": "Convenience Store",
+      "merchant": "セブン－イレブン",
+      "date": "24/12/26",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904658",
+      "amount": 18050,
+      "category": "Entertainment",
+      "subCategory": "Hotel",
+      "merchant": "ふれあい館　ラヴニール",
+      "date": "24/12/27",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904659",
+      "amount": 8730,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "和食　魚天／ＮＦＣ",
+      "date": "24/12/27",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904660",
+      "amount": 1072,
+      "category": "Food & Drink",
+      "subCategory": "Convenience Store",
+      "merchant": "セブン－イレブン",
+      "date": "24/12/27",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904661",
+      "amount": 671,
+      "category": "Food & Drink",
+      "subCategory": "Convenience Store",
+      "merchant": "セブン－イレブン",
+      "date": "24/12/27",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904662",
+      "amount": 868,
+      "category": "Food & Drink",
+      "subCategory": "Convenience Store",
+      "merchant": "フアミリ―マ―トオタルイロナイイツチヨウ",
+      "date": "24/12/27",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904663",
+      "amount": 1200,
+      "category": "Shopping",
+      "subCategory": "Specialty Store",
+      "merchant": "杉養蜂園　登別店",
+      "date": "24/12/28",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904664",
+      "amount": 3400,
+      "category": "Entertainment",
+      "subCategory": "Hotel",
+      "merchant": "第一滝本館",
+      "date": "24/12/28",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904665",
+      "amount": 13800,
+      "category": "Entertainment",
+      "subCategory": "Hotel",
+      "merchant": "ホテルルートインＧｒａｎｄ室蘭／ＮＦＣ",
+      "date": "24/12/28",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904666",
+      "amount": 5910,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "やきとり　一平　登別店／ＮＦＣ",
+      "date": "24/12/28",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904667",
+      "amount": 892,
+      "category": "Food & Drink",
+      "subCategory": "Convenience Store",
+      "merchant": "セブン－イレブン",
+      "date": "24/12/28",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904668",
+      "amount": 556,
+      "category": "Food & Drink",
+      "subCategory": "Convenience Store",
+      "merchant": "セブン－イレブン",
+      "date": "24/12/28",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904769",
+      "amount": 2659,
+      "category": "Transportation",
+      "subCategory": "Gas",
+      "merchant": "ＥＮＥＯＳ－ＳＳ",
+      "date": "24/12/28",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904770",
+      "amount": 27400,
+      "category": "Entertainment",
+      "subCategory": "Hotel",
+      "merchant": "ホテルリソル函館／ＮＦＣ",
+      "date": "24/12/29",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904771",
+      "amount": 4800,
+      "category": "Shopping",
+      "subCategory": "Specialty Store",
+      "merchant": "わかさいも本舗　仙堂庵",
+      "date": "24/12/29",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904772",
+      "amount": 5530,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "サイロ展望台／ＮＦＣ",
+      "date": "24/12/29",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904773",
+      "amount": 578,
+      "category": "Food & Drink",
+      "subCategory": "Convenience Store",
+      "merchant": "セイコーマート",
+      "date": "24/12/29",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904774",
+      "amount": 883,
+      "category": "Food & Drink",
+      "subCategory": "Convenience Store",
+      "merchant": "セブン－イレブン",
+      "date": "24/12/29",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904775",
+      "amount": 4511,
+      "category": "Transportation",
+      "subCategory": "Gas",
+      "merchant": "イデミツ（アポロステーション）",
+      "date": "24/12/29",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904776",
+      "amount": 660,
+      "category": "Healthcare",
+      "subCategory": "Pharmacy",
+      "merchant": "ダイコクドラッグ函館駅前店",
+      "date": "24/12/30",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904777",
+      "amount": 77033,
+      "category": "Transportation",
+      "subCategory": "Car Rental",
+      "merchant": "トヨタレンタリース函館　駅前営業所",
+      "date": "24/12/30",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904778",
+      "amount": 3600,
+      "category": "Entertainment",
+      "subCategory": "Tickets",
+      "merchant": "チケット販売Ｗｅｂｋｅｔ",
+      "date": "24/12/30",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904779",
+      "amount": 11600,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "ドンブリヤ",
+      "date": "24/12/30",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904780",
+      "amount": 3244,
+      "category": "Transportation",
+      "subCategory": "Airport",
+      "merchant": "函館空港",
+      "date": "24/12/31",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904781",
+      "amount": 910,
+      "category": "Transportation",
+      "subCategory": "Airport",
+      "merchant": "函館空港",
+      "date": "24/12/31",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904782",
+      "amount": 3248,
+      "category": "Food & Drink",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "24/12/31",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T175268291904783",
+      "amount": 2000,
+      "category": "Entertainment",
+      "subCategory": "Travel",
+      "merchant": "KKDAY (SINGAPORE )",
+      "date": "24/12/27",
+      "time": "01:21:59",
+      "tags": []
+    },
+    {
+      "id": "T17526829790690",
+      "amount": 420,
+      "category": "Transportation",
+      "subCategory": "Highway Toll",
+      "merchant": "ＥＴＣ　北海道支社",
+      "date": "24/12/26",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T17526829790691",
+      "amount": 740,
+      "category": "Transportation",
+      "subCategory": "Highway Toll",
+      "merchant": "ＥＴＣ　北海道支社",
+      "date": "24/12/26",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T17526829790692",
+      "amount": 3560,
+      "category": "Transportation",
+      "subCategory": "Highway Toll",
+      "merchant": "ＥＴＣ　北海道支社",
+      "date": "24/12/27",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T17526829790703",
+      "amount": 820,
+      "category": "Transportation",
+      "subCategory": "Highway Toll",
+      "merchant": "ＥＴＣ　北海道支社",
+      "date": "24/12/27",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T17526829790704",
+      "amount": 420,
+      "category": "Transportation",
+      "subCategory": "Highway Toll",
+      "merchant": "ＥＴＣ　北海道支社",
+      "date": "24/12/27",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T17526829790705",
+      "amount": 3790,
+      "category": "Transportation",
+      "subCategory": "Highway Toll",
+      "merchant": "ＥＴＣ　北海道支社",
+      "date": "24/12/28",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T17526829790706",
+      "amount": 880,
+      "category": "Transportation",
+      "subCategory": "Highway Toll",
+      "merchant": "ＥＴＣ　北海道支社",
+      "date": "24/12/29",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T17526829790707",
+      "amount": 95,
+      "category": "Food & Drink",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/01/02",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T17526829790708",
+      "amount": 911,
+      "category": "Food & Drink",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/01/02",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T17526829790709",
+      "amount": 1150,
+      "category": "Food & Drink",
+      "subCategory": "Grocery",
+      "merchant": "オーケー　戸越店",
+      "date": "25/01/04",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907010",
+      "amount": 393,
+      "category": "Food & Drink",
+      "subCategory": "Grocery",
+      "merchant": "オーケー　戸越店",
+      "date": "25/01/04",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907011",
+      "amount": 6116,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "元氣七輪焼肉　牛繁　荏原中延店",
+      "date": "25/01/04",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907012",
+      "amount": 1620,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "国壱麺",
+      "date": "25/01/05",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907013",
+      "amount": 1920,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "国壱麺",
+      "date": "25/01/05",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907014",
+      "amount": 340,
+      "category": "Food & Drink",
+      "subCategory": "Convenience Store",
+      "merchant": "ローソン",
+      "date": "25/01/06",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907015",
+      "amount": 591,
+      "category": "Food & Drink",
+      "subCategory": "Convenience Store",
+      "merchant": "セブン－イレブン",
+      "date": "25/01/06",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907016",
+      "amount": 990,
+      "category": "Shopping",
+      "subCategory": "Department Store",
+      "merchant": "東急　二子玉川ライズショッピングセンター",
+      "date": "25/01/07",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907017",
+      "amount": 582,
+      "category": "Food & Drink",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/01/07",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907018",
+      "amount": 3969,
+      "category": "Healthcare",
+      "subCategory": "Pharmacy",
+      "merchant": "ココカラファイン",
+      "date": "25/01/09",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907119",
+      "amount": 480,
+      "category": "Food & Drink",
+      "subCategory": "Grocery",
+      "merchant": "東急ストア　（サインレス）",
+      "date": "25/01/11",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907120",
+      "amount": 4300,
+      "category": "Entertainment",
+      "subCategory": "Gaming",
+      "merchant": "ジヤランネツトアソビタイケン",
+      "date": "25/01/11",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907121",
+      "amount": 564,
+      "category": "Food & Drink",
+      "subCategory": "Convenience Store",
+      "merchant": "ローソン",
+      "date": "25/01/13",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907122",
+      "amount": 1424,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "キッチンオリジン荏原中延店",
+      "date": "25/01/13",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907123",
+      "amount": 1366,
+      "category": "Food & Drink",
+      "subCategory": "Convenience Store",
+      "merchant": "セブン－イレブン",
+      "date": "25/01/14",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907124",
+      "amount": 725,
+      "category": "Other",
+      "subCategory": "Shipping",
+      "merchant": "ヤマト運輸株式会社",
+      "date": "25/01/14",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907125",
+      "amount": 1799,
+      "category": "Shopping",
+      "subCategory": "Online",
+      "merchant": "ＡＭＡＺＯＮ．ＣＯ．ＪＰ",
+      "date": "25/01/14",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907126",
+      "amount": 1910,
+      "category": "Food & Drink",
+      "subCategory": "Fast Food",
+      "merchant": "マクドナルドモバイルオーダー／ＡＰ",
+      "date": "25/01/15",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907127",
+      "amount": 253,
+      "category": "Food & Drink",
+      "subCategory": "Convenience Store",
+      "merchant": "フアミリ―マ―トタマガワサンチヨウメ",
+      "date": "25/01/16",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907128",
+      "amount": 584,
+      "category": "Food & Drink",
+      "subCategory": "Convenience Store",
+      "merchant": "セブン－イレブン",
+      "date": "25/01/17",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907129",
+      "amount": 2240,
+      "category": "Food & Drink",
+      "subCategory": "Fast Food",
+      "merchant": "ケンタッキ－フライドチキン／ＡＰ",
+      "date": "25/01/17",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907130",
+      "amount": 2780,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "松屋　中延店",
+      "date": "25/01/18",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907131",
+      "amount": 958,
+      "category": "Food & Drink",
+      "subCategory": "Convenience Store",
+      "merchant": "セブン－イレブン",
+      "date": "25/01/18",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907132",
+      "amount": 4840,
+      "category": "Transportation",
+      "subCategory": "Car Rental",
+      "merchant": "タイムズカー",
+      "date": "25/01/18",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907133",
+      "amount": 3083,
+      "category": "Shopping",
+      "subCategory": "Online",
+      "merchant": "ＡＭＡＺＯＮ．ＣＯ．ＪＰ",
+      "date": "25/01/19",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907234",
+      "amount": 1960,
+      "category": "Shopping",
+      "subCategory": "Department Store",
+      "merchant": "二子玉川ライズ　ドッグウッドプラザ",
+      "date": "25/01/19",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907235",
+      "amount": 541,
+      "category": "Healthcare",
+      "subCategory": "Pharmacy",
+      "merchant": "ココカラファイン",
+      "date": "25/01/19",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907236",
+      "amount": 1178,
+      "category": "Food & Drink",
+      "subCategory": "Convenience Store",
+      "merchant": "セブン－イレブン",
+      "date": "25/01/19",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907237",
+      "amount": 594,
+      "category": "Food & Drink",
+      "subCategory": "Convenience Store",
+      "merchant": "セブン－イレブン",
+      "date": "25/01/19",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907238",
+      "amount": 1235,
+      "category": "Food & Drink",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/01/19",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907239",
+      "amount": 330,
+      "category": "Shopping",
+      "subCategory": "Department Store",
+      "merchant": "東急　二子玉川ライズショッピングセンター",
+      "date": "25/01/21",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907240",
+      "amount": 418,
+      "category": "Shopping",
+      "subCategory": "Department Store",
+      "merchant": "二子玉川ライズ　ドッグウッドプラザ",
+      "date": "25/01/21",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907241",
+      "amount": 1380,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "ビービーキュー二子玉川店",
+      "date": "25/01/23",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907242",
+      "amount": 163,
+      "category": "Food & Drink",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/01/23",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907243",
+      "amount": 1730,
+      "category": "Food & Drink",
+      "subCategory": "Fast Food",
+      "merchant": "マクドナルドモバイルオーダー／ＡＰ",
+      "date": "25/01/24",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907244",
+      "amount": 2000,
+      "category": "Shopping",
+      "subCategory": "Coupon",
+      "merchant": "クマポン",
+      "date": "25/01/24",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907245",
+      "amount": 2000,
+      "category": "Shopping",
+      "subCategory": "Coupon",
+      "merchant": "クマポン",
+      "date": "25/01/24",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907246",
+      "amount": 789,
+      "category": "Healthcare",
+      "subCategory": "Pharmacy",
+      "merchant": "４４５５マツモトキヨシ五反田東急スクエア",
+      "date": "25/01/25",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907247",
+      "amount": 600,
+      "category": "Bills & Utilities",
+      "subCategory": "Subscription",
+      "merchant": "Ａｍａｚｏｎプライム会費",
+      "date": "25/01/25",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907248",
+      "amount": 587,
+      "category": "Food & Drink",
+      "subCategory": "Convenience Store",
+      "merchant": "セブン－イレブン",
+      "date": "25/01/25",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907349",
+      "amount": 2160,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "松屋　中延店",
+      "date": "25/01/26",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907350",
+      "amount": 330,
+      "category": "Food & Drink",
+      "subCategory": "Convenience Store",
+      "merchant": "ローソン",
+      "date": "25/01/26",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907351",
+      "amount": 216,
+      "category": "Healthcare",
+      "subCategory": "Pharmacy",
+      "merchant": "ココカラファイン",
+      "date": "25/01/27",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907352",
+      "amount": 4000,
+      "category": "Shopping",
+      "subCategory": "Coupon",
+      "merchant": "クマポン",
+      "date": "25/01/27",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907353",
+      "amount": 3970,
+      "category": "Food & Drink",
+      "subCategory": "Food Delivery",
+      "merchant": "ｍｅｎｕ／ＡＰ",
+      "date": "25/01/28",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907354",
+      "amount": 1473,
+      "category": "Shopping",
+      "subCategory": "Department Store",
+      "merchant": "東急　二子玉川ライズショッピングセンター",
+      "date": "25/01/28",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907355",
+      "amount": 190,
+      "category": "Food & Drink",
+      "subCategory": "Fast Food",
+      "merchant": "マクドナルドモバイルオーダー／ＡＰ",
+      "date": "25/01/28",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907356",
+      "amount": 136,
+      "category": "Food & Drink",
+      "subCategory": "Convenience Store",
+      "merchant": "セブン－イレブン",
+      "date": "25/01/29",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907357",
+      "amount": 1270,
+      "category": "Food & Drink",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/01/29",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907358",
+      "amount": 1273,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "キッチンオリジン荏原中延店",
+      "date": "25/01/29",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907359",
+      "amount": 4000,
+      "category": "Shopping",
+      "subCategory": "Coupon",
+      "merchant": "クマポン",
+      "date": "25/01/29",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907360",
+      "amount": 891,
+      "category": "Shopping",
+      "subCategory": "Online",
+      "merchant": "ＡＭＡＺＯＮ．ＣＯ．ＪＰ",
+      "date": "25/01/30",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907361",
+      "amount": 550,
+      "category": "Shopping",
+      "subCategory": "Department Store",
+      "merchant": "東急　二子玉川ライズショッピングセンター",
+      "date": "25/01/30",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907362",
+      "amount": 1507,
+      "category": "Food & Drink",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/01/30",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907363",
+      "amount": 602,
+      "category": "Healthcare",
+      "subCategory": "Pharmacy",
+      "merchant": "ヒノミドラッグ　中延店",
+      "date": "25/01/31",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907364",
+      "amount": 7502,
+      "category": "Shopping",
+      "subCategory": "Department Store",
+      "merchant": "東急　二子玉川ライズショッピングセンター",
+      "date": "25/01/31",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T175268297907365",
+      "amount": 1580,
+      "category": "Entertainment",
+      "subCategory": "Music Streaming",
+      "merchant": "SPOTIFY P3391A120F (STOCKHOLM )",
+      "date": "25/01/27",
+      "time": "01:22:59",
+      "tags": []
+    },
+    {
+      "id": "T17526830342040",
+      "amount": 1200,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "ＥＴＣ首都高",
+      "date": "25/01/18",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T17526830342041",
+      "amount": 320,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "ＥＴＣ　関東支社",
+      "date": "25/01/18",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T17526830342042",
+      "amount": 640,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "ＥＴＣ　関東支社",
+      "date": "25/01/18",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T17526830342043",
+      "amount": 100,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "ＥＴＣ　関東支社",
+      "date": "25/01/18",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T17526830342044",
+      "amount": 390,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "ＥＴＣ　関東支社",
+      "date": "25/01/18",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T17526830342055",
+      "amount": 710,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "ＥＴＣ　関東支社",
+      "date": "25/01/18",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T17526830342056",
+      "amount": 1515,
+      "category": "Healthcare",
+      "subCategory": "Pharmacy",
+      "merchant": "トモズ中延店／ＮＦＣ",
+      "date": "25/02/01",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T17526830342057",
+      "amount": 4470,
+      "category": "Food & Drink",
+      "subCategory": "Delivery",
+      "merchant": "ｍｅｎｕ／ＡＰ",
+      "date": "25/02/01",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T17526830342058",
+      "amount": 554,
+      "category": "Shopping",
+      "subCategory": "Convenience Store",
+      "merchant": "ローソン",
+      "date": "25/02/01",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T17526830342059",
+      "amount": 1739,
+      "category": "Healthcare",
+      "subCategory": "Pharmacy",
+      "merchant": "トモズ中延店／ＮＦＣ",
+      "date": "25/02/02",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420510",
+      "amount": 330,
+      "category": "Shopping",
+      "subCategory": "Convenience Store",
+      "merchant": "ローソン",
+      "date": "25/02/02",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420511",
+      "amount": 334,
+      "category": "Shopping",
+      "subCategory": "Convenience Store",
+      "merchant": "セブン－イレブン",
+      "date": "25/02/02",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420512",
+      "amount": 1296,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "キッチンオリジン荏原中延店",
+      "date": "25/02/02",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420513",
+      "amount": 719,
+      "category": "Shopping",
+      "subCategory": "Grocery",
+      "merchant": "まいばすけっと",
+      "date": "25/02/02",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420514",
+      "amount": 2930,
+      "category": "Food & Drink",
+      "subCategory": "Delivery",
+      "merchant": "ｍｅｎｕバ－ガ－キング／ＡＰ",
+      "date": "25/02/03",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420515",
+      "amount": 181,
+      "category": "Shopping",
+      "subCategory": "Convenience Store",
+      "merchant": "セブン－イレブン",
+      "date": "25/02/03",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420516",
+      "amount": 465,
+      "category": "Healthcare",
+      "subCategory": "Pharmacy",
+      "merchant": "ココカラファイン",
+      "date": "25/02/04",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420517",
+      "amount": 658,
+      "category": "Shopping",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/02/04",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420518",
+      "amount": 1958,
+      "category": "Healthcare",
+      "subCategory": "Pharmacy",
+      "merchant": "ココカラファイン",
+      "date": "25/02/05",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420519",
+      "amount": 2078,
+      "category": "Healthcare",
+      "subCategory": "Pharmacy",
+      "merchant": "ココカラファイン",
+      "date": "25/02/05",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420520",
+      "amount": 622,
+      "category": "Shopping",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/02/05",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420521",
+      "amount": 2750,
+      "category": "Food & Drink",
+      "subCategory": "Delivery",
+      "merchant": "ｍｅｎｕバ－ガ－キング／ＡＰ",
+      "date": "25/02/07",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420522",
+      "amount": 1369,
+      "category": "Shopping",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/02/07",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420523",
+      "amount": 4497,
+      "category": "Shopping",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/02/08",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420524",
+      "amount": 880,
+      "category": "Transportation",
+      "subCategory": "Car Rental",
+      "merchant": "タイムズカー",
+      "date": "25/02/10",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420525",
+      "amount": 4210,
+      "category": "Shopping",
+      "subCategory": "Department Store",
+      "merchant": "玉川高島屋ＳＣ",
+      "date": "25/02/10",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420526",
+      "amount": 716,
+      "category": "Shopping",
+      "subCategory": "Convenience Store",
+      "merchant": "セブン－イレブン",
+      "date": "25/02/10",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420527",
+      "amount": 1300,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "ＥＴＣ　東京支社",
+      "date": "25/02/11",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420528",
+      "amount": 1300,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "ＥＴＣ　東京支社",
+      "date": "25/02/11",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420529",
+      "amount": 260,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "ＥＴＣ　特割　東京支社",
+      "date": "25/02/11",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420630",
+      "amount": 260,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "ＥＴＣ　特割　東京支社",
+      "date": "25/02/11",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420631",
+      "amount": 260,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "ＥＴＣ　特割　東京支社",
+      "date": "25/02/11",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420632",
+      "amount": 150,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "ＥＴＣ　特割　東京支社",
+      "date": "25/02/11",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420633",
+      "amount": 260,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "ＥＴＣ　特割　東京支社",
+      "date": "25/02/11",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420634",
+      "amount": 3128,
+      "category": "Healthcare",
+      "subCategory": "Pharmacy",
+      "merchant": "ココカラファイン",
+      "date": "25/02/11",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420635",
+      "amount": 497,
+      "category": "Shopping",
+      "subCategory": "Convenience Store",
+      "merchant": "ローソン",
+      "date": "25/02/11",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420636",
+      "amount": 805,
+      "category": "Shopping",
+      "subCategory": "Convenience Store",
+      "merchant": "セブン－イレブン",
+      "date": "25/02/11",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420637",
+      "amount": 506,
+      "category": "Shopping",
+      "subCategory": "Convenience Store",
+      "merchant": "セブン－イレブン",
+      "date": "25/02/11",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420638",
+      "amount": 9970,
+      "category": "Transportation",
+      "subCategory": "Car Rental",
+      "merchant": "タイムズカー",
+      "date": "25/02/11",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420639",
+      "amount": 214,
+      "category": "Shopping",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/02/11",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420640",
+      "amount": 955,
+      "category": "Shopping",
+      "subCategory": "Shopping Center",
+      "merchant": "二子玉川ライズ　ドッグウッドプラザ",
+      "date": "25/02/12",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420641",
+      "amount": 190,
+      "category": "Shopping",
+      "subCategory": "Convenience Store",
+      "merchant": "フアミリ―マ―トフアミマフタコタマガワ",
+      "date": "25/02/12",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420642",
+      "amount": 1650,
+      "category": "Food & Drink",
+      "subCategory": "Fast Food",
+      "merchant": "マクドナルドモバイルオーダー／ＡＰ",
+      "date": "25/02/12",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420643",
+      "amount": 1510,
+      "category": "Food & Drink",
+      "subCategory": "Cafe",
+      "merchant": "ゴンチャ　玉川高島屋Ｓ・Ｃ店",
+      "date": "25/02/12",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420644",
+      "amount": 7086,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "しゃぶ葉",
+      "date": "25/02/14",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420645",
+      "amount": 1300,
       "category": "Food",
-      "merchant": "Weishang ",
+      "subCategory": "milk tea",
+      "merchant": "道玄坂通（テナント）贡茶",
+      "date": "25/02/15",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420646",
+      "amount": 8800,
+      "category": "Shopping",
+      "subCategory": "Electronics",
+      "merchant": "Ａｐｐｌｅ　Ｓｔｏｒｅ　渋谷",
+      "date": "25/02/15",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420647",
+      "amount": 420,
+      "category": "Food & Drink",
+      "subCategory": "Cafe",
+      "merchant": "ミスタ－ワッフル＆カフェ　旗の台駅ナカ店",
+      "date": "25/02/16",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420648",
+      "amount": 2480,
+      "category": "Food & Drink",
+      "subCategory": "Delivery",
+      "merchant": "メニユー",
+      "date": "25/02/16",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420649",
+      "amount": 660,
+      "category": "Shopping",
+      "subCategory": "Shopping Center",
+      "merchant": "東急　二子玉川ライズショッピングセンター",
+      "date": "25/02/17",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420650",
+      "amount": 1585,
+      "category": "Shopping",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/02/17",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420651",
+      "amount": 743,
+      "category": "Food & Drink",
+      "subCategory": "Cafe",
+      "merchant": "ミスタ－ド－ナツ　二子玉川ライズ／ＮＦＣ",
+      "date": "25/02/18",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420652",
+      "amount": 1380,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "ビービーキュー二子玉川店",
+      "date": "25/02/18",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420653",
+      "amount": 488,
+      "category": "Shopping",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/02/19",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420754",
+      "amount": 1082,
+      "category": "Shopping",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/02/20",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420755",
+      "amount": 1460,
+      "category": "Food & Drink",
+      "subCategory": "Cafe",
+      "merchant": "ゴンチャ　玉川高島屋Ｓ・Ｃ店",
+      "date": "25/02/21",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420756",
+      "amount": 1930,
+      "category": "Food & Drink",
+      "subCategory": "Fast Food",
+      "merchant": "マクドナルドモバイルオーダー／ＡＰ",
+      "date": "25/02/21",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420757",
+      "amount": 904,
+      "category": "Healthcare",
+      "subCategory": "Pharmacy",
+      "merchant": "トモズ中延店／ＮＦＣ",
+      "date": "25/02/22",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420758",
+      "amount": 1296,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "キッチンオリジン荏原中延店",
+      "date": "25/02/22",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420759",
+      "amount": 1960,
+      "category": "Shopping",
+      "subCategory": "Clothing",
+      "merchant": "ユニクロ／ＮＦＣ",
+      "date": "25/02/23",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420760",
+      "amount": 10241,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "味上湖南菜館",
+      "date": "25/02/23",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420761",
+      "amount": 4070,
+      "category": "Transportation",
+      "subCategory": "Car Rental",
+      "merchant": "タイムズカー",
+      "date": "25/02/24",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420762",
+      "amount": 600,
+      "category": "Bills & Utilities",
+      "subCategory": "Subscription",
+      "merchant": "Ａｍａｚｏｎプライム会費",
+      "date": "25/02/25",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420763",
+      "amount": 1480,
+      "category": "Food & Drink",
+      "subCategory": "Fast Food",
+      "merchant": "バーガーキング",
+      "date": "25/02/25",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420764",
+      "amount": 660,
+      "category": "Shopping",
+      "subCategory": "Shopping Center",
+      "merchant": "東急　二子玉川ライズショッピングセンター",
+      "date": "25/02/26",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420765",
+      "amount": 1272,
+      "category": "Shopping",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/02/27",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T175268303420766",
+      "amount": 1580,
+      "category": "Entertainment",
+      "subCategory": "Subscription",
+      "merchant": "SPOTIFY P34698F4B6 (STOCKHOLM )",
+      "date": "25/02/27",
+      "time": "01:23:54",
+      "tags": []
+    },
+    {
+      "id": "T17526830914370",
+      "amount": 4810,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "周黒鴨大夫人高田馬場店",
+      "date": "25/03/01",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T17526830914371",
+      "amount": 1880,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "バーガーキング",
+      "date": "25/03/01",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T17526830914372",
+      "amount": 3420,
+      "category": "Shopping",
+      "subCategory": "Online",
+      "merchant": "ＡＭＡＺＯＮ．ＣＯ．ＪＰ",
+      "date": "25/03/02",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T17526830914383",
+      "amount": 2861,
+      "category": "Shopping",
+      "subCategory": "Online",
+      "merchant": "ＡＭＡＺＯＮ．ＣＯ．ＪＰ",
+      "date": "25/03/02",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T17526830914384",
+      "amount": 1531,
+      "category": "Shopping",
+      "subCategory": "Online",
+      "merchant": "ＡＭＡＺＯＮ．ＣＯ．ＪＰ",
+      "date": "25/03/02",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T17526830914385",
+      "amount": 973,
+      "category": "Shopping",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/03/03",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T17526830914386",
+      "amount": 1126,
+      "category": "Healthcare",
+      "subCategory": "Pharmacy",
+      "merchant": "ココカラファイン",
+      "date": "25/03/04",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T17526830914387",
+      "amount": 398,
+      "category": "Shopping",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/03/04",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T17526830914388",
+      "amount": 597,
+      "category": "Shopping",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/03/05",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T17526830914389",
+      "amount": 1300,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "ＥＴＣ　東京支社",
+      "date": "25/03/07",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T175268309143810",
+      "amount": 370,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "ＥＴＣ　東京支社",
+      "date": "25/03/07",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T175268309143811",
+      "amount": 370,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "ＥＴＣ　東京支社",
+      "date": "25/03/07",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T175268309143812",
+      "amount": 960,
+      "category": "Shopping",
+      "subCategory": "Convenience Store",
+      "merchant": "セブン－イレブン",
+      "date": "25/03/07",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T175268309143813",
+      "amount": 820,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "マクドナルドモバイルオーダー／ＡＰ",
+      "date": "25/03/07",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T175268309143814",
+      "amount": 2500,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "ＥＴＣ　特割　東京支社",
+      "date": "25/03/08",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T175268309143815",
+      "amount": 2220,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "すき家",
+      "date": "25/03/08",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T175268309143816",
+      "amount": 563,
+      "category": "Shopping",
+      "subCategory": "Convenience Store",
+      "merchant": "セブン－イレブン",
+      "date": "25/03/08",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T175268309143817",
+      "amount": 17290,
+      "category": "Transportation",
+      "subCategory": "Car Rental",
+      "merchant": "タイムズカー",
+      "date": "25/03/08",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T175268309143918",
+      "amount": 219,
+      "category": "Shopping",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/03/08",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T175268309143919",
+      "amount": 1412,
+      "category": "Shopping",
+      "subCategory": "Mall",
+      "merchant": "二子玉川ライズ　ドッグウッドプラザ",
+      "date": "25/03/09",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T175268309143920",
+      "amount": 220,
+      "category": "Shopping",
+      "subCategory": "Mall",
+      "merchant": "東急　二子玉川ライズショッピングセンター",
+      "date": "25/03/09",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T175268309143921",
+      "amount": 1300,
+      "category": "Shopping",
+      "subCategory": "Retail",
+      "merchant": "メルキヤリ―ズ",
+      "date": "25/03/09",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T175268309143922",
+      "amount": 1490,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "マクドナルドモバイルオーダー／ＡＰ",
+      "date": "25/03/09",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T175268309143923",
+      "amount": 571,
+      "category": "Food & Drink",
+      "subCategory": "Cafe",
+      "merchant": "ミスタ－ド－ナツ　二子玉川ライズ／ＮＦＣ",
+      "date": "25/03/10",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T175268309143924",
+      "amount": 362,
+      "category": "Shopping",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/03/10",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T175268309143925",
+      "amount": 548,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "メニユー",
+      "date": "25/03/11",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T175268309143926",
+      "amount": 270,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "ＥＴＣ　関東支社",
+      "date": "25/03/12",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T175268309143927",
+      "amount": 1520,
+      "category": "Food & Drink",
+      "subCategory": "Cafe",
+      "merchant": "ゴンチャ　玉川高島屋Ｓ・Ｃ店",
+      "date": "25/03/12",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T175268309143928",
+      "amount": 2310,
+      "category": "Transportation",
+      "subCategory": "Car Rental",
+      "merchant": "タイムズカー",
+      "date": "25/03/12",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T175268309143929",
+      "amount": 3022,
+      "category": "Shopping",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/03/13",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T175268309143930",
+      "amount": 331,
+      "category": "Shopping",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/03/14",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T175268309143931",
+      "amount": 4112,
+      "category": "Shopping",
+      "subCategory": "Retail",
+      "merchant": "友誼商店　池袋店／ＮＦＣ",
+      "date": "25/03/16",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T175268309143932",
+      "amount": 5940,
+      "category": "Shopping",
+      "subCategory": "Retail",
+      "merchant": "破店／ＮＦＣ",
+      "date": "25/03/16",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T175268309144033",
+      "amount": 110,
+      "category": "Shopping",
+      "subCategory": "Mall",
+      "merchant": "東急　二子玉川ライズショッピングセンター",
+      "date": "25/03/17",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T175268309144034",
+      "amount": 525,
+      "category": "Shopping",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/03/17",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T175268309144035",
+      "amount": 311,
+      "category": "Shopping",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/03/19",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T175268309144036",
+      "amount": 3471,
+      "category": "Shopping",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/03/20",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T175268309144037",
+      "amount": 2990,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "メニユ―バ―ガ―キング",
+      "date": "25/03/21",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T175268309144038",
+      "amount": 440,
+      "category": "Shopping",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/03/22",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T175268309144039",
+      "amount": 2864,
+      "category": "Shopping",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/03/22",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T175268309144040",
+      "amount": 1450,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "メニユ―バ―ガ―キング",
+      "date": "25/03/23",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T175268309144041",
+      "amount": 1386,
+      "category": "Healthcare",
+      "subCategory": "Pharmacy",
+      "merchant": "ココカラファイン",
+      "date": "25/03/24",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T175268309144042",
+      "amount": 1519,
+      "category": "Shopping",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/03/24",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T175268309144043",
+      "amount": 600,
+      "category": "Bills & Utilities",
+      "subCategory": "Subscription",
+      "merchant": "Ａｍａｚｏｎプライム会費",
+      "date": "25/03/25",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T175268309144044",
+      "amount": 5881,
+      "category": "Shopping",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/03/26",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T175268309144045",
+      "amount": 9516,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "座・撒椒渋谷店／ＮＦＣ",
+      "date": "25/03/27",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T175268309144046",
+      "amount": 1530,
+      "category": "Shopping",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/03/28",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T175268309144047",
+      "amount": 863,
+      "category": "Shopping",
+      "subCategory": "Convenience Store",
+      "merchant": "フアミリ―マ―トタマガワサンチヨウメ",
+      "date": "25/03/29",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T175268309144048",
+      "amount": 451,
+      "category": "Shopping",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/03/29",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T175268309144049",
+      "amount": 2630,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "ドミノ・ピザ　王子本町店／ＮＦＣ",
+      "date": "25/03/30",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T175268309144150",
+      "amount": 301,
+      "category": "Shopping",
+      "subCategory": "Convenience Store",
+      "merchant": "フアミリ―マ―トオウジホンチヨウイツチヨ",
+      "date": "25/03/30",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T175268309144151",
+      "amount": 356,
+      "category": "Shopping",
+      "subCategory": "Convenience Store",
+      "merchant": "フアミリ―マ―トオウジホンチヨウイツチヨ",
+      "date": "25/03/30",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T175268309144152",
+      "amount": 4840,
+      "category": "Transportation",
+      "subCategory": "Car Rental",
+      "merchant": "タイムズカー",
+      "date": "25/03/30",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T175268309144153",
+      "amount": 2038,
+      "category": "Shopping",
+      "subCategory": "Online",
+      "merchant": "ＡＭＡＺＯＮ．ＣＯ．ＪＰ",
+      "date": "25/03/31",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T175268309144154",
+      "amount": 2750,
+      "category": "Transportation",
+      "subCategory": "Car Rental",
+      "merchant": "タイムズカー",
+      "date": "25/03/31",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T175268309144155",
+      "amount": 1580,
+      "category": "Entertainment",
+      "subCategory": "Streaming",
+      "merchant": "SPOTIFY P35512F610 (STOCKHOLM )",
+      "date": "25/03/27",
+      "time": "01:24:51",
+      "tags": []
+    },
+    {
+      "id": "T17526831428970",
+      "amount": 3010,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "周黒鴨大夫人高田馬場店",
+      "date": "25/04/01",
+      "time": "01:25:42",
+      "tags": []
+    },
+    {
+      "id": "T17526831428981",
+      "amount": 854,
+      "category": "Healthcare",
+      "subCategory": "Pharmacy",
+      "merchant": "ココカラファイン",
+      "date": "25/04/02",
+      "time": "01:25:42",
+      "tags": []
+    },
+    {
+      "id": "T17526831428982",
+      "amount": 3460,
+      "category": "Shopping",
+      "subCategory": "Mall",
+      "merchant": "二子玉川ライズ　ドッグウッドプラザ",
+      "date": "25/04/04",
+      "time": "01:25:42",
+      "tags": []
+    },
+    {
+      "id": "T17526831428983",
+      "amount": 550,
+      "category": "Shopping",
+      "subCategory": "Mall",
+      "merchant": "東急　二子玉川ライズショッピングセンター",
+      "date": "25/04/04",
+      "time": "01:25:42",
+      "tags": []
+    },
+    {
+      "id": "T17526831428984",
+      "amount": 1100,
+      "category": "Shopping",
+      "subCategory": "Online",
+      "merchant": "ＳＦ＊株式会社ＡＴＳＵ．Ｔｒａｄｉｎｇ",
+      "date": "25/04/05",
+      "time": "01:25:42",
+      "tags": []
+    },
+    {
+      "id": "T17526831428985",
+      "amount": 110,
+      "category": "Shopping",
+      "subCategory": "Mall",
+      "merchant": "東急　二子玉川ライズショッピングセンター",
+      "date": "25/04/06",
+      "time": "01:25:42",
+      "tags": []
+    },
+    {
+      "id": "T17526831428986",
+      "amount": 1678,
+      "category": "Food & Drink",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/04/06",
+      "time": "01:25:42",
+      "tags": []
+    },
+    {
+      "id": "T17526831428987",
+      "amount": 2999,
+      "category": "Shopping",
+      "subCategory": "Online",
+      "merchant": "ＡＭＡＺＯＮ．ＣＯ．ＪＰ",
+      "date": "25/04/07",
+      "time": "01:25:42",
+      "tags": []
+    },
+    {
+      "id": "T17526831428988",
+      "amount": 882,
+      "category": "Food & Drink",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/04/07",
+      "time": "01:25:42",
+      "tags": []
+    },
+    {
+      "id": "T17526831428989",
+      "amount": 362,
+      "category": "Food & Drink",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/04/08",
+      "time": "01:25:42",
+      "tags": []
+    },
+    {
+      "id": "T175268314289810",
+      "amount": 1540,
+      "category": "Food & Drink",
+      "subCategory": "Fast Food",
+      "merchant": "ケンタッキ－フライドチキン／ＡＰ",
+      "date": "25/04/09",
+      "time": "01:25:42",
+      "tags": []
+    },
+    {
+      "id": "T175268314289811",
+      "amount": 548,
+      "category": "Food & Drink",
+      "subCategory": "Delivery",
+      "merchant": "ｍｅｎｕ",
+      "date": "25/04/11",
+      "time": "01:25:42",
+      "tags": []
+    },
+    {
+      "id": "T175268314289912",
+      "amount": 2880,
+      "category": "Shopping",
+      "subCategory": "Online",
+      "merchant": "ＡＭＡＺＯＮ．ＣＯ．ＪＰ",
+      "date": "25/04/11",
+      "time": "01:25:42",
+      "tags": []
+    },
+    {
+      "id": "T175268314289913",
+      "amount": 12970,
+      "category": "Transportation",
+      "subCategory": "Car Rental",
+      "merchant": "タイムズカー",
+      "date": "25/04/12",
+      "time": "01:25:42",
+      "tags": []
+    },
+    {
+      "id": "T175268314289914",
+      "amount": 2999,
+      "category": "Shopping",
+      "subCategory": "Online",
+      "merchant": "ＡＭＡＺＯＮ．ＣＯ．ＪＰ",
+      "date": "25/04/12",
+      "time": "01:25:42",
+      "tags": [
+        "返品"
+      ]
+    },
+    {
+      "id": "T175268314289915",
+      "amount": 550,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "タコとハイボ－ル　上野御徒町店／ＮＦＣ",
+      "date": "25/04/13",
+      "time": "01:25:42",
+      "tags": []
+    },
+    {
+      "id": "T175268314289916",
+      "amount": 127,
+      "category": "Food & Drink",
+      "subCategory": "Convenience Store",
+      "merchant": "セブン－イレブン",
+      "date": "25/04/13",
+      "time": "01:25:42",
+      "tags": []
+    },
+    {
+      "id": "T175268314289917",
+      "amount": 3821,
+      "category": "Healthcare",
+      "subCategory": "Pharmacy",
+      "merchant": "ココカラファイン",
+      "date": "25/04/14",
+      "time": "01:25:42",
+      "tags": []
+    },
+    {
+      "id": "T175268314289918",
+      "amount": 3300,
+      "category": "Entertainment",
+      "subCategory": "Karaoke",
+      "merchant": "ビッグエコー　二子玉川駅前店",
+      "date": "25/04/17",
+      "time": "01:25:42",
+      "tags": []
+    },
+    {
+      "id": "T175268314289919",
+      "amount": 1540,
+      "category": "Food & Drink",
+      "subCategory": "Fast Food",
+      "merchant": "マクドナルドモバイルオーダー／ＡＰ",
+      "date": "25/04/17",
+      "time": "01:25:42",
+      "tags": []
+    },
+    {
+      "id": "T175268314289920",
+      "amount": 620,
+      "category": "Food & Drink",
+      "subCategory": "Fast Food",
+      "merchant": "ケンタッキ－フライドチキン／ＡＰ",
+      "date": "25/04/18",
+      "time": "01:25:42",
+      "tags": []
+    },
+    {
+      "id": "T175268314289921",
+      "amount": 4070,
+      "category": "Transportation",
+      "subCategory": "Car Rental",
+      "merchant": "タイムズカー",
+      "date": "25/04/18",
+      "time": "01:25:42",
+      "tags": []
+    },
+    {
+      "id": "T175268314289922",
+      "amount": 3630,
+      "category": "Transportation",
+      "subCategory": "Car Rental",
+      "merchant": "タイムズカー",
+      "date": "25/04/23",
+      "time": "01:25:42",
+      "tags": []
+    },
+    {
+      "id": "T175268314289923",
+      "amount": 600,
+      "category": "Bills & Utilities",
+      "subCategory": "Subscription",
+      "merchant": "Ａｍａｚｏｎプライム会費",
+      "date": "25/04/25",
+      "time": "01:25:42",
+      "tags": []
+    },
+    {
+      "id": "T175268314289924",
+      "amount": 1580,
+      "category": "Entertainment",
+      "subCategory": "Subscription",
+      "merchant": "SPOTIFY P363ECFC95 (STOCKHOLM )",
+      "date": "25/04/27",
+      "time": "01:25:42",
+      "tags": []
+    },
+    {
+      "id": "T175268314290025",
+      "amount": 1580,
+      "category": "Other",
+      "subCategory": "Other",
+      "merchant": "未知商家",
+      "date": "25/04/27",
+      "time": "01:25:42",
+      "tags": []
+    },
+    {
+      "id": "T17526832072050",
+      "amount": 610,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "ＥＴＣ首都高　特別割引",
+      "date": "25/04/20",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T17526832072061",
+      "amount": 2300,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "ＥＴＣ　東京支社",
+      "date": "25/04/21",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T17526832072062",
+      "amount": 2300,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "ＥＴＣ　八王子支社",
+      "date": "25/04/21",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T17526832072063",
+      "amount": 540,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "ＥＴＣ　八王子支社",
+      "date": "25/04/21",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T17526832072064",
+      "amount": 720,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "ＥＴＣ首都高",
+      "date": "25/04/22",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T17526832072065",
+      "amount": 1460,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "ＥＴＣ首都高",
+      "date": "25/04/22",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T17526832072066",
+      "amount": 3090,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "ＥＴＣ　関東支社",
+      "date": "25/04/22",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T17526832072067",
+      "amount": 110,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "ＥＴＣ　関東支社",
+      "date": "25/04/22",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T17526832072068",
+      "amount": 2930,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "ＥＴＣ　関東支社",
+      "date": "25/04/22",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T17526832072069",
+      "amount": 880,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "ＥＴＣ首都高　特別割引",
+      "date": "25/04/22",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T175268320720610",
+      "amount": 300,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "ＥＴＣ首都高",
+      "date": "25/05/04",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T175268320720711",
+      "amount": 300,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "ＥＴＣ首都高",
+      "date": "25/05/04",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T175268320720712",
+      "amount": 350,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "ＥＴＣ首都高",
+      "date": "25/05/04",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T175268320720713",
+      "amount": 560,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "ＥＴＣ　関東支社",
+      "date": "25/05/04",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T175268320720714",
+      "amount": 1560,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "ＥＴＣ　関東支社",
+      "date": "25/05/04",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T175268320720715",
+      "amount": 1860,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "ＥＴＣ　関東支社",
+      "date": "25/05/04",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T175268320720716",
+      "amount": 800,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "ＥＴＣ　特割　関東支社",
+      "date": "25/05/04",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T175268320720717",
+      "amount": 400,
+      "category": "Transportation",
+      "subCategory": "Toll",
+      "merchant": "ＥＴＣ　特割　関東支社",
+      "date": "25/05/04",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T175268320720718",
+      "amount": 24971,
+      "category": "Transportation",
+      "subCategory": "Car Rental",
+      "merchant": "トヨタレンタリース横浜　高津店",
+      "date": "25/05/05",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T175268320720719",
+      "amount": 20250,
+      "category": "Shopping",
+      "subCategory": "Retail",
+      "merchant": "ＴｒｕｍｐｅｔｓＯｆｆｉｃｉａｌＳｈｏｐ",
+      "date": "25/05/09",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T175268320720720",
+      "amount": 802,
+      "category": "Food & Drink",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/05/09",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T175268320720721",
+      "amount": 548,
+      "category": "Food & Drink",
+      "subCategory": "Delivery",
+      "merchant": "ｍｅｎｕ",
+      "date": "25/05/11",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T175268320720722",
+      "amount": 6182,
+      "category": "Shopping",
+      "subCategory": "Retail",
+      "merchant": "ケイカカク",
+      "date": "25/05/11",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T175268320720723",
+      "amount": 220,
+      "category": "Food & Drink",
+      "subCategory": "Fast Food",
+      "merchant": "マクドナルドモバイルオーダー／ＡＰ",
+      "date": "25/05/11",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T175268320720724",
+      "amount": 18500,
+      "category": "Travel",
+      "subCategory": "Flight",
+      "merchant": "ＡＮＡインターネットチケットレスサービス",
+      "date": "25/05/12",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T175268320720725",
+      "amount": 17580,
+      "category": "Travel",
+      "subCategory": "Flight",
+      "merchant": "ＡＮＡインターネットチケットレスサービス",
+      "date": "25/05/12",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T175268320720726",
+      "amount": 1404,
+      "category": "Food & Drink",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/05/12",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T175268320720827",
+      "amount": 330,
+      "category": "Shopping",
+      "subCategory": "Mall",
+      "merchant": "東急　二子玉川ライズショッピングセンター",
+      "date": "25/05/15",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T175268320720828",
+      "amount": 2019,
+      "category": "Healthcare",
+      "subCategory": "Pharmacy",
+      "merchant": "ココカラファイン",
+      "date": "25/05/15",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T175268320720829",
+      "amount": 106,
+      "category": "Food & Drink",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/05/15",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T175268320720830",
+      "amount": 384,
+      "category": "Food & Drink",
+      "subCategory": "Convenience Store",
+      "merchant": "セブン－イレブン",
+      "date": "25/05/15",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T175268320720831",
+      "amount": 1400,
+      "category": "Shopping",
+      "subCategory": "Department Store",
+      "merchant": "玉川高島屋ＳＣ",
+      "date": "25/05/16",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T175268320720832",
+      "amount": 4390,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "好美味／ＮＦＣ",
+      "date": "25/05/17",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T175268320720833",
+      "amount": 9970,
+      "category": "Transportation",
+      "subCategory": "Car Sharing",
+      "merchant": "タイムズカー",
+      "date": "25/05/18",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T175268320720834",
+      "amount": 2861,
+      "category": "Shopping",
+      "subCategory": "Online",
+      "merchant": "ＡＭＡＺＯＮ．ＣＯ．ＪＰ",
+      "date": "25/05/19",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T175268320720835",
+      "amount": 585,
+      "category": "Food & Drink",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/05/19",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T175268320720836",
+      "amount": 790,
+      "category": "Shopping",
+      "subCategory": "Online",
+      "merchant": "ＡＭＡＺＯＮ．ＣＯ．ＪＰ",
+      "date": "25/05/20",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T175268320720837",
+      "amount": 1482,
+      "category": "Shopping",
+      "subCategory": "Online",
+      "merchant": "ＡＭＡＺＯＮ．ＣＯ．ＪＰ",
+      "date": "25/05/20",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T175268320720838",
+      "amount": 1097,
+      "category": "Food & Drink",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/05/21",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T175268320720839",
+      "amount": 3616,
+      "category": "Healthcare",
+      "subCategory": "Pharmacy",
+      "merchant": "ココカラファイン",
+      "date": "25/05/22",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T175268320720840",
+      "amount": 2030,
+      "category": "Food & Drink",
+      "subCategory": "Fast Food",
+      "merchant": "マクドナルドモバイルオーダー／ＡＰ",
+      "date": "25/05/23",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T175268320720841",
+      "amount": 373,
+      "category": "Food & Drink",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/05/23",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T175268320720842",
+      "amount": 1298,
+      "category": "Food & Drink",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/05/23",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T175268320720843",
+      "amount": 57312,
+      "category": "Travel",
+      "subCategory": "Hotel",
+      "merchant": "株式会社あなぶきスペースシェア",
+      "date": "25/05/24",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T175268320720944",
+      "amount": 12150,
+      "category": "Entertainment",
+      "subCategory": "Travel",
+      "merchant": "ブツキング・ドツトコム・ジヤパ",
+      "date": "25/05/24",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T175268320720945",
+      "amount": 2771,
+      "category": "Shopping",
+      "subCategory": "Online",
+      "merchant": "ＡＭＡＺＯＮ．ＣＯ．ＪＰ",
+      "date": "25/05/24",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T175268320720946",
+      "amount": 2280,
+      "category": "Shopping",
+      "subCategory": "Clothing",
+      "merchant": "ジーユー／ＮＦＣ",
+      "date": "25/05/24",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T175268320720947",
+      "amount": 1390,
+      "category": "Food & Drink",
+      "subCategory": "Beverage",
+      "merchant": "ゴンチャ　ジャパン",
+      "date": "25/05/24",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T175268320720948",
+      "amount": 936,
+      "category": "Food & Drink",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/05/24",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T175268320720949",
+      "amount": 1780,
+      "category": "Shopping",
+      "subCategory": "Online",
+      "merchant": "ＡＭＡＺＯＮ．ＣＯ．ＪＰ",
+      "date": "25/05/25",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T175268320720950",
+      "amount": 600,
+      "category": "Bills & Utilities",
+      "subCategory": "Subscription",
+      "merchant": "Ａｍａｚｏｎプライム会費",
+      "date": "25/05/25",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T175268320720951",
+      "amount": 1740,
+      "category": "Food & Drink",
+      "subCategory": "Fast Food",
+      "merchant": "マクドナルドモバイルオーダー／ＡＰ",
+      "date": "25/05/27",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T175268320720952",
+      "amount": 1297,
+      "category": "Food & Drink",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/05/28",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T175268320720953",
+      "amount": 3030,
+      "category": "Shopping",
+      "subCategory": "Retail",
+      "merchant": "無印良品",
+      "date": "25/05/29",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T175268320720954",
+      "amount": 1866,
+      "category": "Shopping",
+      "subCategory": "Online",
+      "merchant": "ＡＭＡＺＯＮ．ＣＯ．ＪＰ",
+      "date": "25/05/31",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T175268320720955",
+      "amount": 2580,
+      "category": "Shopping",
+      "subCategory": "Online",
+      "merchant": "ＡＭＡＺＯＮ．ＣＯ．ＪＰ",
+      "date": "25/05/31",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T175268320720956",
+      "amount": 3340,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "好美味／ＮＦＣ",
+      "date": "25/05/31",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T175268320720957",
+      "amount": 1580,
+      "category": "Entertainment",
+      "subCategory": "Music",
+      "merchant": "SPOTIFY P37338C8F7 (STOCKHOLM )",
+      "date": "25/05/28",
+      "time": "01:26:47",
+      "tags": []
+    },
+    {
+      "id": "T17526832759950",
+      "amount": 1510,
+      "category": "Transportation",
+      "subCategory": "Highway Toll",
+      "merchant": "ＥＴＣ　関東支社",
+      "date": "25/05/18",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T17526832759961",
+      "amount": 1360,
+      "category": "Transportation",
+      "subCategory": "Highway Toll",
+      "merchant": "ＥＴＣ　東京支社",
+      "date": "25/05/18",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T17526832759962",
+      "amount": 1280,
+      "category": "Transportation",
+      "subCategory": "Highway Toll",
+      "merchant": "中日本高速道路（株）東京支社",
+      "date": "25/05/18",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T17526832759963",
+      "amount": 1788,
+      "category": "Food & Drink",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/06/01",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T17526832759964",
+      "amount": 3190,
+      "category": "Transportation",
+      "subCategory": "Car Rental",
+      "merchant": "タイムズカー",
+      "date": "25/06/02",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T17526832759965",
+      "amount": 1730,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "マクドナルドモバイルオーダー／ＡＰ",
+      "date": "25/06/03",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T17526832759966",
+      "amount": 7000,
+      "category": "Travel",
+      "subCategory": "Booking",
+      "merchant": "ブツキング・ドツトコム・ジヤパ",
+      "date": "25/06/06",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T17526832759967",
+      "amount": 707,
+      "category": "Food & Drink",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/06/06",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T17526832759968",
+      "amount": 1530,
+      "category": "Transportation",
+      "subCategory": "Highway Toll",
+      "merchant": "ＥＴＣ　東京支社",
+      "date": "25/06/07",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T17526832759969",
+      "amount": 70,
+      "category": "Transportation",
+      "subCategory": "Highway Toll",
+      "merchant": "ＥＴＣ　特割　東京支社",
+      "date": "25/06/07",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T175268327599610",
+      "amount": 70,
+      "category": "Transportation",
+      "subCategory": "Highway Toll",
+      "merchant": "ＥＴＣ　特割　東京支社",
+      "date": "25/06/07",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T175268327599611",
+      "amount": 70,
+      "category": "Transportation",
+      "subCategory": "Highway Toll",
+      "merchant": "ＥＴＣ　特割　東京支社",
+      "date": "25/06/07",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T175268327599612",
+      "amount": 1420,
+      "category": "Transportation",
+      "subCategory": "Highway Toll",
+      "merchant": "ＥＴＣ　特割　東京支社",
+      "date": "25/06/07",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T175268327599613",
+      "amount": 2990,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "ｍｅｎｕバ－ガ－キング／ＡＰ",
+      "date": "25/06/07",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T175268327599614",
+      "amount": 2590,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "ｍｅｎｕバ－ガ－キング／ＡＰ",
+      "date": "25/06/07",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T175268327599615",
+      "amount": 932,
+      "category": "Food & Drink",
+      "subCategory": "Convenience Store",
+      "merchant": "セブン－イレブン",
+      "date": "25/06/07",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T175268327599616",
+      "amount": 8270,
+      "category": "Transportation",
+      "subCategory": "Car Rental",
+      "merchant": "タイムズカー",
+      "date": "25/06/07",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T175268327599617",
+      "amount": 2990,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "ｍｅｎｕバ－ガ－キング／ＡＰ",
+      "date": "25/06/07",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T175268327599718",
+      "amount": 110,
+      "category": "Shopping",
+      "subCategory": "Shopping Center",
+      "merchant": "東急　二子玉川ライズショッピングセンター",
+      "date": "25/06/08",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T175268327599719",
+      "amount": 557,
+      "category": "Food & Drink",
+      "subCategory": "Convenience Store",
+      "merchant": "フアミリ―マ―トワダヤカンナイエキキタ",
+      "date": "25/06/08",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T175268327599720",
+      "amount": 7304,
+      "category": "Shopping",
+      "subCategory": "Shopping Center",
+      "merchant": "東急　二子玉川ライズショッピングセンター",
+      "date": "25/06/09",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T175268327599721",
+      "amount": 880,
+      "category": "Transportation",
+      "subCategory": "Car Rental",
+      "merchant": "タイムズカー",
+      "date": "25/06/10",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T175268327599722",
+      "amount": 1328,
+      "category": "Food & Drink",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/06/10",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T175268327599723",
+      "amount": 548,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "ｍｅｎｕ",
+      "date": "25/06/11",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T175268327599724",
+      "amount": 557,
+      "category": "Food & Drink",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/06/11",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T175268327599725",
+      "amount": 3090,
+      "category": "Transportation",
+      "subCategory": "Highway Toll",
+      "merchant": "ＥＴＣ　東京支社",
+      "date": "25/06/13",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T175268327599726",
+      "amount": 2660,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "すき家",
+      "date": "25/06/13",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T175268327599727",
+      "amount": 1228,
+      "category": "Food & Drink",
+      "subCategory": "Convenience Store",
+      "merchant": "セブン－イレブン",
+      "date": "25/06/13",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T175268327599728",
+      "amount": 1051,
+      "category": "Food & Drink",
+      "subCategory": "Convenience Store",
+      "merchant": "セブン－イレブン",
+      "date": "25/06/13",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T175268327599729",
+      "amount": 3,
+      "category": "Food & Drink",
+      "subCategory": "Convenience Store",
+      "merchant": "セブン－イレブン",
+      "date": "25/06/13",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T175268327599730",
+      "amount": 442,
+      "category": "Food & Drink",
+      "subCategory": "Convenience Store",
+      "merchant": "フアミリ―マ―トヤマナカヤタカツエキマエ",
+      "date": "25/06/13",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T175268327599731",
+      "amount": 542,
+      "category": "Shopping",
+      "subCategory": "Shopping Center",
+      "merchant": "イズゲ―トウエイカンナミ　イズモン",
+      "date": "25/06/13",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T175268327599732",
+      "amount": 2500,
+      "category": "Transportation",
+      "subCategory": "Highway Toll",
+      "merchant": "ＥＴＣ　特割　東京支社",
+      "date": "25/06/14",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T175268327599733",
+      "amount": 3289,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "シェイクシャック渋谷",
+      "date": "25/06/14",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T175268327599734",
+      "amount": 1580,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "すき家",
+      "date": "25/06/14",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T175268327599735",
+      "amount": 1403,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "ＣｏＣｏ都可　渋谷本店",
+      "date": "25/06/14",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T175268327599736",
+      "amount": 468,
+      "category": "Food & Drink",
+      "subCategory": "Convenience Store",
+      "merchant": "セブン－イレブン",
+      "date": "25/06/14",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T175268327599737",
+      "amount": 15090,
+      "category": "Transportation",
+      "subCategory": "Car Rental",
+      "merchant": "タイムズカー",
+      "date": "25/06/14",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T175268327599738",
+      "amount": 495,
+      "category": "Bills & Utilities",
+      "subCategory": "Service Fee",
+      "merchant": "回収事務手数料",
+      "date": "25/06/15",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T175268327599739",
+      "amount": 1404,
+      "category": "Healthcare",
+      "subCategory": "Pharmacy",
+      "merchant": "ココカラファイン",
+      "date": "25/06/15",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T175268327599740",
+      "amount": 3010,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "周黒鴨大夫人高田馬場店",
+      "date": "25/06/16",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T175268327599741",
+      "amount": 1793,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "ＣｏＣｏ都可　高田馬場店",
+      "date": "25/06/16",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T175268327599742",
+      "amount": 1866,
+      "category": "Shopping",
+      "subCategory": "Online Shopping",
+      "merchant": "ＡＭＡＺＯＮ．ＣＯ．ＪＰ",
+      "date": "25/06/21",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T175268327599843",
+      "amount": 1594,
+      "category": "Food & Drink",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/06/21",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T175268327599844",
+      "amount": 1670,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "マクドナルドモバイルオーダー／ＡＰ",
+      "date": "25/06/23",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T175268327599845",
+      "amount": 1600,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "マクドナルドモバイルオーダー／ＡＰ",
+      "date": "25/06/24",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T175268327599846",
+      "amount": 600,
+      "category": "Bills & Utilities",
+      "subCategory": "Subscription",
+      "merchant": "Ａｍａｚｏｎプライム会費",
+      "date": "25/06/25",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T175268327599847",
+      "amount": 721,
+      "category": "Food & Drink",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/06/25",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T175268327599848",
+      "amount": 567,
+      "category": "Healthcare",
+      "subCategory": "Pharmacy",
+      "merchant": "ココカラファイン",
+      "date": "25/06/26",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T175268327599849",
+      "amount": 550,
+      "category": "Shopping",
+      "subCategory": "Shopping Center",
+      "merchant": "東急　二子玉川ライズショッピングセンター",
+      "date": "25/06/26",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T175268327599850",
+      "amount": 1182,
+      "category": "Food & Drink",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/06/26",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T175268327599851",
+      "amount": 849,
+      "category": "Food & Drink",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/06/27",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T175268327599852",
+      "amount": 2170,
+      "category": "Food & Drink",
+      "subCategory": "Restaurant",
+      "merchant": "好美味／ＮＦＣ",
+      "date": "25/06/28",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T175268327599853",
+      "amount": 176,
+      "category": "Food & Drink",
+      "subCategory": "Convenience Store",
+      "merchant": "ローソン",
+      "date": "25/06/28",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T175268327599854",
+      "amount": 1324,
+      "category": "Food & Drink",
+      "subCategory": "Grocery",
+      "merchant": "マルエツ二子玉川店",
+      "date": "25/06/29",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T175268327599855",
+      "amount": 1881,
+      "category": "Shopping",
+      "subCategory": "Online Shopping",
+      "merchant": "ＡＭＡＺＯＮ．ＣＯ．ＪＰ",
+      "date": "25/06/30",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T175268327599856",
+      "amount": 650,
+      "category": "Entertainment",
+      "subCategory": "Cinema",
+      "merchant": "１０９シネマズ二子玉川（コンセ）／ＮＦＣ",
+      "date": "25/06/30",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T175268327599857",
+      "amount": 1580,
+      "category": "Entertainment",
+      "subCategory": "Subscription",
+      "merchant": "SPOTIFY P380D58D18 (STOCKHOLM )",
+      "date": "25/06/27",
+      "time": "01:27:55",
+      "tags": []
+    },
+    {
+      "id": "T1752684154737",
+      "amount": 4400,
+      "category": "Food",
       "subCategory": "Lunch",
-      "date": "24/02/06",
-      "time": "21:00",
-      "tags": ["Gathering"]
+      "merchant": "味上",
+      "date": "25/06/12",
+      "time": "1:42:34 AM",
+      "tags": []
+    },
+    {
+      "id": "T1752684187914",
+      "amount": 2800,
+      "category": "Food",
+      "subCategory": "咖啡店",
+      "merchant": "星野咖啡店",
+      "date": "25/06/12",
+      "time": "1:43:07 AM",
+      "tags": []
     }
   ]
 }

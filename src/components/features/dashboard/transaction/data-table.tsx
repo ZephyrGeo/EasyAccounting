@@ -23,6 +23,13 @@ import {
 } from "@/components/ui/table";
 
 import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { AddTransaction } from "./TransactionForm";
 import { Transaction } from "@/types/transaction";
 import {
@@ -38,37 +45,42 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   onAdd?: (transaction: Transaction) => void;
+  selectedYear?: string | null;
+  selectedMonth?: string | null;
 }
 
 export default function DataTable<TData, TValue>({
   columns,
   data,
   onAdd,
+  selectedYear,
+  selectedMonth,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([
     // 默认按日期降序排序（最新的在前面）
     { id: "date", desc: true },
   ]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
+    [],
   );
-  
+
   // 添加分页状态
   const [pagination, setPagination] = React.useState<PaginationState>({
     pageIndex: 0,
     pageSize: 10, // 每页显示10条记录
   });
 
-  // 本地数据状态
-  const [localData, setLocalData] = React.useState<TData[]>(data);
-
-  // 当传入的数据变化时更新本地数据
-  React.useEffect(() => {
-    setLocalData(data);
+  // 从数据中提取所有唯一的类别
+  const categories = React.useMemo(() => {
+    const transactionData = data as Transaction[];
+    const uniqueCategories = Array.from(
+      new Set(transactionData.map((transaction) => transaction.category)),
+    ).sort();
+    return uniqueCategories;
   }, [data]);
 
   const table = useReactTable({
-    data: localData,
+    data,
     columns,
     getCoreRowModel: getCoreRowModel(),
     onSortingChange: setSorting,
@@ -93,7 +105,7 @@ export default function DataTable<TData, TValue>({
 
   return (
     <>
-      <div className="flex items-center py-4">
+      <div className="flex items-center py-4 gap-4 flex-wrap">
         <Input
           placeholder="Filter merchants..."
           value={
@@ -104,7 +116,37 @@ export default function DataTable<TData, TValue>({
           }
           className="max-w-sm"
         />
-        {onAdd && <AddTransaction onAdd={handleAddTransaction} />}
+        <Select
+          value={
+            (table.getColumn("category")?.getFilterValue() as string) ?? ""
+          }
+          onValueChange={(value) =>
+            table
+              .getColumn("category")
+              ?.setFilterValue(value === "all" ? "" : value)
+          }
+        >
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="Filter categories..." />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All Categories</SelectItem>
+            {categories.map((category) => (
+              <SelectItem key={category} value={category}>
+                {category}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+        <div className="ml-auto flex gap-2">
+          {onAdd && (
+            <AddTransaction
+              onAdd={handleAddTransaction}
+              selectedYear={selectedYear}
+              selectedMonth={selectedMonth}
+            />
+          )}
+        </div>
       </div>
       <div className="rounded-md border">
         <Table>
@@ -117,7 +159,7 @@ export default function DataTable<TData, TValue>({
                       ? null
                       : flexRender(
                           header.column.columnDef.header,
-                          header.getContext()
+                          header.getContext(),
                         )}
                   </TableHead>
                 ))}
@@ -135,7 +177,7 @@ export default function DataTable<TData, TValue>({
                     <TableCell key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext()
+                        cell.getContext(),
                       )}
                     </TableCell>
                   ))}
@@ -164,8 +206,8 @@ export default function DataTable<TData, TValue>({
                 {table.getCanPreviousPage() ? (
                   <PaginationPrevious onClick={() => table.previousPage()} />
                 ) : (
-                  <PaginationPrevious 
-                    className="pointer-events-none opacity-50" 
+                  <PaginationPrevious
+                    className="pointer-events-none opacity-50"
                     aria-disabled="true"
                   />
                 )}
@@ -182,7 +224,7 @@ export default function DataTable<TData, TValue>({
                     const currentPage = table.getState().pagination.pageIndex;
                     const startPage = Math.max(
                       0,
-                      Math.min(currentPage - 2, table.getPageCount() - 5)
+                      Math.min(currentPage - 2, table.getPageCount() - 5),
                     );
                     pageIndex = startPage + index;
                   }
@@ -199,15 +241,15 @@ export default function DataTable<TData, TValue>({
                       </PaginationLink>
                     </PaginationItem>
                   );
-                }
+                },
               )}
 
               <PaginationItem>
                 {table.getCanNextPage() ? (
                   <PaginationNext onClick={() => table.nextPage()} />
                 ) : (
-                  <PaginationNext 
-                    className="pointer-events-none opacity-50" 
+                  <PaginationNext
+                    className="pointer-events-none opacity-50"
                     aria-disabled="true"
                   />
                 )}

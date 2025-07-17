@@ -21,7 +21,7 @@ interface ColumnOptions {
 }
 
 export const createColumns = (
-  options?: ColumnOptions
+  options?: ColumnOptions,
 ): ColumnDef<Transaction>[] => [
   {
     accessorKey: "date",
@@ -44,9 +44,17 @@ export const createColumns = (
   {
     accessorKey: "merchant",
     header: () => <div>Merchants</div>,
+    size: 150, // 设置列宽
     cell: ({ row }) => {
       const merchant = row.getValue("merchant") as string;
-      return <div className="">{merchant}</div>;
+      return (
+        <div
+          className="max-w-[150px] truncate"
+          title={merchant} // 悬停时显示完整文本
+        >
+          {merchant}
+        </div>
+      );
     },
   },
   {
@@ -75,44 +83,29 @@ export const createColumns = (
   {
     accessorKey: "category",
     header: () => <div className="">Category</div>,
+    size: 180, // 设置列宽
     cell: ({ row }) => {
       const category = row.getValue("category") as string;
       const subCategory = row.original.subCategory as string;
 
       return (
-        <div className="flex items-center gap-2">
-          <span className="font-medium text-sm text-foreground">
+        <div className="flex items-center gap-2 max-w-[180px]">
+          <span className="font-medium text-sm text-foreground truncate">
             {category}
           </span>
           {subCategory && (
             <>
               <span className="text-xs text-muted-foreground">→</span>
-              <Badge variant="outline">
-                <span className=" text-muted-foreground">{subCategory}</span>
+              <Badge variant="outline" className="shrink-0">
+                <span
+                  className="text-muted-foreground text-xs truncate max-w-[60px]"
+                  title={subCategory}
+                >
+                  {subCategory}
+                </span>
               </Badge>
             </>
           )}
-        </div>
-      );
-    },
-  },
-  {
-    accessorKey: "tags",
-    header: () => <div className="">Tag</div>,
-    cell: ({ row }) => {
-      const tags = row.original.tags as string[];
-
-      if (!tags || tags.length === 0) {
-        return <div>-</div>;
-      }
-
-      return (
-        <div className="flex flex-wrap gap-1">
-          {tags.map((tag, index) => (
-            <Badge key={index} variant="secondary" className="text-xs">
-              {tag}
-            </Badge>
-          ))}
         </div>
       );
     },

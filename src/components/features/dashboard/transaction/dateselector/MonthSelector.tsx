@@ -1,5 +1,4 @@
 // @/components/features/dashboard/transaction/dateselector/MonthSelector.tsx
-import { useEffect } from "react";
 import {
   Select,
   SelectContent,
@@ -14,7 +13,6 @@ interface MonthSelectorProps {
   onMonthChange: (monthKey: string | null) => void;
   selectedMonth: string | null; // 添加selectedMonth属性
   availableMonths?: string[];
-  showAllOption?: boolean;
 }
 
 export default function MonthSelector({
@@ -22,45 +20,54 @@ export default function MonthSelector({
   onMonthChange,
   selectedMonth, // 接收selectedMonth属性
   availableMonths: propAvailableMonths,
-  showAllOption = true,
 }: MonthSelectorProps) {
   // 使用传入的可用月份或从交易数据中提取
-  const availableMonths = propAvailableMonths || transactions.reduce((months, transaction) => {
-    const month = transaction.date.substring(3, 5);
-    if (!months.includes(month)) {
-      months.push(month);
-    }
-    return months;
-  }, [] as string[]).sort();
+  const availableMonths =
+    propAvailableMonths ||
+    transactions
+      .reduce((months, transaction) => {
+        const month = transaction.date.substring(3, 5);
+        if (!months.includes(month)) {
+          months.push(month);
+        }
+        return months;
+      }, [] as string[])
+      .sort();
 
-  // 当有可用月份但未选择月份时，选择第一个月份
-  useEffect(() => {
-    if (availableMonths.length > 0 && !selectedMonth) {
-      onMonthChange(availableMonths[0]);
-    }
-  }, [availableMonths, selectedMonth, onMonthChange]);
+  // 移除自动初始化逻辑，避免flash问题
+  // useEffect(() => {
+  //   if (availableMonths.length > 0 && !selectedMonth) {
+  //     onMonthChange(availableMonths[0]);
+  //   }
+  // }, [availableMonths, selectedMonth, onMonthChange]);
 
   // 处理月份变更
   const handleMonthChange = (value: string) => {
-    onMonthChange(value === "all" ? null : value);
+    onMonthChange(value);
   };
+
+  // 如果没有选中月份且有可用月份，选择第一个；如果没有数据，显示"null"
+  const displayValue =
+    selectedMonth || (availableMonths.length > 0 ? availableMonths[0] : "null");
 
   return (
     <div className="flex items-center space-x-2">
-      <Select 
-        value={selectedMonth || "all"} 
-        onValueChange={handleMonthChange}
-      >
+      <Select value={displayValue} onValueChange={handleMonthChange}>
         <SelectTrigger className="w-[100px]">
-          <SelectValue placeholder="选择月份" />
+          <SelectValue placeholder="Select Month" />
         </SelectTrigger>
         <SelectContent>
-          {showAllOption && <SelectItem value="all">全部</SelectItem>}
-          {availableMonths.map((month) => (
-            <SelectItem key={month} value={month}>
-              {month}月
+          {availableMonths.length === 0 ? (
+            <SelectItem key="null" value="null">
+              null
             </SelectItem>
-          ))}
+          ) : (
+            availableMonths.map((month) => (
+              <SelectItem key={month} value={month}>
+                {month}
+              </SelectItem>
+            ))
+          )}
         </SelectContent>
       </Select>
     </div>

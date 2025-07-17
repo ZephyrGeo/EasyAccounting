@@ -11,6 +11,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { NativeDatePicker } from "@/components/ui/native-date-picker";
 
 import { useState, useEffect } from "react";
 import { Transaction } from "@/types/transaction";
@@ -23,6 +24,8 @@ interface TransactionFormProps {
   open: boolean;
   setOpen: (open: boolean) => void;
   trigger?: React.ReactNode;
+  selectedYear?: string | null;
+  selectedMonth?: string | null;
 }
 
 export default function TransactionForm({
@@ -33,6 +36,8 @@ export default function TransactionForm({
   open,
   setOpen,
   trigger,
+  selectedYear,
+  selectedMonth,
 }: TransactionFormProps) {
   const isEditMode = mode === "edit";
 
@@ -42,46 +47,57 @@ export default function TransactionForm({
     subCategory: "",
     merchant: "",
     date: "",
-    tags: "",
   });
+
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
 
   const [errors, setErrors] = useState<Record<string, boolean>>({});
 
-  // 当编辑模式下，初始化表单数据
+  // Initialize form data in edit mode
   useEffect(() => {
     if (isEditMode && transaction) {
-      // 转换日期格式从 YY/MM/DD 到 YYYYMMDD (用于表单编辑)
+      // Convert date format from YY/MM/DD to Date object
       const dateParts = transaction.date.split("/");
-      const formattedDate =
-        dateParts.length === 3
-          ? `20${dateParts[0]}${dateParts[1]}${dateParts[2]}`
-          : "";
+      let dateObj: Date | undefined = undefined;
+      if (dateParts.length === 3) {
+        const year = parseInt(`20${dateParts[0]}`);
+        const month = parseInt(dateParts[1]) - 1; // JavaScript months start from 0
+        const day = parseInt(dateParts[2]);
+        dateObj = new Date(year, month, day);
+      }
 
       setFormData({
         amount: transaction.amount.toString(),
         category: transaction.category,
         subCategory: transaction.subCategory || "",
         merchant: transaction.merchant,
-        date: formattedDate,
-        tags: Array.isArray(transaction.tags)
-          ? transaction.tags.join(", ")
-          : "",
+        date: transaction.date,
       });
+      setSelectedDate(dateObj);
     } else {
-      // 添加模式时重置表单
+      // Reset form in add mode
       resetForm();
     }
   }, [transaction, isEditMode, open]);
 
   const resetForm = () => {
+    // In add mode, if year and month are selected, use them as default date
+    let defaultDateObj: Date | undefined = undefined;
+    if (mode === "add" && selectedYear && selectedMonth) {
+      // Construct default date: first day of the month
+      const year = parseInt(`20${selectedYear}`);
+      const month = parseInt(selectedMonth) - 1; // JavaScript months start from 0
+      defaultDateObj = new Date(year, month, 1);
+    }
+
     setFormData({
       amount: "",
       category: "",
       subCategory: "",
       merchant: "",
       date: "",
-      tags: "",
     });
+    setSelectedDate(defaultDateObj);
     setErrors({});
   };
 
@@ -91,82 +107,79 @@ export default function TransactionForm({
   };
 
   const handleFocus = (field: string) => {
-    // 当输入框获得焦点时清除该字段的错误状态
+    // Clear error state for the field when input gets focus
     setErrors((prev) => ({ ...prev, [field]: false }));
   };
 
-  const validateDate = (dateStr: string) => {
-    // 简单验证日期格式 YYYYMMDD
-    const dateRegex = /^(20\d{2})(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])$/;
-    return dateRegex.test(dateStr);
+  const validateDate = (date: Date | undefined) => {
+    // Validate if date is valid
+    return date instanceof Date && !isNaN(date.getTime());
   };
 
   const validateAmount = (amountStr: string) => {
-    // 验证金额是否为有效数字
+    // Validate if amount is a valid number
     return !isNaN(parseFloat(amountStr)) && parseFloat(amountStr) > 0;
   };
 
   const handleSubmit = () => {
-    // 验证必填字段
+    // Validate required fields
     const newErrors: Record<string, boolean> = {};
 
-    // 验证金额
+    // Validate amount
     if (!formData.amount || !validateAmount(formData.amount)) {
       newErrors.amount = true;
     }
 
-    // 验证类别
+    // Validate category
     if (!formData.category) {
       newErrors.category = true;
     }
 
-    // 验证商家
+    // Validate merchant
     if (!formData.merchant) {
       newErrors.merchant = true;
     }
 
-    // 验证日期
-    if (!formData.date || !validateDate(formData.date)) {
+    // Validate date
+    if (!validateDate(selectedDate)) {
       newErrors.date = true;
     }
 
-    // 如果有错误，更新错误状态并返回
+    // If there are errors, update error state and return
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
 
-    // 格式化日期显示为 YY/MM/DD 格式
-    const formattedDate = formData.date.replace(
-      /^(20(\d{2}))(\d{2})(\d{2})$/,
-      "$2/$3/$4"
-    );
+    // Format date display as YY/MM/DD format
+    const formattedDate = selectedDate
+      ? `${selectedDate.getFullYear().toString().slice(-2)}/${(selectedDate.getMonth() + 1).toString().padStart(2, "0")}/${selectedDate.getDate().toString().padStart(2, "0")}`
+      : "";
 
-    // 创建交易记录对象
+    // Create transaction record object
     const transactionData: Transaction = {
       id: isEditMode && transaction ? transaction.id : `T${Date.now()}`,
       amount: parseFloat(formData.amount),
       category: formData.category,
       subCategory: formData.subCategory || "",
       merchant: formData.merchant,
-      date: formattedDate, // 使用YY/MM/DD格式
+      date: formattedDate, // Use YY/MM/DD format
       time:
         isEditMode && transaction
           ? transaction.time
           : new Date().toLocaleTimeString(),
-      tags: formData.tags
-        ? formData.tags.split(",").map((tag) => tag.trim())
-        : [],
     };
 
-    // 根据模式调用相应的回调函数
+    // Call appropriate callback function based on mode
     if (isEditMode && onEdit && transaction) {
+      console.log("Edit mode: submit data", transaction.id, transactionData);
       onEdit(transaction.id, transactionData);
     } else if (onAdd) {
+      console.log("Add mode: submit data", transactionData);
       onAdd(transactionData);
     }
 
-    // 关闭对话框并重置表单
+    // Close dialog and reset form
     setOpen(false);
     resetForm();
   };
@@ -175,7 +188,7 @@ export default function TransactionForm({
   const dialogDescription = isEditMode
     ? "Please modify the transaction information below and submit to update the record. Fields marked with * are required."
     : "Please enter the transaction information below and submit to update your record. Fields marked with * are required.";
-  const submitButtonText = isEditMode ? "Edit" : "Apply";
+  const submitButtonText = isEditMode ? "Save" : "Apply";
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -186,6 +199,27 @@ export default function TransactionForm({
           <DialogDescription>{dialogDescription}</DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="date" className="text-right">
+              Date *
+            </Label>
+            <div className="col-span-3">
+              <NativeDatePicker
+                date={selectedDate}
+                onDateChange={(date) => {
+                  setSelectedDate(date);
+                  setErrors((prev) => ({ ...prev, date: false }));
+                }}
+                placeholder="Select Date"
+                className={errors.date ? "border-red-500" : ""}
+              />
+              {errors.date && (
+                <p className="text-xs text-red-500 mt-1">
+                  Please select a valid date
+                </p>
+              )}
+            </div>
+          </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="amount" className="text-right">
               Amount *
@@ -258,44 +292,6 @@ export default function TransactionForm({
               </p>
             )}
           </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="date" className="text-right">
-              Date *
-            </Label>
-            <Input
-              id="date"
-              value={formData.date}
-              onChange={(e) => handleChange("date", e.target.value)}
-              onFocus={() => handleFocus("date")}
-              placeholder="Format: 20250105"
-              className={
-                errors.date ? "col-span-3 border-red-500" : "col-span-3"
-              }
-            />
-            {errors.date && (
-              <p className="col-span-3 col-start-2 text-xs text-red-500">
-                Please enter a valid date (YYYYMMDD)
-              </p>
-            )}
-            <p className="col-span-3 col-start-2 text-xs text-gray-500">
-              Input format is YYYYMMDD, will be displayed as YY/MM/DD
-            </p>
-          </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="tags" className="text-right">
-              Tags
-            </Label>
-            <Input
-              id="tags"
-              value={formData.tags}
-              onChange={(e) => handleChange("tags", e.target.value)}
-              placeholder="e.g. Monthly, Family"
-              className="col-span-3"
-            />
-            <p className="col-span-3 col-start-2 text-xs text-gray-500">
-              Separate multiple tags with commas
-            </p>
-          </div>
         </div>
         <DialogFooter>
           <Button type="submit" onClick={handleSubmit}>
@@ -307,11 +303,15 @@ export default function TransactionForm({
   );
 }
 
-// 为了保持向后兼容性，提供一个添加交易的组件
+// For backward compatibility, provide an add transaction component
 export function AddTransaction({
   onAdd,
+  selectedYear,
+  selectedMonth,
 }: {
   onAdd: (transaction: Transaction) => void;
+  selectedYear?: string | null;
+  selectedMonth?: string | null;
 }) {
   const [open, setOpen] = useState(false);
 
@@ -322,6 +322,8 @@ export function AddTransaction({
       open={open}
       setOpen={setOpen}
       trigger={<Button className="ml-auto">Add Transaction</Button>}
+      selectedYear={selectedYear}
+      selectedMonth={selectedMonth}
     />
   );
 }

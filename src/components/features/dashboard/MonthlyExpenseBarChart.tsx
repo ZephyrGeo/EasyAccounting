@@ -7,16 +7,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-
-interface Transaction {
-  id: string;
-  amount: number;
-  category: string;
-  subCategory: string;
-  date: string;
-  time: string;
-  tags: string[];
-}
+import { Transaction } from "@/types/transaction";
 interface MonthlyExpenseBarChartProps {
   transactions: Transaction[];
 }
@@ -35,7 +26,7 @@ export default function MonthlyExpenseBarChart({
         acc[curr.category] += Math.abs(curr.amount);
         return acc;
       },
-      {} as Record<string, number>
+      {} as Record<string, number>,
     );
 
     //
@@ -58,7 +49,7 @@ export default function MonthlyExpenseBarChart({
             label: category.charAt(0).toUpperCase() + category.slice(1), // 首字母大写
             color: `hsl(var(--chart-${(index % 5) + 1}))`,
           },
-        ])
+        ]),
       ),
     } satisfies ChartConfig;
 

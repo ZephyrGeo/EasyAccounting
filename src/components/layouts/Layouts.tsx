@@ -13,8 +13,25 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { useBillBook } from "@/contexts/BillBookContext";
 
-export default function Layouts({ children }: { children: React.ReactNode }) {
+interface BreadcrumbItem {
+  title: string;
+  href?: string;
+}
+
+interface LayoutsProps {
+  children: React.ReactNode;
+  breadcrumbs?: BreadcrumbItem[];
+}
+
+export default function Layouts({
+  children,
+  breadcrumbs = [{ title: "Dashboard" }],
+}: LayoutsProps) {
+  const { currentBillBook } = useBillBook();
+  const billBookName = currentBillBook?.name || "Personal Bill";
+
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -25,18 +42,28 @@ export default function Layouts({ children }: { children: React.ReactNode }) {
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem className="hidden md:block">
-                <BreadcrumbLink href="#">
-                  Building Your Application
+                <BreadcrumbLink href="#" className="text-muted-foreground">
+                  {billBookName}
                 </BreadcrumbLink>
               </BreadcrumbItem>
-              <BreadcrumbSeparator className="hidden md:block" />
-              <BreadcrumbItem>
-                <BreadcrumbPage>Data Fetching</BreadcrumbPage>
-              </BreadcrumbItem>
+              {breadcrumbs.map((item, index) => (
+                <div key={index} className="flex items-center">
+                  <BreadcrumbSeparator className="hidden md:block" />
+                  <BreadcrumbItem>
+                    {item.href ? (
+                      <BreadcrumbLink href={item.href}>
+                        {item.title}
+                      </BreadcrumbLink>
+                    ) : (
+                      <BreadcrumbPage>{item.title}</BreadcrumbPage>
+                    )}
+                  </BreadcrumbItem>
+                </div>
+              ))}
             </BreadcrumbList>
           </Breadcrumb>
         </header>
-        {children}
+        <main className="flex-1 overflow-auto">{children}</main>
       </SidebarInset>
     </SidebarProvider>
   );

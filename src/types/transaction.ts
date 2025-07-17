@@ -6,9 +6,16 @@ export interface Transaction {
   merchant: string;
   date: string;
   time: string;
-  tags: string[];
 }
 
 export interface TransactionProps {
   transactions: Transaction[];
+}
+
+export interface ParsedResult {
+  transactions: Transaction[];
+  summary: {
+    totalAmount: number;
+    transactionCount: number;
+  };
 }
