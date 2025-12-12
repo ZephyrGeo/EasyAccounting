@@ -14,7 +14,7 @@ function encodeUnicode(str: string): string {
   try {
     // 先将Unicode字符串转换为UTF-8字节序列，再进行Base64编码
     return btoa(
-      encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (match, p1) => {
+      encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (_match, p1) => {
         return String.fromCharCode(parseInt(p1, 16));
       }),
     );
@@ -167,7 +167,7 @@ async function callClaudeApiWithRetry(
           "anthropic-dangerous-direct-browser-access": "true",
         },
         body: JSON.stringify({
-          model: "claude-sonnet-4-20250514",
+          model: "claude-sonnet-4-5-20250929",
           max_tokens: 8000,
           temperature: 0, // 降低随机性，提高一致性
           messages: [{ role: "user", content: prompt }],
@@ -266,7 +266,7 @@ async function callClaudeApiForPdf(
           "anthropic-dangerous-direct-browser-access": "true",
         },
         body: JSON.stringify({
-          model: "claude-sonnet-4-20250514",
+          model: "claude-sonnet-4-5-20250929",
           max_tokens: 8000,
           temperature: 0,
           messages: [
@@ -278,7 +278,7 @@ async function callClaudeApiForPdf(
                   text: prompt,
                 },
                 {
-                  type: "image",
+                  type: "document",
                   source: {
                     type: "base64",
                     media_type: "application/pdf",
