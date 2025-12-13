@@ -13,33 +13,19 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { TransactionProps } from "@/types/transaction";
 
-export default function MonthlyTrendChart({ transactions }: TransactionProps) {
+interface MonthlyTrendChartProps {
+  aggregates: Array<{ month: string; total: number }>;
+}
+
+export default function MonthlyTrendChart({ aggregates }: MonthlyTrendChartProps) {
   const { chartData, chartConfig } = React.useMemo(() => {
-    // Group transaction data by month
-    const monthlyData: Record<string, number> = {};
-
-    transactions.forEach((transaction) => {
-      // 日期格式: YYYY-MM-DD，提取 YY/MM
-      const year = transaction.date.substring(2, 4); // 年份后两位
-      const month = transaction.date.substring(5, 7); // 月份
-      const monthKey = `${year}/${month}`; // 格式: YY/MM
-      if (!monthlyData[monthKey]) {
-        monthlyData[monthKey] = 0;
-      }
-      monthlyData[monthKey] += transaction.amount;
-    });
-
-    // Convert to array and sort
-    const sortedData = Object.entries(monthlyData)
-      .map(([month, amount]) => ({
-        month,
-        amount,
-        displayMonth: `20${month}`, // Convert to 20YY/MM format for display
-      }))
-      .sort((a, b) => a.month.localeCompare(b.month))
-      .slice(-6); // Take only the last 6 months
+    // aggregates 已经是按月聚合的数据，格式为 { month: "YY/MM", total: number }
+    const sortedData = aggregates.map(({ month, total }) => ({
+      month,
+      amount: total,
+      displayMonth: `20${month}`, // Convert to 20YY/MM format for display
+    }));
 
     const config = {
       amount: {
@@ -52,7 +38,7 @@ export default function MonthlyTrendChart({ transactions }: TransactionProps) {
       chartData: sortedData,
       chartConfig: config,
     };
-  }, [transactions]);
+  }, [aggregates]);
 
   const formatCurrency = (value: number) => {
     return new Intl.NumberFormat("ja-JP", {

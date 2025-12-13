@@ -7,44 +7,18 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { CalendarIcon } from "lucide-react";
-import { Transaction } from "@/types/transaction";
 
 interface YearSelectorProps {
-  transactions: Transaction[];
   onYearChange: (year: string | null) => void;
   selectedYear: string | null;
-  availableYears?: string[];
+  availableYears: string[];
 }
 
 export default function YearSelector({
-  transactions,
   onYearChange,
   selectedYear,
-  availableYears: propAvailableYears,
+  availableYears,
 }: YearSelectorProps) {
-  // 使用传入的可用年份或从交易数据中提取
-  // 修复：从日期中正确提取年份部分 (YY)
-  const availableYears =
-    propAvailableYears ||
-    transactions
-      .reduce((years, transaction) => {
-        // 从 YY/MM/DD 格式中提取 YY 部分
-        const year = transaction.date.substring(0, 2);
-        if (!years.includes(year)) {
-          years.push(year);
-        }
-        return years;
-      }, [] as string[])
-      .sort()
-      .reverse();
-
-  // 移除自动初始化逻辑，避免flash问题
-  // useEffect(() => {
-  //   if (availableYears.length > 0 && !selectedYear) {
-  //     onYearChange(availableYears[0]);
-  //   }
-  // }, [availableYears, selectedYear, onYearChange]);
-
   // 处理年份变更
   const handleYearChange = (value: string) => {
     onYearChange(value);
