@@ -9,7 +9,6 @@ import {
   updateTransaction,
   deleteTransaction,
   getTransactions,
-  updateAllTransactions,
 } from "@/api/transactions";
 
 // Add onTransactionUpdate property to TransactionsTable component
@@ -147,32 +146,6 @@ export default function TransactionsTable({
     }
   }, [initialTransactions]);
 
-  // Add clear all data functionality (for testing only)
-  const handleClearAllData = async () => {
-    if (
-      window.confirm(
-        "Are you sure you want to clear all transaction data? This action cannot be undone.",
-      )
-    ) {
-      try {
-        // Use batch update API to clear data
-        await updateAllTransactions([]);
-
-        // Re-fetch data
-        const refreshedData = await getTransactions();
-        setTableData(refreshedData);
-
-        // Notify parent component that data has been cleared
-        if (onTransactionUpdate) {
-          onTransactionUpdate(refreshedData);
-        }
-      } catch (error) {
-        console.error("Failed to clear data:", error);
-        alert("Failed to clear data, please try again");
-      }
-    }
-  };
-
   return (
     <div className="min-h-[100vh] flex-1 rounded-xl md:min-h-min">
       <DataTable
@@ -191,18 +164,6 @@ export default function TransactionsTable({
         open={isEditDialogOpen}
         setOpen={setIsEditDialogOpen}
       />
-
-      {/* Optional: Add a clear data button for development testing only */}
-      {process.env.NODE_ENV === "development" && (
-        <div className="mt-4 text-right">
-          <button
-            onClick={handleClearAllData}
-            className="text-xs text-red-500 hover:text-red-700"
-          >
-            Clear All Data (Development Only)
-          </button>
-        </div>
-      )}
     </div>
   );
 }
