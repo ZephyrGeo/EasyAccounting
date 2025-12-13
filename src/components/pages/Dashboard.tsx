@@ -1,0 +1,104 @@
+import React from 'react';
+import { ShoppingBag, Coffee, Car, Zap } from 'lucide-react';
+import DashboardLayout from '../layout/DashboardLayout';
+import MetricCard from '../cards/MetricCard';
+import SpendingTrendChart from '../charts/SpendingTrendChart';
+import CategoryPieChart from '../charts/CategoryPieChart';
+import TransactionList from '../transactions/TransactionList';
+import ProgressBar from '../ui/ProgressBar';
+
+// Mock Data (will be replaced with hooks later)
+const trendData = [
+  { name: 'Mon', value: 4000 },
+  { name: 'Tue', value: 3000 },
+  { name: 'Wed', value: 5000 },
+  { name: 'Thu', value: 2780 },
+  { name: 'Fri', value: 1890 },
+  { name: 'Sat', value: 2390 },
+  { name: 'Sun', value: 3490 },
+];
+
+const categoryData = [
+  { name: 'Shopping', value: 4500, color: '#6366f1' },
+  { name: 'Food', value: 3200, color: '#ec4899' },
+  { name: 'Transport', value: 2100, color: '#3b82f6' },
+  { name: 'Others', value: 1100, color: '#94a3b8' },
+];
+
+const transactions = [
+  {
+    id: '1',
+    name: 'Amazon JP',
+    date: new Date().toISOString(),
+    amount: -4401,
+    icon: ShoppingBag,
+    color: 'bg-indigo-100 text-indigo-600',
+  },
+  {
+    id: '2',
+    name: 'Starbucks',
+    date: new Date().toISOString(),
+    amount: -998,
+    icon: Coffee,
+    color: 'bg-orange-100 text-orange-600',
+  },
+  {
+    id: '3',
+    name: 'ENEOS Gas',
+    date: new Date(Date.now() - 86400000).toISOString(),
+    amount: -5230,
+    icon: Car,
+    color: 'bg-blue-100 text-blue-600',
+  },
+  {
+    id: '4',
+    name: 'Netflix',
+    date: new Date(Date.now() - 172800000).toISOString(),
+    amount: -1490,
+    icon: Zap,
+    color: 'bg-red-100 text-red-600',
+  },
+];
+
+export default function Dashboard() {
+  return (
+    <DashboardLayout
+      title="Dashboard"
+      description="Welcome back, here's your financial overview."
+      onAddBill={() => console.log('Add bill clicked')}
+    >
+      <div className="grid grid-cols-12 gap-6">
+        {/* Row 1: Key Metrics */}
+        <div className="col-span-12">
+          <MetricCard
+            title="Total Expense (Nov)"
+            value="¥145,156"
+            trend="-0.8%"
+            trendGood={true}
+            subtext="vs last month"
+          />
+        </div>
+
+        {/* Row 2: Charts */}
+        <SpendingTrendChart data={trendData} />
+        <CategoryPieChart data={categoryData} />
+
+        {/* Row 3: Transactions and Insights */}
+        <TransactionList transactions={transactions} onSeeAll={() => console.log('See all')} />
+
+        {/* Right Column: Goals */}
+        <div className="col-span-12 lg:col-span-4">
+          <div className="bg-white p-6 rounded-3xl shadow-[0_2px_10px_-4px_rgba(0,0,0,0.05)] border border-slate-100">
+            <h3 className="font-bold text-slate-800 mb-2">Saving Goal</h3>
+            <p className="text-xs text-slate-400 mb-4">Trip to Hokkaido</p>
+            <ProgressBar value={45000} max={100000} color="green" size="md" className="mb-2" />
+            <div className="flex justify-between text-xs font-semibold">
+              <span>¥45,000</span>
+              <span className="text-slate-400">Target: ¥100k</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </DashboardLayout>
+  );
+}
