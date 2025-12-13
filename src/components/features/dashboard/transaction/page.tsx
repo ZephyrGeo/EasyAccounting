@@ -8,12 +8,11 @@ import {
   addTransaction,
   updateTransaction,
   deleteTransaction,
-  getTransactions,
 } from "@/api/transactions";
 
 // Add onTransactionUpdate property to TransactionsTable component
 interface TransactionsTableProps extends TransactionProps {
-  onTransactionUpdate?: (transactions: Transaction[]) => void;
+  onTransactionUpdate?: () => Promise<void>;
   selectedYear?: string | null;
   selectedMonth?: string | null;
 }
@@ -50,26 +49,17 @@ export default function TransactionsTable({
       try {
         console.log("Starting transaction update:", id, updatedTransaction);
 
-        // Update JSON file
+        // Update database
         await updateTransaction(id, updatedTransaction);
         console.log("API update successful");
-
-        // Re-fetch data to ensure synchronization
-        const refreshedData = await getTransactions();
-        console.log(
-          "Data re-fetch successful, data count:",
-          refreshedData.length,
-        );
-
-        setTableData(refreshedData);
 
         // Clear edit state
         setEditingTransaction(undefined);
         setIsEditDialogOpen(false);
 
-        // Notify parent component that transaction data has been updated
+        // Notify parent component to refresh data
         if (onTransactionUpdate) {
-          onTransactionUpdate(refreshedData);
+          await onTransactionUpdate();
         }
 
         console.log("Transaction update completed");
@@ -90,16 +80,12 @@ export default function TransactionsTable({
         )
       ) {
         try {
-          // Delete from JSON file
+          // Delete from database
           await deleteTransaction(id);
 
-          // Re-fetch data to ensure synchronization
-          const refreshedData = await getTransactions();
-          setTableData(refreshedData);
-
-          // Notify parent component that transaction data has been updated
+          // Notify parent component to refresh data
           if (onTransactionUpdate) {
-            onTransactionUpdate(refreshedData);
+            await onTransactionUpdate();
           }
         } catch (error) {
           console.error("Failed to delete transaction:", error);
@@ -114,16 +100,12 @@ export default function TransactionsTable({
   const handleAddTransaction = useCallback(
     async (newTransaction: Transaction) => {
       try {
-        // Add to JSON file
+        // Add to database
         await addTransaction(newTransaction);
 
-        // Re-fetch data to ensure synchronization
-        const refreshedData = await getTransactions();
-        setTableData(refreshedData);
-
-        // Notify parent component that transaction data has been updated
+        // Notify parent component to refresh data
         if (onTransactionUpdate) {
-          onTransactionUpdate(refreshedData);
+          await onTransactionUpdate();
         }
       } catch (error) {
         console.error("Failed to add transaction:", error);

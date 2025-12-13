@@ -6,41 +6,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Transaction } from "@/types/transaction";
 
 interface MonthSelectorProps {
-  transactions: Transaction[];
   onMonthChange: (monthKey: string | null) => void;
-  selectedMonth: string | null; // 添加selectedMonth属性
-  availableMonths?: string[];
+  selectedMonth: string | null;
+  availableMonths: string[];
 }
 
 export default function MonthSelector({
-  transactions,
   onMonthChange,
-  selectedMonth, // 接收selectedMonth属性
-  availableMonths: propAvailableMonths,
+  selectedMonth,
+  availableMonths,
 }: MonthSelectorProps) {
-  // 使用传入的可用月份或从交易数据中提取
-  const availableMonths =
-    propAvailableMonths ||
-    transactions
-      .reduce((months, transaction) => {
-        const month = transaction.date.substring(3, 5);
-        if (!months.includes(month)) {
-          months.push(month);
-        }
-        return months;
-      }, [] as string[])
-      .sort();
-
-  // 移除自动初始化逻辑，避免flash问题
-  // useEffect(() => {
-  //   if (availableMonths.length > 0 && !selectedMonth) {
-  //     onMonthChange(availableMonths[0]);
-  //   }
-  // }, [availableMonths, selectedMonth, onMonthChange]);
-
   // 处理月份变更
   const handleMonthChange = (value: string) => {
     onMonthChange(value);

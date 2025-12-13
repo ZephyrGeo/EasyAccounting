@@ -1,229 +1,219 @@
-import { useState, useMemo, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import MonthlyTotalExpenditure from "./MonthlyTotalExpenditure";
-// import CategoryExpensePieChart from "./CategoryExpensePieChart";
 import MonthlyTrendChart from "./MonthlyTrendChart";
 import ExpenseCalendar from "./ExpenseCalendar";
-import { Transaction, TransactionProps } from "@/types/transaction";
+import { Transaction } from "@/types/transaction";
 import TransactionsTable from "./transaction/page";
 import YearSelector from "./transaction/dateselector/YearSelector";
 import MonthSelector from "./transaction/dateselector/MonthSelector";
 import BillUploadForm from "./transaction/BillUploadForm";
 import { Button } from "@/components/ui/button";
 import { Upload } from "lucide-react";
-import { getTransactions, addTransaction } from "@/api/transactions";
+import {
+  getTransactions,
+  addTransaction,
+  getMonthlyAggregates,
+  getAvailableYearsMonths,
+} from "@/api/transactions";
 
-// Only show the parts that need modification
-export default function DashBoard({ transactions }: TransactionProps) {
-  // Add year and month state
+export default function DashBoard() {
+  // 年份/月份选择状态
   const [selectedYear, setSelectedYear] = useState<string | null>(null);
   const [selectedMonth, setSelectedMonth] = useState<string | null>(null);
-  // Add state to track all transaction data, including newly added ones
-  const [allTransactions, setAllTransactions] =
-    useState<Transaction[]>(transactions);
+
+  // 三个独立的数据源
+  const [filteredTransactions, setFilteredTransactions] = useState<Transaction[]>([]);
+  const [monthlyAggregates, setMonthlyAggregates] = useState<Array<{ month: string; total: number }>>([]);
+  const [availableYearsMonths, setAvailableYearsMonths] = useState<{
+    years: string[];
+    monthsByYear: Record<string, string[]>;
+  }>({ years: [], monthsByYear: {} });
+
+  // 加载状态
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingFiltered, setIsLoadingFiltered] = useState(false);
 
   // Upload dialog state
   const [uploadOpen, setUploadOpen] = useState(false);
 
-  // Update allTransactions when incoming transactions change
+  // 初始化：获取元数据和聚合数据
   useEffect(() => {
-    setAllTransactions(transactions);
-  }, [transactions]);
-
-  // Extract available years
-  const availableYears = useMemo(() => {
-    const years = new Set<string>();
-    allTransactions.forEach((transaction) => {
-      // 日期格式: YYYY-MM-DD，取年份后两位
-      const year = transaction.date.substring(2, 4); // 取索引2-3，即年份后两位
-      years.add(year);
-    });
-    return Array.from(years).sort().reverse(); // Sort in descending order, newest year first
-  }, [allTransactions]);
-
-  // Extract available months (only months, excluding years)
-  const availableMonths = useMemo(() => {
-    const months = new Set<string>();
-    const filteredByYear = selectedYear
-      ? allTransactions.filter((t) => {
-          // 日期格式: YYYY-MM-DD，比较年份后两位
-          const year = t.date.substring(2, 4);
-          return year === selectedYear;
-        })
-      : allTransactions;
-
-    filteredByYear.forEach((transaction) => {
-      // 日期格式: YYYY-MM-DD，月份在索引5-6位置
-      const month = transaction.date.substring(5, 7);
-      months.add(month);
-    });
-    return Array.from(months).sort();
-  }, [allTransactions, selectedYear]);
-
-  // Initialize selection of current year and month
-  useEffect(() => {
-    if (availableYears.length > 0 && !selectedYear) {
-      // Get current date
-      const now = new Date();
-      const currentYear = now.getFullYear().toString().slice(-2); // Get last two digits of year
-      const currentMonth = (now.getMonth() + 1).toString().padStart(2, "0"); // Get month, pad with zero
-
-      // If current year is in available years, use current year, otherwise use latest year
-      const yearToSelect = availableYears.includes(currentYear)
-        ? currentYear
-        : availableYears[0];
-      setSelectedYear(yearToSelect);
-
-      // Check if current month is in available months for that year
-      const monthsForYear = new Set<string>();
-      allTransactions
-        .filter((t) => {
-          // 日期格式: YYYY-MM-DD，比较年份后两位
-          const year = t.date.substring(2, 4);
-          return year === yearToSelect;
-        })
-        .forEach((transaction) => {
-          // 日期格式: YYYY-MM-DD，月份在索引5-6位置
-          const month = transaction.date.substring(5, 7);
-          monthsForYear.add(month);
-        });
-
-      const availableMonthsForYear = Array.from(monthsForYear).sort();
-      const monthToSelect = availableMonthsForYear.includes(currentMonth)
-        ? currentMonth
-        : availableMonthsForYear[availableMonthsForYear.length - 1];
-
-      if (monthToSelect) {
-        setSelectedMonth(monthToSelect);
-      }
-    }
-  }, [availableYears, selectedYear, allTransactions]);
-
-  // Ensure there's always a selected month
-  useEffect(() => {
-    if (selectedYear && availableMonths.length > 0) {
-      // If current selected month is not in available months list, or no month is selected, choose first available month
-      if (!selectedMonth || !availableMonths.includes(selectedMonth)) {
-        setSelectedMonth(availableMonths[0]);
-      }
-    }
-  }, [selectedYear, availableMonths, selectedMonth]);
-
-  // Filter transaction data based on selected year and month
-  const filteredTransactions = useMemo(() => {
-    let filtered = [...allTransactions];
-
-    // Always filter based on selected year
-    if (selectedYear) {
-      filtered = filtered.filter((transaction) => {
-        // 日期格式: YYYY-MM-DD，比较年份后两位
-        const year = transaction.date.substring(2, 4);
-        return year === selectedYear;
-      });
-
-      // Always further filter based on selected month
-      if (selectedMonth) {
-        filtered = filtered.filter((transaction) => {
-          // 日期格式: YYYY-MM-DD，月份在索引5-6位置
-          const month = transaction.date.substring(5, 7);
-          return month === selectedMonth;
-        });
-      }
-    }
-
-    return filtered;
-  }, [allTransactions, selectedYear, selectedMonth]);
-
-  // Handle transaction data updates
-  const handleTransactionUpdate = useCallback(
-    async (updatedTransactions: Transaction[]) => {
+    async function fetchInitialData() {
+      setIsLoading(true);
       try {
-        // Re-fetch latest data from JSON file to ensure synchronization
-        const latestTransactions = await getTransactions();
-        setAllTransactions(latestTransactions);
-      } catch (error) {
-        console.error("Failed to get latest transaction data:", error);
-        // If fetch fails, use passed data as fallback
-        setAllTransactions(updatedTransactions);
-      }
-    },
-    [],
-  );
+        const [metadata, aggregates] = await Promise.all([
+          getAvailableYearsMonths(),
+          getMonthlyAggregates(6),
+        ]);
 
-  // Handle batch adding transactions (from uploaded files)
+        setAvailableYearsMonths(metadata);
+        setMonthlyAggregates(aggregates);
+
+        // 自动选择当前年份和月份（如果存在）
+        if (metadata.years.length > 0) {
+          const now = new Date();
+          const currentYear = now.getFullYear().toString().slice(-2);
+          const currentMonth = (now.getMonth() + 1).toString().padStart(2, "0");
+
+          const yearToSelect = metadata.years.includes(currentYear)
+            ? currentYear
+            : metadata.years[0];
+          setSelectedYear(yearToSelect);
+
+          const monthsForYear = metadata.monthsByYear[yearToSelect] || [];
+          const monthToSelect = monthsForYear.includes(currentMonth)
+            ? currentMonth
+            : monthsForYear[monthsForYear.length - 1];
+
+          if (monthToSelect) {
+            setSelectedMonth(monthToSelect);
+          }
+        }
+      } catch (error) {
+        console.error("Failed to fetch initial data:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    fetchInitialData();
+  }, []);
+
+  // 当年份或月份变化时，获取过滤后的交易数据
+  useEffect(() => {
+    async function fetchFilteredData() {
+      if (!selectedYear || !selectedMonth) return;
+
+      setIsLoadingFiltered(true);
+      try {
+        const data = await getTransactions({
+          year: selectedYear,
+          month: selectedMonth
+        });
+        setFilteredTransactions(data);
+      } catch (error) {
+        console.error("Failed to fetch filtered transactions:", error);
+        setFilteredTransactions([]);
+      } finally {
+        setIsLoadingFiltered(false);
+      }
+    }
+
+    fetchFilteredData();
+  }, [selectedYear, selectedMonth]);
+
+  // 处理年份变化，重置月份选择
+  const handleYearChange = useCallback((year: string | null) => {
+    setSelectedYear(year);
+    if (year && availableYearsMonths.monthsByYear[year]) {
+      const months = availableYearsMonths.monthsByYear[year];
+      setSelectedMonth(months[months.length - 1] || null);
+    }
+  }, [availableYearsMonths]);
+
+  // 处理交易数据更新（添加/编辑/删除后）
+  const handleTransactionUpdate = useCallback(async () => {
+    try {
+      const [filtered, aggregates, metadata] = await Promise.all([
+        selectedYear && selectedMonth
+          ? getTransactions({ year: selectedYear, month: selectedMonth })
+          : Promise.resolve([]),
+        getMonthlyAggregates(6),
+        getAvailableYearsMonths(),
+      ]);
+
+      setFilteredTransactions(filtered);
+      setMonthlyAggregates(aggregates);
+      setAvailableYearsMonths(metadata);
+    } catch (error) {
+      console.error("Failed to refresh data after update:", error);
+    }
+  }, [selectedYear, selectedMonth]);
+
+  // 处理批量添加交易（从上传文件）
   const handleBatchAddTransactions = useCallback(
     async (transactions: Transaction[]) => {
       try {
-        // Add transactions one by one
         for (const transaction of transactions) {
           await addTransaction(transaction);
         }
-        // Re-fetch latest data
-        const latestTransactions = await getTransactions();
-        setAllTransactions(latestTransactions);
+        await handleTransactionUpdate();
       } catch (error) {
         console.error("Failed to batch add transactions:", error);
       }
     },
-    [],
+    [handleTransactionUpdate],
   );
+
+  // 计算可用的年份和月份列表
+  const availableYears = availableYearsMonths.years;
+  const availableMonths = selectedYear
+    ? (availableYearsMonths.monthsByYear[selectedYear] || [])
+    : [];
 
   return (
     <div className="flex flex-1 flex-col gap-4 p-4">
-      <div className="flex justify-between items-center mb-4">
-        <div className="flex space-x-4">
-          <YearSelector
-            transactions={allTransactions}
-            onYearChange={setSelectedYear}
-            selectedYear={selectedYear}
-            availableYears={availableYears}
-          />
-          <MonthSelector
-            transactions={
-              selectedYear
-                ? allTransactions.filter((t) => {
-                    // 日期格式: YYYY-MM-DD，比较年份后两位
-                    const year = t.date.substring(2, 4);
-                    return year === selectedYear;
-                  })
-                : []
-            }
-            onMonthChange={setSelectedMonth}
-            selectedMonth={selectedMonth}
-            availableMonths={availableMonths}
-          />
+      {isLoading ? (
+        <div className="flex items-center justify-center h-screen">
+          <p className="text-lg">Loading data...</p>
         </div>
-        <Button
-          onClick={() => setUploadOpen(true)}
-          className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white"
-        >
-          <Upload className="h-4 w-4" />
-          Import Bill
-        </Button>
-      </div>
+      ) : (
+        <>
+          <div className="flex justify-between items-center mb-4">
+            <div className="flex space-x-4">
+              <YearSelector
+                onYearChange={handleYearChange}
+                selectedYear={selectedYear}
+                availableYears={availableYears}
+              />
+              <MonthSelector
+                onMonthChange={setSelectedMonth}
+                selectedMonth={selectedMonth}
+                availableMonths={availableMonths}
+              />
+            </div>
+            <Button
+              onClick={() => setUploadOpen(true)}
+              className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white"
+            >
+              <Upload className="h-4 w-4" />
+              Import Bill
+            </Button>
+          </div>
 
-      <div className="grid auto-rows-min gap-4 md:grid-cols-2 lg:grid-cols-3">
-        <MonthlyTotalExpenditure transactions={filteredTransactions} />
-        <ExpenseCalendar
-          transactions={filteredTransactions}
-          selectedYear={selectedYear}
-          selectedMonth={selectedMonth}
-        />
-        <MonthlyTrendChart transactions={allTransactions} />
-      </div>
+          {isLoadingFiltered ? (
+            <div className="flex items-center justify-center py-8">
+              <p className="text-lg">Loading transactions...</p>
+            </div>
+          ) : (
+            <>
+              <div className="grid auto-rows-min gap-4 md:grid-cols-2 lg:grid-cols-3">
+                <MonthlyTotalExpenditure transactions={filteredTransactions} />
+                <ExpenseCalendar
+                  transactions={filteredTransactions}
+                  selectedYear={selectedYear}
+                  selectedMonth={selectedMonth}
+                />
+                <MonthlyTrendChart aggregates={monthlyAggregates} />
+              </div>
 
-      <TransactionsTable
-        transactions={filteredTransactions}
-        onTransactionUpdate={handleTransactionUpdate}
-        selectedYear={selectedYear}
-        selectedMonth={selectedMonth}
-      />
+              <TransactionsTable
+                transactions={filteredTransactions}
+                onTransactionUpdate={handleTransactionUpdate}
+                selectedYear={selectedYear}
+                selectedMonth={selectedMonth}
+              />
+            </>
+          )}
 
-      {/* Upload bill dialog */}
-      <BillUploadForm
-        onAdd={handleBatchAddTransactions}
-        open={uploadOpen}
-        setOpen={setUploadOpen}
-      />
+          {/* Upload bill dialog */}
+          <BillUploadForm
+            onAdd={handleBatchAddTransactions}
+            open={uploadOpen}
+            setOpen={setUploadOpen}
+          />
+        </>
+      )}
     </div>
   );
 }
