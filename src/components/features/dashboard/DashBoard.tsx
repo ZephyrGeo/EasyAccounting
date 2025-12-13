@@ -33,7 +33,8 @@ export default function DashBoard({ transactions }: TransactionProps) {
   const availableYears = useMemo(() => {
     const years = new Set<string>();
     allTransactions.forEach((transaction) => {
-      const year = transaction.date.substring(0, 2); // Take only first two digits as year
+      // 日期格式: YYYY-MM-DD，取年份后两位
+      const year = transaction.date.substring(2, 4); // 取索引2-3，即年份后两位
       years.add(year);
     });
     return Array.from(years).sort().reverse(); // Sort in descending order, newest year first
@@ -43,11 +44,16 @@ export default function DashBoard({ transactions }: TransactionProps) {
   const availableMonths = useMemo(() => {
     const months = new Set<string>();
     const filteredByYear = selectedYear
-      ? allTransactions.filter((t) => t.date.startsWith(selectedYear))
+      ? allTransactions.filter((t) => {
+          // 日期格式: YYYY-MM-DD，比较年份后两位
+          const year = t.date.substring(2, 4);
+          return year === selectedYear;
+        })
       : allTransactions;
 
     filteredByYear.forEach((transaction) => {
-      const month = transaction.date.substring(3, 5);
+      // 日期格式: YYYY-MM-DD，月份在索引5-6位置
+      const month = transaction.date.substring(5, 7);
       months.add(month);
     });
     return Array.from(months).sort();
@@ -70,9 +76,14 @@ export default function DashBoard({ transactions }: TransactionProps) {
       // Check if current month is in available months for that year
       const monthsForYear = new Set<string>();
       allTransactions
-        .filter((t) => t.date.startsWith(yearToSelect))
+        .filter((t) => {
+          // 日期格式: YYYY-MM-DD，比较年份后两位
+          const year = t.date.substring(2, 4);
+          return year === yearToSelect;
+        })
         .forEach((transaction) => {
-          const month = transaction.date.substring(3, 5);
+          // 日期格式: YYYY-MM-DD，月份在索引5-6位置
+          const month = transaction.date.substring(5, 7);
           monthsForYear.add(month);
         });
 
@@ -103,15 +114,19 @@ export default function DashBoard({ transactions }: TransactionProps) {
 
     // Always filter based on selected year
     if (selectedYear) {
-      filtered = filtered.filter((transaction) =>
-        transaction.date.startsWith(selectedYear),
-      );
+      filtered = filtered.filter((transaction) => {
+        // 日期格式: YYYY-MM-DD，比较年份后两位
+        const year = transaction.date.substring(2, 4);
+        return year === selectedYear;
+      });
 
       // Always further filter based on selected month
       if (selectedMonth) {
-        filtered = filtered.filter(
-          (transaction) => transaction.date.substring(3, 5) === selectedMonth,
-        );
+        filtered = filtered.filter((transaction) => {
+          // 日期格式: YYYY-MM-DD，月份在索引5-6位置
+          const month = transaction.date.substring(5, 7);
+          return month === selectedMonth;
+        });
       }
     }
 
@@ -165,7 +180,11 @@ export default function DashBoard({ transactions }: TransactionProps) {
           <MonthSelector
             transactions={
               selectedYear
-                ? allTransactions.filter((t) => t.date.startsWith(selectedYear))
+                ? allTransactions.filter((t) => {
+                    // 日期格式: YYYY-MM-DD，比较年份后两位
+                    const year = t.date.substring(2, 4);
+                    return year === selectedYear;
+                  })
                 : []
             }
             onMonthChange={setSelectedMonth}

@@ -21,8 +21,10 @@ export default function MonthlyTrendChart({ transactions }: TransactionProps) {
     const monthlyData: Record<string, number> = {};
 
     transactions.forEach((transaction) => {
-      // Assume date format is YY/MM/DD
-      const monthKey = transaction.date.substring(0, 5); // Get YY/MM
+      // 日期格式: YYYY-MM-DD，提取 YY/MM
+      const year = transaction.date.substring(2, 4); // 年份后两位
+      const month = transaction.date.substring(5, 7); // 月份
+      const monthKey = `${year}/${month}`; // 格式: YY/MM
       if (!monthlyData[monthKey]) {
         monthlyData[monthKey] = 0;
       }

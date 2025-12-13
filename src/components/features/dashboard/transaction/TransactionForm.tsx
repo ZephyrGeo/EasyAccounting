@@ -56,11 +56,11 @@ export default function TransactionForm({
   // Initialize form data in edit mode
   useEffect(() => {
     if (isEditMode && transaction) {
-      // Convert date format from YY/MM/DD to Date object
-      const dateParts = transaction.date.split("/");
+      // Convert date format from YYYY-MM-DD to Date object
+      const dateParts = transaction.date.split("-");
       let dateObj: Date | undefined = undefined;
       if (dateParts.length === 3) {
-        const year = parseInt(`20${dateParts[0]}`);
+        const year = parseInt(dateParts[0]);
         const month = parseInt(dateParts[1]) - 1; // JavaScript months start from 0
         const day = parseInt(dateParts[2]);
         dateObj = new Date(year, month, day);
@@ -151,9 +151,9 @@ export default function TransactionForm({
       return;
     }
 
-    // Format date display as YY/MM/DD format
+    // Format date as YYYY-MM-DD format to match database
     const formattedDate = selectedDate
-      ? `${selectedDate.getFullYear().toString().slice(-2)}/${(selectedDate.getMonth() + 1).toString().padStart(2, "0")}/${selectedDate.getDate().toString().padStart(2, "0")}`
+      ? `${selectedDate.getFullYear()}-${(selectedDate.getMonth() + 1).toString().padStart(2, "0")}-${selectedDate.getDate().toString().padStart(2, "0")}`
       : "";
 
     // Create transaction record object
@@ -163,7 +163,7 @@ export default function TransactionForm({
       category: formData.category,
       subCategory: formData.subCategory || "",
       merchant: formData.merchant,
-      date: formattedDate, // Use YY/MM/DD format
+      date: formattedDate, // Use YYYY-MM-DD format
       time:
         isEditMode && transaction
           ? transaction.time
