@@ -1,68 +1,54 @@
-import Layouts from "./layouts/Layouts";
-import Home from "@/components/pages/home/Home";
-
-const transactions = [
-  {
-    id: "T20240208001",
-    amount: -128.5,
-    category: "Food",
-    subCategory: "Lunch",
-    date: "2024-02-08",
-    time: "12:30",
-    tags: ["Business Meal", "Reimbursable"],
-  },
-  {
-    id: "T20240208002",
-    amount: -45.0,
-    category: "Transportation",
-    subCategory: "Taxi",
-    date: "2024-02-08",
-    time: "18:45",
-    tags: ["Overtime", "Reimbursable"],
-  },
-  {
-    id: "T20240207001",
-    amount: -299.0,
-    category: "Shopping",
-    subCategory: "Clothing",
-    date: "2024-02-07",
-    time: "14:20",
-    tags: ["Clothes"],
-  },
-  {
-    id: "T20240207002",
-    amount: 5000.0,
-    category: "Income",
-    subCategory: "Salary",
-    date: "2024-02-07",
-    time: "09:00",
-    tags: ["Monthly Pay"],
-  },
-  {
-    id: "T20240206001",
-    amount: -66.0,
-    category: "Entertainment",
-    subCategory: "Movie",
-    date: "2024-02-06",
-    time: "19:30",
-    tags: ["Weekend"],
-  },
-  {
-    id: "T20240206002",
-    amount: -158.0,
-    category: "Food",
-    subCategory: "Dinner",
-    date: "2024-02-06",
-    time: "21:00",
-    tags: ["Gathering"],
-  },
-];
+// App.tsx
+import Layouts from "@/components/layouts/Layouts";
+import DashBoard from "@/components/features/dashboard/DashBoard";
+import { useState, useEffect } from "react";
+import { Transaction } from "@/types/transaction";
+import { getTransactions } from "@/api/transactions";
+import { BillBookProvider } from "@/contexts/BillBookContext";
 
 function App(): JSX.Element {
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetchTransactions() {
+      setIsLoading(true);
+      try {
+        const data = await getTransactions();
+        setTransactions(data);
+        setError(null);
+      } catch (err) {
+        console.error("Failed to fetch transaction data:", err);
+        setError("Unable to read transaction data file");
+        setTransactions([]);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    fetchTransactions();
+  }, []);
+
   return (
-    <Layouts>
-      <Home transactions={transactions} />
-    </Layouts>
+    <BillBookProvider>
+      <Layouts>
+        {isLoading ? (
+          <div className="flex items-center justify-center h-screen">
+            <p className="text-lg">Loading data...</p>
+          </div>
+        ) : (
+          <>
+            {error && (
+              <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-4">
+                <p>{error}</p>
+              </div>
+            )}
+            <DashBoard transactions={transactions} />
+          </>
+        )}
+      </Layouts>
+    </BillBookProvider>
   );
 }
 
