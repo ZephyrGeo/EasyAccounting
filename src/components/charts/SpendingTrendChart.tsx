@@ -1,76 +1,149 @@
-import React from 'react';
-import { AreaChart, Area, XAxis, Tooltip, ResponsiveContainer } from 'recharts';
-import Select from '../ui/Select';
+import { AreaChart, Area, XAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 
-interface TrendDataPoint {
-  name: string;
-  value: number;
+interface WeeklyComparisonData {
+  dayOfWeek: string; // "Mon", "Tue", "Wed", etc.
+  week1: number;
+  week2: number;
+  week3: number;
+  week4: number;
 }
 
 interface SpendingTrendChartProps {
-  data: TrendDataPoint[];
-  period?: string;
-  onPeriodChange?: (period: string) => void;
+  data: WeeklyComparisonData[];
+  loading?: boolean;
+  error?: string | null;
 }
 
 export default function SpendingTrendChart({
   data,
-  period = 'This Week',
-  onPeriodChange,
+  loading = false,
+  error = null,
 }: SpendingTrendChartProps) {
-  const periodOptions = [
-    { value: 'week', label: 'This Week' },
-    { value: 'month', label: 'This Month' },
-    { value: 'year', label: 'This Year' },
-  ];
+  // 定义4周的颜色
+  const weekColors = {
+    week1: '#3b82f6', // blue
+    week2: '#8b5cf6', // purple
+    week3: '#ec4899', // pink
+    week4: '#f59e0b', // amber
+  };
 
   return (
     <div className="col-span-12 lg:col-span-8 bg-white p-6 rounded-3xl shadow-[0_2px_10px_-4px_rgba(0,0,0,0.05)] border border-slate-100">
-      <div className="flex justify-between items-center mb-6">
-        <h3 className="font-bold text-lg text-slate-800">Spending Trend (Last 6 Months)</h3>
-        {onPeriodChange && (
-          <Select
-            value={period}
-            onChange={onPeriodChange}
-            options={periodOptions}
-          />
-        )}
+      <div className="border-b border-slate-100 pb-4 mb-6">
+        <h3 className="font-bold text-lg text-slate-800">Weekly Spending Comparison</h3>
+        <p className="text-sm text-slate-500 mt-1">Compare spending patterns across 4 weeks</p>
       </div>
 
-      <div style={{ width: '100%', height: 250 }}>
-        <ResponsiveContainer width="100%" height="100%">
-          <AreaChart data={data}>
-            <defs>
-              <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.3} />
-                <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
-              </linearGradient>
-            </defs>
-            <Tooltip
-              contentStyle={{
-                borderRadius: '12px',
-                border: 'none',
-                boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-              }}
-            />
-            <Area
-              type="monotone"
-              dataKey="value"
-              stroke="#3b82f6"
-              strokeWidth={3}
-              fillOpacity={1}
-              fill="url(#colorValue)"
-            />
-            <XAxis
-              dataKey="name"
-              axisLine={false}
-              tickLine={false}
-              tick={{ fill: '#94a3b8', fontSize: 12 }}
-              dy={10}
-            />
-          </AreaChart>
-        </ResponsiveContainer>
-      </div>
+      {loading ? (
+        <div className="flex items-center justify-center" style={{ height: 300 }}>
+          <div className="text-slate-400 text-sm">Loading...</div>
+        </div>
+      ) : error ? (
+        <div className="flex items-center justify-center" style={{ height: 300 }}>
+          <div className="text-red-500 text-sm">{error}</div>
+        </div>
+      ) : data.length === 0 ? (
+        <div className="flex items-center justify-center" style={{ height: 300 }}>
+          <div className="text-slate-400 text-sm">No data available</div>
+        </div>
+      ) : (
+        <div style={{ width: '100%', height: 300 }}>
+          <ResponsiveContainer width="100%" height="100%">
+            <AreaChart data={data} margin={{ left: 15, right: 15 }}>
+              <defs>
+                <linearGradient id="fillWeek1" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor={weekColors.week1} stopOpacity={0.3} />
+                  <stop offset="95%" stopColor={weekColors.week1} stopOpacity={0.05} />
+                </linearGradient>
+                <linearGradient id="fillWeek2" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor={weekColors.week2} stopOpacity={0.3} />
+                  <stop offset="95%" stopColor={weekColors.week2} stopOpacity={0.05} />
+                </linearGradient>
+                <linearGradient id="fillWeek3" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor={weekColors.week3} stopOpacity={0.3} />
+                  <stop offset="95%" stopColor={weekColors.week3} stopOpacity={0.05} />
+                </linearGradient>
+                <linearGradient id="fillWeek4" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor={weekColors.week4} stopOpacity={0.3} />
+                  <stop offset="95%" stopColor={weekColors.week4} stopOpacity={0.05} />
+                </linearGradient>
+              </defs>
+              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
+              <XAxis
+                dataKey="dayOfWeek"
+                tickLine={false}
+                axisLine={false}
+                tickMargin={8}
+                tick={{ fill: '#94a3b8', fontSize: 12 }}
+                interval={0}
+              />
+              <Tooltip
+                cursor={{ stroke: '#94a3b8', strokeWidth: 1 }}
+                content={({ active, payload }) => {
+                  if (active && payload && payload.length) {
+                    return (
+                      <div className="bg-white p-3 rounded-xl shadow-lg border border-slate-200">
+                        <p className="text-xs text-slate-500 mb-2 font-semibold">
+                          {payload[0].payload.dayOfWeek}
+                        </p>
+                        {payload.map((entry, index) => (
+                          <div key={index} className="flex items-center justify-between gap-4 mb-1">
+                            <span className="text-xs" style={{ color: entry.color }}>
+                              {entry.name}:
+                            </span>
+                            <span className="text-sm font-bold text-slate-900">
+                              ¥{Math.abs(entry.value as number).toLocaleString()}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    );
+                  }
+                  return null;
+                }}
+              />
+              <Legend
+                verticalAlign="bottom"
+                height={36}
+                iconType="line"
+                wrapperStyle={{ fontSize: '12px', paddingTop: '16px' }}
+              />
+              <Area
+                type="monotone"
+                dataKey="week1"
+                name="Week 1"
+                stroke={weekColors.week1}
+                strokeWidth={2}
+                fill="url(#fillWeek1)"
+              />
+              <Area
+                type="monotone"
+                dataKey="week2"
+                name="Week 2"
+                stroke={weekColors.week2}
+                strokeWidth={2}
+                fill="url(#fillWeek2)"
+              />
+              <Area
+                type="monotone"
+                dataKey="week3"
+                name="Week 3"
+                stroke={weekColors.week3}
+                strokeWidth={2}
+                fill="url(#fillWeek3)"
+              />
+              <Area
+                type="monotone"
+                dataKey="week4"
+                name="Week 4"
+                stroke={weekColors.week4}
+                strokeWidth={2}
+                fill="url(#fillWeek4)"
+              />
+            </AreaChart>
+          </ResponsiveContainer>
+        </div>
+      )}
     </div>
   );
 }
