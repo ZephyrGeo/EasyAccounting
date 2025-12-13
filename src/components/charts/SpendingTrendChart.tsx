@@ -49,7 +49,7 @@ export default function SpendingTrendChart({
       ) : (
         <div style={{ width: '100%', height: 300 }}>
           <ResponsiveContainer width="100%" height="100%">
-            <AreaChart data={data}>
+            <AreaChart data={data} margin={{ left: 15, right: 15 }}>
               <defs>
                 <linearGradient id="fillWeek1" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="5%" stopColor={weekColors.week1} stopOpacity={0.3} />
@@ -75,6 +75,7 @@ export default function SpendingTrendChart({
                 axisLine={false}
                 tickMargin={8}
                 tick={{ fill: '#94a3b8', fontSize: 12 }}
+                interval={0}
               />
               <Tooltip
                 cursor={{ stroke: '#94a3b8', strokeWidth: 1 }}
