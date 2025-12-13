@@ -74,21 +74,21 @@ export default function BillTransactionEditor({
   };
 
   const formatDateForEdit = (date: string) => {
-    // 转换日期格式从 YY/MM/DD 到 YYYYMMDD
-    const dateParts = date.split("/");
+    // 转换日期格式从 YYYY-MM-DD 到 YYYYMMDD
+    const dateParts = date.split("-");
     return dateParts.length === 3
-      ? `20${dateParts[0]}${dateParts[1]}${dateParts[2]}`
+      ? `${dateParts[0]}${dateParts[1]}${dateParts[2]}`
       : "";
   };
 
   const handleEdit = (index: number) => {
     const transaction = transactions[index];
 
-    // 转换日期格式从 YY/MM/DD 到 Date 对象
-    const dateParts = transaction.date.split("/");
+    // 转换日期格式从 YYYY-MM-DD 到 Date 对象
+    const dateParts = transaction.date.split("-");
     let dateObj: Date | undefined = undefined;
     if (dateParts.length === 3) {
-      const year = parseInt(`20${dateParts[0]}`);
+      const year = parseInt(dateParts[0]);
       const month = parseInt(dateParts[1]) - 1; // JavaScript月份从0开始
       const day = parseInt(dateParts[2]);
       dateObj = new Date(year, month, day);
@@ -132,9 +132,9 @@ export default function BillTransactionEditor({
       return;
     }
 
-    // 格式化日期显示为 YY/MM/DD 格式
+    // 格式化日期为 YYYY-MM-DD 格式
     const formattedDate = editingTransaction.dateObj
-      ? `${editingTransaction.dateObj.getFullYear().toString().slice(-2)}/${(editingTransaction.dateObj.getMonth() + 1).toString().padStart(2, "0")}/${editingTransaction.dateObj.getDate().toString().padStart(2, "0")}`
+      ? `${editingTransaction.dateObj.getFullYear()}-${(editingTransaction.dateObj.getMonth() + 1).toString().padStart(2, "0")}-${editingTransaction.dateObj.getDate().toString().padStart(2, "0")}`
       : "";
 
     const updatedTransactions = [...transactions];
@@ -186,9 +186,9 @@ export default function BillTransactionEditor({
       return;
     }
 
-    // 格式化日期显示为 YY/MM/DD 格式
+    // 格式化日期为 YYYY-MM-DD 格式
     const formattedDate = newTransactionDate
-      ? `${newTransactionDate.getFullYear().toString().slice(-2)}/${(newTransactionDate.getMonth() + 1).toString().padStart(2, "0")}/${newTransactionDate.getDate().toString().padStart(2, "0")}`
+      ? `${newTransactionDate.getFullYear()}-${(newTransactionDate.getMonth() + 1).toString().padStart(2, "0")}-${newTransactionDate.getDate().toString().padStart(2, "0")}`
       : "";
 
     const newTransaction: Transaction = {

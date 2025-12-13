@@ -16,12 +16,12 @@ interface DailyExpense {
   hasData: boolean;
 }
 
-// Date format conversion function
+// Date format conversion function - 转换为 YYYY-MM-DD 格式以匹配数据库
 const formatDateToTransactionFormat = (date: Date): string => {
-  const year = date.getFullYear().toString().slice(-2);
+  const year = date.getFullYear().toString();
   const month = (date.getMonth() + 1).toString().padStart(2, "0");
   const day = date.getDate().toString().padStart(2, "0");
-  return `${year}/${month}/${day}`;
+  return `${year}-${month}-${day}`;
 };
 
 // Custom date button component

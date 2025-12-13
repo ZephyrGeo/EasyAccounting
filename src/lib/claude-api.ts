@@ -576,7 +576,7 @@ Format:
       "category": "string",
       "subCategory": "string",
       "merchant": "string",
-      "date": "YY/MM/DD",
+      "date": "YYYY-MM-DD",
       "time": "HH:MM"
     }
   ]
@@ -586,7 +586,7 @@ STRICT Rules:
 - Extract EVERY transaction, no exceptions
 - Generate unique IDs (e.g., "PDF_T1", "PDF_T2", etc.)
 - Amount should be positive numbers
-- Date format: YY/MM/DD (e.g., "24/02/01")
+- Date format: YYYY-MM-DD (e.g., "2024-02-01")
 - Time format: HH:MM (use "12:00" if not available)
 - Categories in ENGLISH: Food & Drink, Shopping, Transportation, Entertainment, Healthcare, Education, Bills & Utilities, Other
 - Extract merchant names exactly as they appear
