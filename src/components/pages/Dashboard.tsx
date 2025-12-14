@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { ShoppingBag, Coffee, Car, Zap } from 'lucide-react';
 import DashboardLayout from '../layout/DashboardLayout';
 import MetricCard from '../cards/MetricCard';
 import SpendingTrendChart from '../charts/SpendingTrendChart';
@@ -7,41 +6,6 @@ import CategoryPieChart from '../charts/CategoryPieChart';
 import TransactionList from '../transactions/TransactionList';
 import ProgressBar from '../ui/ProgressBar';
 import { useAvailableMonths } from '@/hooks/useAvailableMonths';
-
-const transactions = [
-  {
-    id: '1',
-    name: 'Amazon JP',
-    date: new Date().toISOString(),
-    amount: -4401,
-    icon: ShoppingBag,
-    color: 'bg-indigo-100 text-indigo-600',
-  },
-  {
-    id: '2',
-    name: 'Starbucks',
-    date: new Date().toISOString(),
-    amount: -998,
-    icon: Coffee,
-    color: 'bg-orange-100 text-orange-600',
-  },
-  {
-    id: '3',
-    name: 'ENEOS Gas',
-    date: new Date(Date.now() - 86400000).toISOString(),
-    amount: -5230,
-    icon: Car,
-    color: 'bg-blue-100 text-blue-600',
-  },
-  {
-    id: '4',
-    name: 'Netflix',
-    date: new Date(Date.now() - 172800000).toISOString(),
-    amount: -1490,
-    icon: Zap,
-    color: 'bg-red-100 text-red-600',
-  },
-];
 
 export default function Dashboard() {
   // Fetch available months from database
@@ -98,7 +62,10 @@ export default function Dashboard() {
         <CategoryPieChart selectedMonth={selectedMonth} />
 
         {/* Row 3: Transactions and Insights */}
-        <TransactionList transactions={transactions} onSeeAll={() => console.log('See all')} />
+        <TransactionList
+          selectedMonth={selectedMonth}
+          onSeeAll={() => console.log('See all')}
+        />
 
         {/* Right Column: Goals */}
         <div className="col-span-12 lg:col-span-4">

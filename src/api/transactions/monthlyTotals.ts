@@ -1,5 +1,5 @@
 import { supabase } from "@/lib/supabase";
-import { parseYearMonth } from "@/constants/date";
+import { getMonthDateRange } from "@/api/utils/date-helpers";
 
 /**
  * 获取指定月份的总支出
@@ -14,15 +14,8 @@ export async function getSelectedMonthlyTotal(yearMonth: string): Promise<number
       return 0;
     }
 
-    const { year, month } = parseYearMonth(yearMonth);
-
     // 计算月份的开始和结束日期
-    const startDate = `${year}-${month}-01`;
-    // JavaScript Date months are 0-indexed (0=Jan, 11=Dec)
-    // parseInt(month) gives us 1-12, so we use it directly as the month parameter
-    // which automatically rolls over to next month (e.g., month=12 becomes Jan of next year)
-    const nextMonth = new Date(parseInt(year), parseInt(month), 1);
-    const endDate = nextMonth.toISOString().split('T')[0];
+    const { startDate, endDate } = getMonthDateRange(yearMonth);
 
     // 查询该月的所有交易
     const { data, error } = await supabase

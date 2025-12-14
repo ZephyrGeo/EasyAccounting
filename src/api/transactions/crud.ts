@@ -2,8 +2,9 @@ import { Transaction } from "@/types/transaction";
 import { supabase } from "@/lib/supabase";
 import { getOrCreateMerchant } from "@/api/entities/merchants";
 import { getOrCreateCategory } from "@/api/entities/categories";
-import { getNextMonth } from "@/api/utils/date-helpers";
+import { getMonthDateRange, getYearDateRange } from "@/api/utils/date-helpers";
 import { TransactionFilters, DatabaseTransaction } from "./types";
+import { mapDatabaseTransactions } from "./mappers";
 
 /**
  * 获取交易数据（支持年份/月份过滤）
@@ -31,14 +32,12 @@ export async function getTransactions(
       if (filters.month) {
         // 年份 + 月份过滤：例如 2025-12
         // 范围: >= 2025-12-01 AND < 2026-01-01
-        const startDate = `${fullYear}-${filters.month}-01`;
-        const endDate = getNextMonth(fullYear, filters.month);
+        const { startDate, endDate } = getMonthDateRange(`${fullYear}-${filters.month}`);
         query = query.gte('date', startDate).lt('date', endDate);
       } else {
         // 仅年份过滤：例如 2025
         // 范围: >= 2025-01-01 AND < 2026-01-01
-        const startDate = `${fullYear}-01-01`;
-        const endDate = `${parseInt(fullYear) + 1}-01-01`;
+        const { startDate, endDate } = getYearDateRange(fullYear);
         query = query.gte('date', startDate).lt('date', endDate);
       }
     }
@@ -51,22 +50,7 @@ export async function getTransactions(
     }
 
     // 转换数据格式以匹配前端 Transaction 类型
-    const transactions: Transaction[] = (data as DatabaseTransaction[] || []).map((item) => ({
-      id: item.id,
-      amount: item.amount,
-      category: item.category?.name || 'Unknown',
-      merchant: item.merchant?.name || 'Unknown',
-      date: item.date,
-      time: item.time,
-      labels: item.labels || [],
-      notes: item.notes || '',
-      // 审计字段
-      updated_at: item.updated_at,
-      is_modified: item.is_modified || false,
-      version: item.version || 1,
-    }));
-
-    return transactions;
+    return mapDatabaseTransactions((data as DatabaseTransaction[]) || []);
   } catch (error) {
     console.error("获取交易数据失败:", error);
     return [];
