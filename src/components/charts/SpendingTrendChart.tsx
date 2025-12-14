@@ -1,31 +1,14 @@
 import { AreaChart, Area, XAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
-
-interface WeeklyComparisonData {
-  dayOfWeek: string; // "Mon", "Tue", "Wed", etc.
-  week1: number;
-  week2: number;
-  week3: number;
-  week4: number;
-}
+import { useWeeklyComparison } from '@/hooks/useWeeklyComparison';
+import { WEEK_COLORS } from '@/constants/colors';
 
 interface SpendingTrendChartProps {
-  data: WeeklyComparisonData[];
-  loading?: boolean;
-  error?: string | null;
+  selectedMonth: string;
 }
 
-export default function SpendingTrendChart({
-  data,
-  loading = false,
-  error = null,
-}: SpendingTrendChartProps) {
-  // 定义4周的颜色
-  const weekColors = {
-    week1: '#3b82f6', // blue
-    week2: '#8b5cf6', // purple
-    week3: '#ec4899', // pink
-    week4: '#f59e0b', // amber
-  };
+export default function SpendingTrendChart({ selectedMonth }: SpendingTrendChartProps) {
+  // 在组件内部获取数据
+  const { data, loading, error } = useWeeklyComparison(selectedMonth);
 
   return (
     <div className="col-span-12 lg:col-span-8 bg-white p-6 rounded-3xl shadow-[0_2px_10px_-4px_rgba(0,0,0,0.05)] border border-slate-100">
@@ -52,20 +35,20 @@ export default function SpendingTrendChart({
             <AreaChart data={data} margin={{ left: 15, right: 15 }}>
               <defs>
                 <linearGradient id="fillWeek1" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor={weekColors.week1} stopOpacity={0.3} />
-                  <stop offset="95%" stopColor={weekColors.week1} stopOpacity={0.05} />
+                  <stop offset="5%" stopColor={WEEK_COLORS.week1} stopOpacity={0.3} />
+                  <stop offset="95%" stopColor={WEEK_COLORS.week1} stopOpacity={0.05} />
                 </linearGradient>
                 <linearGradient id="fillWeek2" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor={weekColors.week2} stopOpacity={0.3} />
-                  <stop offset="95%" stopColor={weekColors.week2} stopOpacity={0.05} />
+                  <stop offset="5%" stopColor={WEEK_COLORS.week2} stopOpacity={0.3} />
+                  <stop offset="95%" stopColor={WEEK_COLORS.week2} stopOpacity={0.05} />
                 </linearGradient>
                 <linearGradient id="fillWeek3" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor={weekColors.week3} stopOpacity={0.3} />
-                  <stop offset="95%" stopColor={weekColors.week3} stopOpacity={0.05} />
+                  <stop offset="5%" stopColor={WEEK_COLORS.week3} stopOpacity={0.3} />
+                  <stop offset="95%" stopColor={WEEK_COLORS.week3} stopOpacity={0.05} />
                 </linearGradient>
                 <linearGradient id="fillWeek4" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor={weekColors.week4} stopOpacity={0.3} />
-                  <stop offset="95%" stopColor={weekColors.week4} stopOpacity={0.05} />
+                  <stop offset="5%" stopColor={WEEK_COLORS.week4} stopOpacity={0.3} />
+                  <stop offset="95%" stopColor={WEEK_COLORS.week4} stopOpacity={0.05} />
                 </linearGradient>
               </defs>
               <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
@@ -112,7 +95,7 @@ export default function SpendingTrendChart({
                 type="monotone"
                 dataKey="week1"
                 name="Week 1"
-                stroke={weekColors.week1}
+                stroke={WEEK_COLORS.week1}
                 strokeWidth={2}
                 fill="url(#fillWeek1)"
               />
@@ -120,7 +103,7 @@ export default function SpendingTrendChart({
                 type="monotone"
                 dataKey="week2"
                 name="Week 2"
-                stroke={weekColors.week2}
+                stroke={WEEK_COLORS.week2}
                 strokeWidth={2}
                 fill="url(#fillWeek2)"
               />
@@ -128,7 +111,7 @@ export default function SpendingTrendChart({
                 type="monotone"
                 dataKey="week3"
                 name="Week 3"
-                stroke={weekColors.week3}
+                stroke={WEEK_COLORS.week3}
                 strokeWidth={2}
                 fill="url(#fillWeek3)"
               />
@@ -136,7 +119,7 @@ export default function SpendingTrendChart({
                 type="monotone"
                 dataKey="week4"
                 name="Week 4"
-                stroke={weekColors.week4}
+                stroke={WEEK_COLORS.week4}
                 strokeWidth={2}
                 fill="url(#fillWeek4)"
               />

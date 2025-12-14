@@ -33,3 +33,22 @@ export interface DatabaseTransaction {
     name: string;
   } | null;
 }
+
+/**
+ * 分类统计数据
+ */
+export interface CategoryStat {
+  category: string;
+  amount: number;
+}
+
+/**
+ * 分类统计查询的返回类型（从 Supabase 查询返回）
+ * 用于 category:categories(name) 这种嵌套查询
+ */
+export interface TransactionWithCategory {
+  amount: number;
+  category: {
+    name: string;
+  } | null;
+}

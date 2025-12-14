@@ -12,6 +12,8 @@ export {
 export { getAvailableMonths } from './metadata';
 export { getSelectedMonthlyTotal } from './monthlyTotals';
 export { getLatestMonthWeeklyComparison } from './weeklyComparison';
+export { getCategoryStats } from './categoryStats';
+
 
 // 类型定义
-export type { TransactionFilters } from './types';
+export type { TransactionFilters, CategoryStat, TransactionWithCategory } from './types';
