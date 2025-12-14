@@ -1,4 +1,5 @@
 import { supabase } from "@/lib/supabase";
+import { getMonthDateRange } from "@/api/utils/date-helpers";
 import type { CategoryStat, TransactionWithCategory } from "./types";
 
 /**
@@ -11,19 +12,8 @@ export async function getCategoryStats(
   selectedMonth: string
 ): Promise<CategoryStat[]> {
   try {
-    // 解析月份
-    const [year, month] = selectedMonth.split('-');
-
-    if (!year || !month) {
-      console.error('Invalid month format:', selectedMonth);
-      return [];
-    }
-
-    // 计算下个月的第一天作为结束日期
-    const startDate = `${year}-${month}-01`;
-    const nextMonth = month === '12' ? '01' : String(parseInt(month) + 1).padStart(2, '0');
-    const nextYear = month === '12' ? String(parseInt(year) + 1) : year;
-    const endDate = `${nextYear}-${nextMonth}-01`;
+    // 计算月份的日期范围
+    const { startDate, endDate } = getMonthDateRange(selectedMonth);
 
     // 查询该月份的所有交易，并按分类分组统计
     const { data, error } = await supabase

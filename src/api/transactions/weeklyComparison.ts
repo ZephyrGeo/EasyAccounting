@@ -1,5 +1,5 @@
 import { supabase } from "@/lib/supabase";
-import { parseYearMonth } from "@/constants/date";
+import { getMonthDateRange } from "@/api/utils/date-helpers";
 
 /**
  * 获取指定月份的周度对比数据
@@ -15,15 +15,10 @@ export async function getLatestMonthWeeklyComparison(yearMonth: string): Promise
   week4: number;
 }>> {
   try {
-    // 解析月份参数
-    const { year: selectedYear, month: selectedMonth } = parseYearMonth(yearMonth);
+    // 计算月份的日期范围
+    const { startDate, endDate } = getMonthDateRange(yearMonth);
 
-    // 计算月份的开始和结束日期
-    const startDate = `${selectedYear}-${selectedMonth}-01`;
-    const nextMonth = new Date(parseInt(selectedYear), parseInt(selectedMonth), 1);
-    const endDate = nextMonth.toISOString().split('T')[0];
-
-    console.log(`Fetching weekly comparison data for: ${selectedYear}-${selectedMonth}`);
+    console.log(`Fetching weekly comparison data for: ${yearMonth}`);
 
     // 从数据库获取该月的所有交易数据
     const { data, error } = await supabase
