@@ -4,7 +4,7 @@ import MetricCard from '../cards/MetricCard';
 import SpendingTrendChart from '../charts/SpendingTrendChart';
 import CategoryPieChart from '../charts/CategoryPieChart';
 import TransactionList from '../transactions/TransactionList';
-import ProgressBar from '../ui/ProgressBar';
+import SavingGoalCard from '../cards/SavingGoalCard';
 import { useAvailableMonths } from '@/hooks/useAvailableMonths';
 
 export default function Dashboard() {
@@ -69,15 +69,11 @@ export default function Dashboard() {
 
         {/* Right Column: Goals */}
         <div className="col-span-12 lg:col-span-4">
-          <div className="bg-white p-6 rounded-3xl shadow-[0_2px_10px_-4px_rgba(0,0,0,0.05)] border border-slate-100">
-            <h3 className="font-bold text-slate-800 mb-2">Saving Goal</h3>
-            <p className="text-xs text-slate-400 mb-4">Trip to Hokkaido</p>
-            <ProgressBar value={45000} max={100000} color="green" size="md" className="mb-2" />
-            <div className="flex justify-between text-xs font-semibold">
-              <span>¥45,000</span>
-              <span className="text-slate-400">Target: ¥100k</span>
-            </div>
-          </div>
+          <SavingGoalCard
+            goalName="Trip to Hokkaido"
+            current={45000}
+            target={100000}
+          />
         </div>
       </div>
     </DashboardLayout>
