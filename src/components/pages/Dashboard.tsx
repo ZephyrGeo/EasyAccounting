@@ -6,15 +6,7 @@ import SpendingTrendChart from '../charts/SpendingTrendChart';
 import CategoryPieChart from '../charts/CategoryPieChart';
 import TransactionList from '../transactions/TransactionList';
 import ProgressBar from '../ui/ProgressBar';
-import { useWeeklyComparison } from '@/hooks/useWeeklyComparison';
 import { useAvailableMonths } from '@/hooks/useAvailableMonths';
-
-const categoryData = [
-  { name: 'Shopping', value: 4500, color: '#6366f1' },
-  { name: 'Food', value: 3200, color: '#ec4899' },
-  { name: 'Transport', value: 2100, color: '#3b82f6' },
-  { name: 'Others', value: 1100, color: '#94a3b8' },
-];
 
 const transactions = [
   {
@@ -65,10 +57,6 @@ export default function Dashboard() {
     }
   }, [availableMonths, monthsLoading, selectedMonth]);
 
-  // Fetch weekly comparison data from database for selected month
-  // 只有当 selectedMonth 有值时才调用 Hook
-  const { data: weeklyComparisonData, loading: trendLoading, error: trendError } = useWeeklyComparison(selectedMonth || '');
-
   // 如果月份还在加载中，显示加载状态
   if (monthsLoading || !selectedMonth) {
     return (
@@ -106,12 +94,8 @@ export default function Dashboard() {
         </div>
 
         {/* Row 2: Charts */}
-        <SpendingTrendChart
-          data={weeklyComparisonData}
-          loading={trendLoading}
-          error={trendError}
-        />
-        <CategoryPieChart data={categoryData} />
+        <SpendingTrendChart selectedMonth={selectedMonth} />
+        <CategoryPieChart selectedMonth={selectedMonth} />
 
         {/* Row 3: Transactions and Insights */}
         <TransactionList transactions={transactions} onSeeAll={() => console.log('See all')} />
