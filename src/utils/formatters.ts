@@ -51,3 +51,17 @@ export function getRelativeTime(dateString: string): string {
   if (diffInDays < 30) return `${Math.floor(diffInDays / 7)} weeks ago`;
   return `${Math.floor(diffInDays / 30)} months ago`;
 }
+
+/**
+ * Format currency in compact form (e.g., 100000 → "¥100k")
+ * Useful for displaying large amounts in limited space
+ */
+export function formatCompactCurrency(amount: number, currency: string = '¥'): string {
+  if (amount >= 1000000) {
+    return `${currency}${(amount / 1000000).toFixed(1)}M`;
+  }
+  if (amount >= 1000) {
+    return `${currency}${(amount / 1000).toFixed(0)}k`;
+  }
+  return formatCurrency(amount, currency);
+}
