@@ -1,4 +1,5 @@
 import { supabase } from "@/lib/supabase";
+import { parseYearMonth } from "@/constants/date";
 
 /**
  * 获取指定月份的总支出
@@ -13,7 +14,7 @@ export async function getSelectedMonthlyTotal(yearMonth: string): Promise<number
       return 0;
     }
 
-    const [year, month] = yearMonth.split('-');
+    const { year, month } = parseYearMonth(yearMonth);
 
     // 计算月份的开始和结束日期
     const startDate = `${year}-${month}-01`;

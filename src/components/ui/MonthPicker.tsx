@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Calendar, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
-import { MONTH_LABELS, ALL_MONTHS } from '@/constants/date';
+import { MONTH_LABELS, ALL_MONTHS, parseYearMonth } from '@/constants/date';
 
 interface MonthPickerProps {
   value: string; // 格式: "2024-11"
@@ -14,12 +14,12 @@ export default function MonthPicker({ value, onChange, availableMonths, classNam
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   // 解析当前日期
-  const [currentYear, currentMonth] = value.split('-');
+  const { year: currentYear, month: currentMonth } = parseYearMonth(value);
 
   // 从可用月份中提取年份和月份映射
   const yearMonthMap: Record<string, string[]> = {};
   availableMonths.forEach(yearMonth => {
-    const [year, month] = yearMonth.split('-');
+    const { year, month } = parseYearMonth(yearMonth);
     if (!yearMonthMap[year]) {
       yearMonthMap[year] = [];
     }

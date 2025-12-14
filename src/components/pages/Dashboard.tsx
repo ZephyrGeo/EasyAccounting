@@ -55,8 +55,8 @@ export default function Dashboard() {
   // Fetch available months from database
   const { months: availableMonths, loading: monthsLoading } = useAvailableMonths();
 
-  // 使用数据库中最新的月份作为初始值
-  const [selectedMonth, setSelectedMonth] = useState<string>('');
+  // 使用数据库中最新的月份作为初始值，初始为 null
+  const [selectedMonth, setSelectedMonth] = useState<string | null>(null);
 
   // 当月份数据加载完成后，设置为最新月份
   useEffect(() => {
@@ -65,8 +65,26 @@ export default function Dashboard() {
     }
   }, [availableMonths, monthsLoading, selectedMonth]);
 
-  // Fetch weekly comparison data from database
-  const { data: weeklyComparisonData, loading: trendLoading, error: trendError } = useWeeklyComparison();
+  // Fetch weekly comparison data from database for selected month
+  // 只有当 selectedMonth 有值时才调用 Hook
+  const { data: weeklyComparisonData, loading: trendLoading, error: trendError } = useWeeklyComparison(selectedMonth || '');
+
+  // 如果月份还在加载中，显示加载状态
+  if (monthsLoading || !selectedMonth) {
+    return (
+      <DashboardLayout
+        title="Dashboard"
+        description="Welcome back, here's your financial overview."
+        onAddBill={() => console.log('Add bill clicked')}
+      >
+        <div className="grid grid-cols-12 gap-6">
+          <div className="col-span-12 text-center py-12 text-slate-400">
+            Loading...
+          </div>
+        </div>
+      </DashboardLayout>
+    );
+  }
 
   return (
     <DashboardLayout

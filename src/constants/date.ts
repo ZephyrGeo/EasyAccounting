@@ -42,11 +42,21 @@ export function getCurrentMonth(): string {
 }
 
 /**
+ * 解析年月字符串
+ * @param yearMonth - 格式: "2024-11"
+ * @returns { year: "2024", month: "11" }
+ */
+export function parseYearMonth(yearMonth: string): { year: string; month: string } {
+  const [year, month] = yearMonth.split('-');
+  return { year, month };
+}
+
+/**
  * 格式化月份显示
  * @param yearMonth - 格式: "2024-11"
  * @returns 格式: "Nov"
  */
 export function formatMonthDisplay(yearMonth: string): string {
-  const [, month] = yearMonth.split('-');
+  const { month } = parseYearMonth(yearMonth);
   return MONTH_LABELS[month] || '';
 }
