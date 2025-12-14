@@ -1,5 +1,5 @@
 import ProgressBar from '@/components/ui/ProgressBar';
-import { formatCurrency } from '@/utils/formatters';
+import { formatCurrency, formatCompactCurrency } from '@/utils/formatters';
 
 interface SavingGoalCardProps {
   title?: string;
@@ -18,16 +18,6 @@ export default function SavingGoalCard({
   color = 'green',
   size = 'md',
 }: SavingGoalCardProps) {
-  // 格式化金额显示（如 100000 → "100k"）
-  const formatCompact = (amount: number): string => {
-    if (amount >= 1000000) {
-      return `¥${(amount / 1000000).toFixed(1)}M`;
-    }
-    if (amount >= 1000) {
-      return `¥${(amount / 1000).toFixed(0)}k`;
-    }
-    return formatCurrency(amount);
-  };
 
   return (
     <div className="bg-white p-6 rounded-3xl shadow-[0_2px_10px_-4px_rgba(0,0,0,0.05)] border border-slate-100">
@@ -49,7 +39,7 @@ export default function SavingGoalCard({
       {/* 金额显示 */}
       <div className="flex justify-between text-xs font-semibold">
         <span>{formatCurrency(current)}</span>
-        <span className="text-slate-400">Target: {formatCompact(target)}</span>
+        <span className="text-slate-400">Target: {formatCompactCurrency(target)}</span>
       </div>
     </div>
   );

@@ -1,19 +1,32 @@
 import React from 'react';
-import { Search, Bell, Plus } from 'lucide-react';
+import { Search, Bell, Plus, Menu } from 'lucide-react';
 import Button from '../ui/Button';
 
 interface HeaderProps {
-  title: string;
+  title?: string;
   description?: string;
   onAddBill?: () => void;
+  onMobileMenuToggle?: () => void;
 }
 
-export default function Header({ title, description, onAddBill }: HeaderProps) {
+export default function Header({ title, description, onAddBill, onMobileMenuToggle }: HeaderProps) {
   return (
-    <header className="flex justify-between items-center mb-8">
-      <div>
-        <h1 className="text-2xl font-bold text-slate-900">{title}</h1>
-        {description && <p className="text-slate-500 text-sm">{description}</p>}
+    <div className="flex items-start justify-between mb-8">
+      <div className="flex items-center gap-4">
+        {/* Mobile Menu Button */}
+        {onMobileMenuToggle && (
+          <button
+            onClick={onMobileMenuToggle}
+            className="p-2 rounded-full hover:bg-slate-100 transition md:hidden -ml-2"
+            aria-label="Toggle menu"
+          >
+            <Menu className="w-6 h-6 text-slate-700" />
+          </button>
+        )}
+        <div>
+          {title && <h1 className="text-2xl font-bold text-slate-900">{title}</h1>}
+          {description && <p className={`text-slate-500 ${title ? "text-sm mt-1" : "text-base"}`}>{description}</p>}
+        </div>
       </div>
 
       <div className="flex items-center gap-4">
@@ -33,6 +46,6 @@ export default function Header({ title, description, onAddBill }: HeaderProps) {
           Add Bill
         </Button>
       </div>
-    </header>
+    </div>
   );
 }
