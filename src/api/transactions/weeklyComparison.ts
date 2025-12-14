@@ -1,12 +1,13 @@
 import { supabase } from "@/lib/supabase";
-import { parseDateString } from "@/api/utils/dateParser";
+import { parseYearMonth } from "@/constants/date";
 
 /**
- * 获取数据库中最新月份的周度对比数据
+ * 获取指定月份的周度对比数据
  * 将该月的数据按星期几和周数（1-4周）分组汇总
+ * @param yearMonth 月份字符串，格式为 "YYYY-MM"
  * @returns 周度对比数据数组，每个元素包含星期几和4周的数据
  */
-export async function getLatestMonthWeeklyComparison(): Promise<Array<{
+export async function getLatestMonthWeeklyComparison(yearMonth: string): Promise<Array<{
   dayOfWeek: string; // "Mon", "Tue", "Wed", etc.
   week1: number;
   week2: number;
@@ -14,28 +15,15 @@ export async function getLatestMonthWeeklyComparison(): Promise<Array<{
   week4: number;
 }>> {
   try {
-    // 先获取最新的交易日期
-    const { data: latestTransaction, error: latestError } = await supabase
-      .from('transactions')
-      .select('date')
-      .order('date', { ascending: false })
-      .limit(1)
-      .single();
-
-    if (latestError || !latestTransaction) {
-      console.log("No transactions found in database");
-      return [];
-    }
-
-    // 从最新日期提取年月
-    const { year: targetYear, month: targetMonth } = parseDateString(latestTransaction.date);
+    // 解析月份参数
+    const { year: selectedYear, month: selectedMonth } = parseYearMonth(yearMonth);
 
     // 计算月份的开始和结束日期
-    const startDate = `${targetYear}-${targetMonth}-01`;
-    const nextMonth = new Date(parseInt(targetYear), parseInt(targetMonth), 1);
+    const startDate = `${selectedYear}-${selectedMonth}-01`;
+    const nextMonth = new Date(parseInt(selectedYear), parseInt(selectedMonth), 1);
     const endDate = nextMonth.toISOString().split('T')[0];
 
-    console.log(`Fetching weekly comparison data for: ${targetYear}-${targetMonth}`);
+    console.log(`Fetching weekly comparison data for: ${selectedYear}-${selectedMonth}`);
 
     // 从数据库获取该月的所有交易数据
     const { data, error } = await supabase
