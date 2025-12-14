@@ -2,11 +2,10 @@ export interface Transaction {
   id: string;
   amount: number;
   category: string;
-  subCategory: string;
   merchant: string;
   date: string;
   time: string;
-  tags?: string[];
+  labels?: string[];
   notes?: string;
   // 审计字段
   updated_at?: string;

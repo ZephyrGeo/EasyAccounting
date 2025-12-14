@@ -416,7 +416,7 @@ CRITICAL: You MUST process ALL rows and return COMPLETE JSON. No truncation allo
 Parse this CSV into JSON. Return ONLY valid JSON with "transactions" array.
 
 Format for each transaction:
-{"id":"T1","date":"2025-04-20","time":"00:00","merchant":"原始商户名","amount":610,"category":"Food & Drink","subCategory":"Restaurant"}
+{"id":"T1","date":"2025-04-20","time":"00:00","merchant":"原始商户名","amount":610,"category":"Food & Drink","labels":["Restaurant","Lunch"]}
 
 STRICT Rules:
 - Process EVERY single row, no exceptions
@@ -469,7 +469,7 @@ CRITICAL: Process ALL rows in this CSV chunk. Return COMPLETE JSON.
 
 Parse this CSV chunk into JSON. Return ONLY valid JSON with "transactions" array.
 
-Format: {"id":"T${i}_1","date":"2025-04-20","time":"00:00","merchant":"原始商户名","amount":610,"category":"Food & Drink","subCategory":"Restaurant"}
+Format: {"id":"T${i}_1","date":"2025-04-20","time":"00:00","merchant":"原始商户名","amount":610,"category":"Food & Drink","labels":["Restaurant","Lunch"]}
 
 Rules:
 - Process EVERY row in this chunk
@@ -574,7 +574,7 @@ Format:
       "id": "unique_transaction_id",
       "amount": number,
       "category": "string",
-      "subCategory": "string",
+      "labels": ["string"],
       "merchant": "string",
       "date": "YYYY-MM-DD",
       "time": "HH:MM"
