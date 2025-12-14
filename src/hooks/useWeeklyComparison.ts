@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getLatestMonthWeeklyComparison } from '@/api/transactions';
+import { getLatestMonthWeeklyComparison } from '@/api/transactions/aggregations';
 
 interface WeeklyComparisonData {
   dayOfWeek: string; // "Mon", "Tue", "Wed", etc.
