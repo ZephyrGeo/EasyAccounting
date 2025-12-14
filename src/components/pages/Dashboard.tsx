@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import { ShoppingBag, Coffee, Car, Zap } from 'lucide-react';
 import DashboardLayout from '../layout/DashboardLayout';
 import MetricCard from '../cards/MetricCard';
@@ -7,6 +7,7 @@ import CategoryPieChart from '../charts/CategoryPieChart';
 import TransactionList from '../transactions/TransactionList';
 import ProgressBar from '../ui/ProgressBar';
 import { useWeeklyComparison } from '@/hooks/useWeeklyComparison';
+import { useAvailableMonths } from '@/hooks/useAvailableMonths';
 
 const categoryData = [
   { name: 'Shopping', value: 4500, color: '#6366f1' },
@@ -51,6 +52,19 @@ const transactions = [
 ];
 
 export default function Dashboard() {
+  // Fetch available months from database
+  const { months: availableMonths, loading: monthsLoading } = useAvailableMonths();
+
+  // 使用数据库中最新的月份作为初始值
+  const [selectedMonth, setSelectedMonth] = useState<string>('');
+
+  // 当月份数据加载完成后，设置为最新月份
+  useEffect(() => {
+    if (!monthsLoading && availableMonths.length > 0 && !selectedMonth) {
+      setSelectedMonth(availableMonths[0]);
+    }
+  }, [availableMonths, monthsLoading, selectedMonth]);
+
   // Fetch weekly comparison data from database
   const { data: weeklyComparisonData, loading: trendLoading, error: trendError } = useWeeklyComparison();
 
@@ -64,11 +78,12 @@ export default function Dashboard() {
         {/* Row 1: Key Metrics */}
         <div className="col-span-12">
           <MetricCard
-            title="Total Expense (Nov)"
-            value="¥145,156"
             trend="-0.8%"
             trendGood={true}
             subtext="vs last month"
+            selectedMonth={selectedMonth}
+            onMonthChange={setSelectedMonth}
+            availableMonths={availableMonths}
           />
         </div>
 

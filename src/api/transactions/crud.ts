@@ -3,7 +3,7 @@ import { supabase } from "@/lib/supabase";
 import { getOrCreateMerchant } from "@/api/entities/merchants";
 import { getOrCreateCategory } from "@/api/entities/categories";
 import { getNextMonth } from "@/api/utils/date-helpers";
-import { TransactionFilters } from "./types";
+import { TransactionFilters, DatabaseTransaction } from "./types";
 
 /**
  * 获取交易数据（支持年份/月份过滤）
@@ -51,15 +51,14 @@ export async function getTransactions(
     }
 
     // 转换数据格式以匹配前端 Transaction 类型
-    const transactions: Transaction[] = (data || []).map((item: any) => ({
+    const transactions: Transaction[] = (data as DatabaseTransaction[] || []).map((item) => ({
       id: item.id,
       amount: item.amount,
       category: item.category?.name || 'Unknown',
-      subCategory: item.labels?.[0] || '',
       merchant: item.merchant?.name || 'Unknown',
       date: item.date,
       time: item.time,
-      tags: item.labels || [],
+      labels: item.labels || [],
       notes: item.notes || '',
       // 审计字段
       updated_at: item.updated_at,
@@ -96,7 +95,7 @@ export async function addTransaction(
         category_id: categoryId,
         date: newTransaction.date,
         time: newTransaction.time,
-        labels: newTransaction.tags || [],
+        labels: newTransaction.labels || [],
         notes: newTransaction.notes,
         is_modified: false,
         version: 1,
@@ -146,7 +145,7 @@ export async function updateTransaction(
         category_id: categoryId,
         date: updatedTransaction.date,
         time: updatedTransaction.time,
-        labels: updatedTransaction.tags || [],
+        labels: updatedTransaction.labels || [],
         notes: updatedTransaction.notes,
         is_modified: true,
         version: currentVersion + 1,
@@ -209,7 +208,7 @@ export async function addTransactions(
         category_id: categoryId,
         date: transaction.date,
         time: transaction.time,
-        labels: transaction.tags || [],
+        labels: transaction.labels || [],
         notes: transaction.notes,
         is_modified: false,
         version: 1,
