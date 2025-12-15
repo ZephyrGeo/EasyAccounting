@@ -32,4 +32,5 @@ export const WEEK_COLORS = {
   week2: '#8b5cf6', // purple
   week3: '#ec4899', // pink
   week4: '#f59e0b', // amber
+  week5: '#10b981', // green
 } as const;

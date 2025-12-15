@@ -8,13 +8,13 @@ interface SpendingTrendChartProps {
 
 export default function SpendingTrendChart({ selectedMonth }: SpendingTrendChartProps) {
   // 在组件内部获取数据
-  const { data, loading, error } = useWeeklyComparison(selectedMonth);
+  const { data, weekCount, loading, error } = useWeeklyComparison(selectedMonth);
 
   return (
     <div className="col-span-12 lg:col-span-8 bg-white p-6 rounded-3xl shadow-[0_2px_10px_-4px_rgba(0,0,0,0.05)] border border-slate-100">
       <div className="border-b border-slate-100 pb-4 mb-6">
         <h3 className="font-bold text-lg text-slate-800">Weekly Spending Comparison</h3>
-        <p className="text-sm text-slate-500 mt-1">Compare spending patterns across 4 weeks</p>
+        <p className="text-sm text-slate-500 mt-1">Compare spending patterns across {weekCount} weeks</p>
       </div>
 
       {loading ? (
@@ -49,6 +49,10 @@ export default function SpendingTrendChart({ selectedMonth }: SpendingTrendChart
                 <linearGradient id="fillWeek4" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="5%" stopColor={WEEK_COLORS.week4} stopOpacity={0.3} />
                   <stop offset="95%" stopColor={WEEK_COLORS.week4} stopOpacity={0.05} />
+                </linearGradient>
+                <linearGradient id="fillWeek5" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor={WEEK_COLORS.week5} stopOpacity={0.3} />
+                  <stop offset="95%" stopColor={WEEK_COLORS.week5} stopOpacity={0.05} />
                 </linearGradient>
               </defs>
               <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
@@ -123,6 +127,16 @@ export default function SpendingTrendChart({ selectedMonth }: SpendingTrendChart
                 strokeWidth={2}
                 fill="url(#fillWeek4)"
               />
+              {weekCount === 5 && (
+                <Area
+                  type="monotone"
+                  dataKey="week5"
+                  name="Week 5"
+                  stroke={WEEK_COLORS.week5}
+                  strokeWidth={2}
+                  fill="url(#fillWeek5)"
+                />
+              )}
             </AreaChart>
           </ResponsiveContainer>
         </div>
