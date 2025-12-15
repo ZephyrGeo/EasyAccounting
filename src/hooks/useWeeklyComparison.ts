@@ -7,10 +7,12 @@ interface WeeklyComparisonData {
   week2: number;
   week3: number;
   week4: number;
+  week5: number;
 }
 
 interface UseWeeklyComparisonReturn {
   data: WeeklyComparisonData[];
+  weekCount: number;
   loading: boolean;
   error: string | null;
   refetch: () => void;
@@ -18,11 +20,12 @@ interface UseWeeklyComparisonReturn {
 
 /**
  * Hook to fetch weekly comparison data for a specific month from database
- * Compares spending across 4 weeks, grouped by day of week
+ * Compares spending across 4-5 weeks (depending on month length), grouped by day of week
  * @param selectedMonth 选中的月份，格式为 "YYYY-MM"
  */
 export function useWeeklyComparison(selectedMonth: string): UseWeeklyComparisonReturn {
   const [data, setData] = useState<WeeklyComparisonData[]>([]);
+  const [weekCount, setWeekCount] = useState<number>(4);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -32,7 +35,8 @@ export function useWeeklyComparison(selectedMonth: string): UseWeeklyComparisonR
       setError(null);
       const result = await getLatestMonthWeeklyComparison(selectedMonth);
       console.log('Hook received weekly comparison data:', result);
-      setData(result);
+      setData(result.data);
+      setWeekCount(result.weekCount);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to fetch weekly comparison data');
       console.error('Error fetching weekly comparison:', err);
@@ -55,6 +59,7 @@ export function useWeeklyComparison(selectedMonth: string): UseWeeklyComparisonR
 
   return {
     data,
+    weekCount,
     loading,
     error,
     refetch: fetchData,
