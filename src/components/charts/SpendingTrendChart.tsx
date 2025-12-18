@@ -11,23 +11,26 @@ export default function SpendingTrendChart({ selectedMonth }: SpendingTrendChart
   const { data, weekCount, loading, error } = useWeeklyComparison(selectedMonth);
 
   return (
-    <div className="col-span-12 lg:col-span-8 bg-white p-6 rounded-3xl shadow-[0_2px_10px_-4px_rgba(0,0,0,0.05)] border border-slate-100">
-      <div className="border-b border-slate-100 pb-4 mb-6">
-        <h3 className="font-bold text-lg text-slate-800">Weekly Spending Comparison</h3>
-        <p className="text-sm text-slate-500 mt-1">Compare spending patterns across {weekCount} weeks</p>
+    <div className="group relative col-span-12 lg:col-span-8 bg-white dark:bg-gradient-to-br dark:from-slate-800 dark:to-slate-800/80 p-6 rounded-3xl shadow-[0_2px_10px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.4)] border border-slate-100 dark:border-slate-700/50 hover:-translate-y-1 transition-all duration-300 dark:ring-1 dark:ring-white/5">
+      {/* Hover glow effect */}
+      <div className="absolute inset-0 rounded-3xl opacity-0 dark:group-hover:opacity-100 transition-opacity duration-300 dark:bg-gradient-to-br dark:from-indigo-500/10 dark:via-transparent dark:to-violet-500/10 pointer-events-none" />
+
+      <div className="border-b border-slate-100 dark:border-slate-700/50 pb-4 mb-6 relative z-10">
+        <h3 className="font-bold text-lg text-slate-800 dark:text-slate-200">Weekly Spending Comparison</h3>
+        <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Compare spending patterns across {weekCount} weeks</p>
       </div>
 
       {loading ? (
         <div className="flex items-center justify-center" style={{ height: 300 }}>
-          <div className="text-slate-400 text-sm">Loading...</div>
+          <div className="text-slate-400 dark:text-slate-500 text-sm">Loading...</div>
         </div>
       ) : error ? (
         <div className="flex items-center justify-center" style={{ height: 300 }}>
-          <div className="text-red-500 text-sm">{error}</div>
+          <div className="text-red-500 dark:text-red-400 text-sm">{error}</div>
         </div>
       ) : data.length === 0 ? (
         <div className="flex items-center justify-center" style={{ height: 300 }}>
-          <div className="text-slate-400 text-sm">No data available</div>
+          <div className="text-slate-400 dark:text-slate-500 text-sm">No data available</div>
         </div>
       ) : (
         <div style={{ width: '100%', height: 300 }}>
@@ -69,8 +72,8 @@ export default function SpendingTrendChart({ selectedMonth }: SpendingTrendChart
                 content={({ active, payload }) => {
                   if (active && payload && payload.length) {
                     return (
-                      <div className="bg-white p-3 rounded-xl shadow-lg border border-slate-200">
-                        <p className="text-xs text-slate-500 mb-2 font-semibold">
+                      <div className="bg-white dark:bg-slate-800 p-3 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700">
+                        <p className="text-xs text-slate-500 dark:text-slate-400 mb-2 font-semibold">
                           {payload[0].payload.dayOfWeek}
                         </p>
                         {payload.map((entry, index) => (
@@ -78,7 +81,7 @@ export default function SpendingTrendChart({ selectedMonth }: SpendingTrendChart
                             <span className="text-xs" style={{ color: entry.color }}>
                               {entry.name}:
                             </span>
-                            <span className="text-sm font-bold text-slate-900">
+                            <span className="text-sm font-bold text-slate-900 dark:text-slate-200">
                               ¥{Math.abs(entry.value as number).toLocaleString()}
                             </span>
                           </div>
