@@ -21,9 +21,9 @@ export default function Button({
   const baseStyles = 'inline-flex items-center justify-center font-medium transition rounded-full';
 
   const variantStyles = {
-    primary: 'bg-blue-600 text-white shadow-lg shadow-blue-200 hover:bg-blue-700',
-    secondary: 'bg-white text-slate-900 border border-slate-200 shadow-sm hover:shadow-md',
-    ghost: 'bg-transparent text-slate-600 hover:bg-slate-50',
+    primary: 'bg-blue-600 dark:bg-blue-500 text-white shadow-lg shadow-blue-200 dark:shadow-blue-900/50 hover:bg-blue-700 dark:hover:bg-blue-600',
+    secondary: 'bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-200 border border-slate-200 dark:border-slate-600 shadow-sm hover:shadow-md',
+    ghost: 'bg-transparent text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800',
   };
 
   const sizeStyles = {

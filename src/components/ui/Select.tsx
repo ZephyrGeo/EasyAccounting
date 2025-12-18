@@ -19,7 +19,7 @@ export default function Select({
     <select
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className={`text-sm border-none bg-slate-50 rounded-lg px-3 py-1 text-slate-600 focus:ring-0 focus:outline-none cursor-pointer ${className}`}
+      className={`text-sm border-none bg-slate-50 dark:bg-slate-700 rounded-lg px-3 py-1 text-slate-600 dark:text-slate-300 focus:ring-0 focus:outline-none cursor-pointer ${className}`}
     >
       {placeholder && (
         <option value="" disabled>

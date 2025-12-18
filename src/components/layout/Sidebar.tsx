@@ -29,8 +29,8 @@ function NavItem({
       onClick={onClick}
       className={`flex items-center rounded-xl cursor-pointer transition-all duration-300 ${
         active
-          ? "bg-blue-50 text-blue-600"
-          : "text-slate-500 hover:bg-slate-50 hover:text-slate-900"
+          ? "bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400"
+          : "text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-slate-200"
       } ${
         collapsed
           ? active
@@ -74,7 +74,7 @@ export default function Sidebar({
       {/* Mobile Overlay */}
       {mobileOpen && (
         <div
-          className="fixed inset-0 bg-black/50 z-40 md:hidden"
+          className="fixed inset-0 bg-black/50 dark:bg-black/70 z-40 md:hidden"
           onClick={onMobileClose}
         />
       )}
@@ -82,7 +82,7 @@ export default function Sidebar({
       {/* Sidebar */}
       <aside
         data-collapsible={collapsed ? "icon" : "none"}
-        className={`group/sidebar bg-white border-r border-slate-100 flex flex-col p-6 transition-all duration-300 ease-in-out ${
+        className={`group/sidebar bg-white dark:bg-gradient-to-b dark:from-slate-800 dark:to-slate-900 border-r border-slate-100 dark:border-slate-700/50 flex flex-col p-6 transition-all duration-300 ease-in-out dark:shadow-[2px_0_10px_rgba(0,0,0,0.3)] ${
           collapsed ? "w-20" : "w-64"
         } ${
           // Desktop: always visible
@@ -100,7 +100,7 @@ export default function Sidebar({
           }`}
         >
           <span
-            className={`text-xl font-bold tracking-tight transition-all duration-300 ${
+            className={`text-xl font-bold tracking-tight text-slate-900 dark:text-white transition-all duration-300 ${
               collapsed ? "opacity-0 w-0 overflow-hidden" : "opacity-100"
             }`}
           >
@@ -111,7 +111,7 @@ export default function Sidebar({
             {onMobileClose && (
               <button
                 onClick={onMobileClose}
-                className="p-2 hover:bg-slate-100 rounded-lg transition text-slate-600 md:hidden"
+                className="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition text-slate-600 dark:text-slate-400 md:hidden"
                 title="Close menu"
               >
                 <X className="w-5 h-5" />
@@ -121,7 +121,7 @@ export default function Sidebar({
             {onToggle && (
               <button
                 onClick={onToggle}
-                className="p-2 hover:bg-slate-100 rounded-lg transition text-slate-600 shrink-0 hidden md:block"
+                className="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition text-slate-600 dark:text-slate-400 shrink-0 hidden md:block"
                 title="Toggle sidebar"
               >
                 <PanelLeft className="w-5 h-5" />
