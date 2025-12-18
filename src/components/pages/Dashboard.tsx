@@ -46,7 +46,7 @@ export default function Dashboard() {
     >
       <div className="grid grid-cols-12 gap-6">
         {/* Row 1: Key Metrics */}
-        <div className="col-span-12">
+        <div className="col-span-12 relative z-20">
           <MetricCard
             trend="-0.8%"
             trendGood={true}
