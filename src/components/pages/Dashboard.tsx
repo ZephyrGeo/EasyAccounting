@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import DashboardLayout from '../layout/DashboardLayout';
 import MetricCard from '../cards/MetricCard';
 import SpendingTrendChart from '../charts/SpendingTrendChart';
@@ -8,6 +9,9 @@ import SavingGoalCard from '../cards/SavingGoalCard';
 import { useAvailableMonths } from '@/hooks/useAvailableMonths';
 
 export default function Dashboard() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const activeRoute = location.pathname === '/' ? 'dashboard' : location.pathname.slice(1);
   // Fetch available months from database
   const { months: availableMonths, loading: monthsLoading } = useAvailableMonths();
 
@@ -28,6 +32,8 @@ export default function Dashboard() {
         title="Dashboard"
         description="Welcome back, here's your financial overview."
         onAddBill={() => console.log('Add bill clicked')}
+        activeRoute={activeRoute}
+        onNavigate={(route) => navigate(route === 'dashboard' ? '/' : `/${route}`)}
       >
         <div className="grid grid-cols-12 gap-6">
           <div className="col-span-12 text-center py-12 text-slate-400">
@@ -43,6 +49,8 @@ export default function Dashboard() {
       title="Dashboard"
       description="Welcome back, here's your financial overview."
       onAddBill={() => console.log('Add bill clicked')}
+      activeRoute={activeRoute}
+      onNavigate={(route) => navigate(route === 'dashboard' ? '/' : `/${route}`)}
     >
       <div className="grid grid-cols-12 gap-6">
         {/* Row 1: Key Metrics */}

@@ -1,25 +1,39 @@
 import TransactionItem from './TransactionItem';
 import { useRecentTransactions } from '@/hooks/useRecentTransactions';
+import { Transaction } from '@/types/transaction';
 
 interface TransactionListProps {
-  selectedMonth: string;
+  selectedMonth?: string;
   limit?: number;
   onSeeAll?: () => void;
+  // 新增：支持直接传入交易数据
+  transactions?: Transaction[];
+  loading?: boolean;
+  error?: string | null;
 }
 
 export default function TransactionList({
   selectedMonth,
   limit,
-  onSeeAll
+  onSeeAll,
+  transactions: externalTransactions,
+  loading: externalLoading,
+  error: externalError
 }: TransactionListProps) {
+  // 如果传入了 transactions，使用外部数据；否则使用内部 hook 获取
   const {
-    data: transactions,
-    loading,
-    error
+    data: internalTransactions,
+    loading: internalLoading,
+    error: internalError
   } = useRecentTransactions({
     limit,
     selectedMonth
   });
+
+  // 优先使用外部传入的数据和状态
+  const transactions = externalTransactions ?? internalTransactions;
+  const loading = externalLoading ?? internalLoading;
+  const error = externalError ?? internalError;
   return (
     <div className="group relative col-span-12 lg:col-span-8 bg-white dark:bg-gradient-to-br dark:from-slate-800 dark:to-slate-800/80 p-6 rounded-3xl shadow-[0_2px_10px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.4)] border border-slate-100 dark:border-slate-700/50 hover:-translate-y-1 transition-all duration-300 dark:ring-1 dark:ring-white/5">
       {/* Hover glow effect */}
