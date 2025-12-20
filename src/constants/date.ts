@@ -60,3 +60,15 @@ export function formatMonthDisplay(yearMonth: string): string {
   const { month } = parseYearMonth(yearMonth);
   return MONTH_LABELS[month] || '';
 }
+
+/**
+ * 获取指定年月的天数
+ * @param yearMonth - 格式: "2024-11"
+ * @returns 该月的天数 (28-31)
+ */
+export function getDaysInMonth(yearMonth: string): number {
+  const { year, month } = parseYearMonth(yearMonth);
+  const yearNum = parseInt(year);
+  const monthNum = parseInt(month);
+  return new Date(yearNum, monthNum, 0).getDate();
+}
