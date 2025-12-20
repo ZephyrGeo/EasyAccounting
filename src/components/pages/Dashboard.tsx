@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import DashboardLayout from '../layout/DashboardLayout';
 import MetricCard from '../cards/MetricCard';
@@ -6,24 +5,20 @@ import SpendingTrendChart from '../charts/SpendingTrendChart';
 import CategoryPieChart from '../charts/CategoryPieChart';
 import TransactionList from '../transactions/TransactionList';
 import SavingGoalCard from '../cards/SavingGoalCard';
-import { useAvailableMonths } from '@/hooks/useAvailableMonths';
+import { useSelectedMonth } from '@/hooks/useSelectedMonth';
 
 export default function Dashboard() {
   const location = useLocation();
   const navigate = useNavigate();
   const activeRoute = location.pathname === '/' ? 'dashboard' : location.pathname.slice(1);
-  // Fetch available months from database
-  const { months: availableMonths, loading: monthsLoading } = useAvailableMonths();
 
-  // 使用数据库中最新的月份作为初始值，初始为 null
-  const [selectedMonth, setSelectedMonth] = useState<string | null>(null);
-
-  // 当月份数据加载完成后，设置为最新月份
-  useEffect(() => {
-    if (!monthsLoading && availableMonths.length > 0 && !selectedMonth) {
-      setSelectedMonth(availableMonths[0]);
-    }
-  }, [availableMonths, monthsLoading, selectedMonth]);
+  // 获取可用月份和选中月份
+  const {
+    selectedMonth,
+    setSelectedMonth,
+    availableMonths,
+    loading: monthsLoading,
+  } = useSelectedMonth();
 
   // 如果月份还在加载中，显示加载状态
   if (monthsLoading || !selectedMonth) {
