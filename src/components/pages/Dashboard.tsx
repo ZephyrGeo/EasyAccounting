@@ -67,7 +67,7 @@ export default function Dashboard() {
         {/* Row 3: Transactions and Insights */}
         <TransactionList
           selectedMonth={selectedMonth}
-          onSeeAll={() => console.log('See all')}
+          onSeeAll={() => navigate('/transactions')}
         />
 
         {/* Right Column: Goals */}

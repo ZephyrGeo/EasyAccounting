@@ -1,6 +1,7 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { Calendar, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 import { MONTH_LABELS, ALL_MONTHS, parseYearMonth } from '@/constants/date';
+import { useClickOutside } from '@/hooks/useClickOutside';
 
 interface MonthPickerProps {
   value: string; // 格式: "2024-11"
@@ -30,15 +31,7 @@ export default function MonthPicker({ value, onChange, availableMonths, classNam
   const availableMonthsForYear = yearMonthMap[currentYear] || [];
 
   // 处理点击外部关闭
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+  useClickOutside(dropdownRef, () => setIsOpen(false));
 
   const handleMonthSelect = (month: string) => {
     const newDate = `${currentYear}-${month}`;

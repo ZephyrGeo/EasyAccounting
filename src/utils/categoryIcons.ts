@@ -8,6 +8,7 @@ import {
   Wallet,
   type LucideIcon,
 } from 'lucide-react';
+import { INCOME_CATEGORIES } from '@/constants/categories';
 
 /**
  * Category 图标和颜色配置
@@ -83,23 +84,10 @@ export function getCategoryIcon(categoryName: string): CategoryConfig {
 }
 
 /**
- * 收入分类列表
- */
-const INCOME_CATEGORIES = [
-  'Salary',
-  'Investment',
-  'Refund',
-  'Gift',
-  'Bonus',
-  'Interest',
-  'Income', // 通用收入分类
-];
-
-/**
  * 判断分类是否为收入类型
  * @param categoryName - Category 名称
  * @returns 是否为收入
  */
 export function isIncomeCategory(categoryName: string): boolean {
-  return INCOME_CATEGORIES.includes(categoryName);
+  return (INCOME_CATEGORIES as readonly string[]).includes(categoryName);
 }
