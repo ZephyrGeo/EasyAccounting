@@ -28,7 +28,7 @@ export default function Transactions() {
   const [filterType, setFilterType] = useState<FilterType>('all');
 
   // 获取所有交易数据
-  const { data: allTransactions, loading, error } = useTransactions({ selectedMonth });
+  const { data: allTransactions, loading, error, refetch } = useTransactions({ selectedMonth });
 
   // 客户端筛选逻辑
   const filteredTransactions = useMemo(() => {
@@ -95,7 +95,14 @@ export default function Transactions() {
             filterType={filterType}
             onFilterChange={setFilterType}
           />
-            <TransactionList transactions={filteredTransactions} loading={loading} error={error} />
+          <TransactionList
+            transactions={filteredTransactions}
+            loading={loading}
+            error={error}
+            enableActions={true}
+            onRefresh={refetch}
+            showTitle={false}
+          />
         </div>
       </div>
     </DashboardLayout>

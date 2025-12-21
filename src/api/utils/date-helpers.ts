@@ -38,3 +38,32 @@ export function getYearDateRange(year: string): { startDate: string; endDate: st
   const endDate = `${parseInt(year) + 1}-01-01`;
   return { startDate, endDate };
 }
+
+/**
+ * Convert ISO date string to YYYY-MM-DD format for form input
+ * @param isoDateString - ISO 8601 date string (e.g., "2025-12-21T10:30:00Z")
+ * @returns Date string in YYYY-MM-DD format (e.g., "2025-12-21")
+ * @example toDateInputValue("2025-12-21T10:30:00Z") → "2025-12-21"
+ */
+export function toDateInputValue(isoDateString: string): string {
+  return isoDateString.split('T')[0];
+}
+
+/**
+ * Convert YYYY-MM-DD date string to ISO 8601 format
+ * @param dateString - Date string in YYYY-MM-DD format (e.g., "2025-12-21")
+ * @returns ISO 8601 date string with time at midnight UTC
+ * @example toISOString("2025-12-21") → "2025-12-21T00:00:00.000Z"
+ */
+export function toISOString(dateString: string): string {
+  return new Date(dateString).toISOString();
+}
+
+/**
+ * Get today's date in YYYY-MM-DD format for form input
+ * @returns Today's date string in YYYY-MM-DD format
+ * @example getTodayDateString() → "2025-12-21"
+ */
+export function getTodayDateString(): string {
+  return new Date().toISOString().split('T')[0];
+}
