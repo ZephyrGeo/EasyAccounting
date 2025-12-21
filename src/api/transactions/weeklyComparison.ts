@@ -34,14 +34,14 @@ export async function getLatestMonthWeeklyComparison(yearMonth: string): Promise
 
     if (error) throw error;
 
-    // 按日期聚合数据
+    // 按日期聚合数据（使用绝对值，因为支出在数据库中是负数）
     const dailyData: Record<string, number> = {};
     data?.forEach((item) => {
       const date = item.date; // YYYY-MM-DD
       if (!dailyData[date]) {
         dailyData[date] = 0;
       }
-      dailyData[date] += item.amount;
+      dailyData[date] += Math.abs(item.amount);
     });
 
     // 按星期几和周数分组

@@ -58,15 +58,19 @@ export default function TransactionList({
   };
 
   const handleSaveEdit = async (updatedTransaction: Transaction) => {
-    // TODO: 调用 API 更新交易
-    console.log('Save edit:', updatedTransaction);
+    try {
+      await updateTransaction(updatedTransaction.id, updatedTransaction);
 
-    // 刷新数据（如果提供了刷新回调）
-    if (onRefresh) {
-      onRefresh();
+      // 刷新数据（如果提供了刷新回调）
+      if (onRefresh) {
+        onRefresh();
+      }
+    } catch (error) {
+      console.error('Failed to update transaction:', error);
+      // TODO: 显示错误提示给用户
+    } finally {
+      setEditingTransaction(null);
     }
-
-    setEditingTransaction(null);
   };
 
   // 删除处理
@@ -80,15 +84,19 @@ export default function TransactionList({
   const handleConfirmDelete = async () => {
     if (!deletingTransaction) return;
 
-    // TODO: 调用 API 删除交易
-    console.log('Delete transaction:', deletingTransaction.id);
+    try {
+      await deleteTransaction(deletingTransaction.id);
 
-    // 刷新数据（如果提供了刷新回调）
-    if (onRefresh) {
-      onRefresh();
+      // 刷新数据（如果提供了刷新回调）
+      if (onRefresh) {
+        onRefresh();
+      }
+    } catch (error) {
+      console.error('Failed to delete transaction:', error);
+      // TODO: 显示错误提示给用户
+    } finally {
+      setDeletingTransaction(null);
     }
-
-    setDeletingTransaction(null);
   };
   return (
     <div className="group relative col-span-12 lg:col-span-8 bg-white dark:bg-gradient-to-br dark:from-slate-800 dark:to-slate-800/80 p-6 rounded-3xl shadow-[0_2px_10px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.4)] border-slate-100 dark:border-slate-700/50 hover:-translate-y-1 transition-all duration-300 dark:ring-1 dark:ring-white/5">

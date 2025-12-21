@@ -63,8 +63,8 @@ export default function TransactionItem({ transaction, onEdit, onDelete }: Trans
         </div>
       </div>
       <div className="flex items-center gap-4">
-        <div className="text-right">
-          <p className="font-bold text-slate-900 dark:text-slate-200 text-sm">
+        <div className="text-right min-w-25">
+          <p className="font-bold text-slate-900 dark:text-slate-200 text-base">
             {formatCurrency(transaction.amount)}
           </p>
           <p className="text-xs text-slate-400 dark:text-slate-500">
@@ -87,7 +87,7 @@ export default function TransactionItem({ transaction, onEdit, onDelete }: Trans
             </button>
 
             {showMenu && (
-              <div className="absolute right-0 mt-2 w-48 rounded-lg shadow-lg z-50 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+              <div className="absolute right-0 mt-2 w-32 rounded-lg shadow-lg z-50 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
                 {onEdit && (
                   <button
                     onClick={handleEdit}

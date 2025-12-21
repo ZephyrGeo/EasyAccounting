@@ -33,10 +33,16 @@ export default function TransactionForm({
   isEdit,
 }: TransactionFormProps) {
   const handleTypeChange = (type: 'expense' | 'income') => {
+    // In edit mode, preserve the existing category when switching types
+    // In create mode, set default category based on type
+    const newCategory = isEdit
+      ? formData.category
+      : (type === 'income' ? 'Income' : 'Other');
+
     onFormDataChange({
       ...formData,
       type,
-      category: type === 'income' ? 'Income' : 'Other',
+      category: newCategory,
     });
   };
 
