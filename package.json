@@ -26,7 +26,6 @@
     "@types/react-router-dom": "^5.3.3",
     "@vitejs/plugin-react": "^5.1.2",
     "autoprefixer": "^10.4.22",
-    "dotenv": "^17.2.3",
     "eslint": "^9.17.0",
     "globals": "^15.14.0",
     "postcss": "^8.5.6",
