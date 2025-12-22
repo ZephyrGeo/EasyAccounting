@@ -1,7 +1,7 @@
 // Claude API 服务
 // 注意：在生产环境中，API密钥应该存储在环境变量中，并通过后端服务调用
 
-import type { Transaction, ParsedResult } from "../types/transaction";
+import type { Transaction, ParsedResult } from "@/types/transaction";
 
 const CLAUDE_API_URL = "/claude-api/v1/messages";
 const API_KEY = import.meta.env.VITE_CLAUDE_API_KEY;
@@ -416,7 +416,7 @@ CRITICAL: You MUST process ALL rows and return COMPLETE JSON. No truncation allo
 Parse this CSV into JSON. Return ONLY valid JSON with "transactions" array.
 
 Format for each transaction:
-{"id":"T1","date":"2025-04-20","time":"00:00","merchant":"原始商户名","amount":610,"category":"Food & Drink","labels":["Restaurant","Lunch"]}
+{"id":"T1","date":"2025-04-20","time":"00:00","merchant":"原始商户名","amount":610,"category":"Food & Drink","tags":["Restaurant","Lunch"]}
 
 STRICT Rules:
 - Process EVERY single row, no exceptions
@@ -469,7 +469,7 @@ CRITICAL: Process ALL rows in this CSV chunk. Return COMPLETE JSON.
 
 Parse this CSV chunk into JSON. Return ONLY valid JSON with "transactions" array.
 
-Format: {"id":"T${i}_1","date":"2025-04-20","time":"00:00","merchant":"原始商户名","amount":610,"category":"Food & Drink","labels":["Restaurant","Lunch"]}
+Format: {"id":"T${i}_1","date":"2025-04-20","time":"00:00","merchant":"原始商户名","amount":610,"category":"Food & Drink","tags":["Restaurant","Lunch"]}
 
 Rules:
 - Process EVERY row in this chunk
@@ -574,7 +574,7 @@ Format:
       "id": "unique_transaction_id",
       "amount": number,
       "category": "string",
-      "labels": ["string"],
+      "tags": ["string"],
       "merchant": "string",
       "date": "YYYY-MM-DD",
       "time": "HH:MM"

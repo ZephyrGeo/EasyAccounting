@@ -1,16 +1,17 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import DashboardLayout from '../layout/DashboardLayout';
-import MetricCard from '../cards/MetricCard';
-import SpendingTrendChart from '../charts/SpendingTrendChart';
-import CategoryPieChart from '../charts/CategoryPieChart';
-import TransactionList from '../transactions/TransactionList';
-import SavingGoalCard from '../cards/SavingGoalCard';
+import DashboardLayout from '@/components/layout/DashboardLayout';
+import MetricCard from '@/components/cards/MetricCard';
+import SpendingTrendChart from '@/components/charts/SpendingTrendChart';
+import CategoryPieChart from '@/components/charts/CategoryPieChart';
+import TransactionList from '@/components/transactions/TransactionList';
+import SavingGoalCard from '@/components/cards/SavingGoalCard';
 import { useSelectedMonth } from '@/hooks/useSelectedMonth';
+import { getActiveRoute } from '@/utils/routing';
 
 export default function Dashboard() {
   const location = useLocation();
   const navigate = useNavigate();
-  const activeRoute = location.pathname === '/' ? 'dashboard' : location.pathname.slice(1);
+  const activeRoute = getActiveRoute(location.pathname);
 
   // 获取可用月份和选中月份
   const {

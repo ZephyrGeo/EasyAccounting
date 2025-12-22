@@ -1,5 +1,5 @@
 import { Transaction } from '@/types/transaction';
-import { getDaysInMonth } from '@/constants/date';
+import { getDaysInMonth } from '@/utils/date';
 
 export interface HeatmapDataPoint {
   day: number;

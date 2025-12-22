@@ -1,5 +1,5 @@
 import { supabase } from "@/lib/supabase";
-import { getMonthDateRange } from "@/api/utils/date-helpers";
+import { getMonthDateRange } from "@/utils/date";
 
 /**
  * 获取指定月份的周度对比数据

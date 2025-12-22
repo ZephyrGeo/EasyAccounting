@@ -1,6 +1,7 @@
 import { AreaChart, Area, XAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { useWeeklyComparison } from '@/hooks/useWeeklyComparison';
-import { WEEK_COLORS } from '@/constants/colors';
+import { WEEK_COLORS } from '@/utils/colors';
+import { formatCurrency } from '@/utils/formatting';
 
 interface SpendingTrendChartProps {
   selectedMonth: string;
@@ -82,7 +83,7 @@ export default function SpendingTrendChart({ selectedMonth }: SpendingTrendChart
                               {entry.name}:
                             </span>
                             <span className="text-sm font-bold text-slate-900 dark:text-slate-200">
-                              ¥{Math.abs(entry.value as number).toLocaleString()}
+                              {formatCurrency(entry.value as number)}
                             </span>
                           </div>
                         ))}

@@ -1,8 +1,9 @@
 import { useState, useRef } from 'react';
 import { MoreHorizontal, Edit, Trash2 } from 'lucide-react';
 import { Transaction } from '@/types/transaction';
-import { formatCurrency, formatDate } from '@/utils/formatters';
-import { getCategoryIcon } from '@/utils/categoryIcons';
+import { formatCurrency } from '@/utils/formatting';
+import { formatDate } from '@/utils/date';
+import { getCategoryIcon } from '@/utils/colors';
 import { useTheme } from '@/contexts/ThemeContext';
 import { getThemeClass } from '@/utils/theme';
 import { useClickOutside } from '@/hooks/useClickOutside';
@@ -52,10 +53,10 @@ export default function TransactionItem({ transaction, onEdit, onDelete }: Trans
           </p>
           <div className="flex items-center flex-wrap gap-x-2 gap-y-1 mt-2">
             <p className="text-xs text-slate-400 dark:text-slate-500">{formatDate(transaction.date)}</p>
-            {transaction.labels && transaction.labels.length > 0 && (
+            {transaction.tags && transaction.tags.length > 0 && (
               <>
-                {transaction.labels.map((label) => (
-                  <TagPill key={label} label={label} />
+                {transaction.tags.map((tag) => (
+                  <TagPill key={tag} tag={tag} />
                 ))}
               </>
             )}

@@ -1,5 +1,7 @@
 import React from 'react';
-import ProgressBar from '../ui/ProgressBar';
+import ProgressBar from '@/components/ui/ProgressBar';
+import { formatCurrency } from '@/utils/formatting';
+import { calculatePercentage } from '@/utils/math';
 
 interface BudgetCardProps {
   used: number;
@@ -8,7 +10,7 @@ interface BudgetCardProps {
 }
 
 export default function BudgetCard({ used, total, label = 'Monthly Budget' }: BudgetCardProps) {
-  const percentage = Math.round((used / total) * 100);
+  const percentage = calculatePercentage(used, total);
   const remaining = total - used;
 
   return (
@@ -25,7 +27,7 @@ export default function BudgetCard({ used, total, label = 'Monthly Budget' }: Bu
       <div className="mt-4 relative z-10">
         <div className="flex justify-between items-end mb-2">
           <span className="text-3xl font-bold text-slate-900 dark:text-white dark:drop-shadow-[0_2px_8px_rgba(255,255,255,0.1)]">
-            ¥{remaining.toLocaleString()}
+            {formatCurrency(remaining)}
           </span>
           <span className="text-sm text-slate-400 dark:text-slate-500 mb-1">Left</span>
         </div>

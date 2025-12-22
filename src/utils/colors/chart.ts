@@ -1,4 +1,8 @@
 /**
+ * 图表颜色工具
+ */
+
+/**
  * 预定义的色彩调色板
  * 用于图表和可视化组件
  */
@@ -18,13 +22,6 @@ export const CHART_COLORS = [
 ] as const;
 
 /**
- * 获取指定索引的颜色，超出范围时循环使用
- */
-export function getChartColor(index: number): string {
-  return CHART_COLORS[index % CHART_COLORS.length];
-}
-
-/**
  * 周度对比图表的颜色配置
  */
 export const WEEK_COLORS = {
@@ -34,3 +31,12 @@ export const WEEK_COLORS = {
   week4: '#f59e0b', // amber
   week5: '#10b981', // green
 } as const;
+
+/**
+ * 获取指定索引的图表颜色（支持循环）
+ * @param index - 索引值
+ * @returns 十六进制颜色字符串
+ */
+export function getChartColor(index: number): string {
+  return CHART_COLORS[index % CHART_COLORS.length];
+}

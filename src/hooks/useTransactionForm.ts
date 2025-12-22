@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Transaction } from '@/types/transaction';
-import { toDateInputValue, toISOString, getTodayDateString } from '@/api/utils/date-helpers';
+import { toDateInputValue, toISOString, getTodayDateString } from '@/utils/date';
 
 export interface TransactionFormData {
   type: 'expense' | 'income';
@@ -50,7 +50,7 @@ export function useTransactionForm(
         category: transaction.category,
         merchant: transaction.merchant,
         date: toDateInputValue(transaction.date),
-        tags: transaction.labels || [],
+        tags: transaction.tags || [],
       });
     } else if (isOpen && !transaction) {
       // Reset form for create mode
@@ -94,7 +94,7 @@ export function useTransactionForm(
       category: formData.category,
       merchant: formData.merchant,
       date: toISOString(formData.date),
-      labels: formData.tags.length > 0 ? formData.tags : undefined,
+      tags: formData.tags.length > 0 ? formData.tags : undefined,
     } as Transaction;
   };
 
