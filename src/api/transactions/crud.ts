@@ -2,7 +2,7 @@ import { Transaction } from "@/types/transaction";
 import { supabase } from "@/lib/supabase";
 import { getOrCreateMerchant } from "@/api/entities/merchants";
 import { getOrCreateCategory } from "@/api/entities/categories";
-import { getMonthDateRange, getYearDateRange } from "@/api/utils/date-helpers";
+import { getMonthDateRange, getYearDateRange } from "@/utils/date";
 import { TransactionFilters, DatabaseTransaction } from "./types";
 import { mapDatabaseTransactions } from "./mappers";
 
@@ -79,7 +79,7 @@ export async function addTransaction(
         category_id: categoryId,
         date: newTransaction.date,
         time: newTransaction.time,
-        labels: newTransaction.labels || [],
+        tags: newTransaction.tags || [],
         notes: newTransaction.notes,
         is_modified: false,
         version: 1,
@@ -129,7 +129,7 @@ export async function updateTransaction(
         category_id: categoryId,
         date: updatedTransaction.date,
         time: updatedTransaction.time,
-        labels: updatedTransaction.labels || [],
+        tags: updatedTransaction.tags || [],
         notes: updatedTransaction.notes,
         is_modified: true,
         version: currentVersion + 1,
@@ -192,7 +192,7 @@ export async function addTransactions(
         category_id: categoryId,
         date: transaction.date,
         time: transaction.time,
-        labels: transaction.labels || [],
+        tags: transaction.tags || [],
         notes: transaction.notes,
         is_modified: false,
         version: 1,

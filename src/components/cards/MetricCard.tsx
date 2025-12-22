@@ -1,8 +1,8 @@
 import { TrendingDown, TrendingUp } from "lucide-react";
 import MonthPicker from "@/components/ui/MonthPicker";
 import { useSelectedMonthlyTotal } from "@/hooks/useSelectedMonthlyTotal";
-import { formatMonthDisplay } from "@/constants/date";
-import { formatAmount } from "@/utils/format";
+import { formatMonthDisplay } from "@/utils/date";
+import { formatCurrency } from "@/utils/formatting";
 
 interface MetricCardProps {
   trend: string;
@@ -41,7 +41,7 @@ export default function MetricCard({
           />
         </div>
         <h2 className="text-3xl font-bold text-slate-900 dark:text-white dark:drop-shadow-[0_2px_8px_rgba(255,255,255,0.1)] tracking-tight">
-          {totalLoading ? "Loading..." : formatAmount(monthlyTotal)}
+          {totalLoading ? "Loading..." : formatCurrency(monthlyTotal)}
         </h2>
       </div>
       <div className="flex items-center gap-2 mt-4 relative z-10">

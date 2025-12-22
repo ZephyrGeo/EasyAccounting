@@ -1,5 +1,5 @@
 import { Activity } from 'lucide-react';
-import MonthPicker from '../ui/MonthPicker';
+import MonthPicker from '@/components/ui/MonthPicker';
 import { useActivityHeatmap } from '@/hooks/useActivityHeatmap';
 
 interface ActivityHeatmapProps {

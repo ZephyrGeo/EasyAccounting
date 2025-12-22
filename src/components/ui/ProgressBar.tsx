@@ -1,4 +1,5 @@
 import React from 'react';
+import { clampPercentage } from '@/utils/math';
 
 interface ProgressBarProps {
   value: number;
@@ -15,7 +16,7 @@ export default function ProgressBar({
   size = 'md',
   className = '',
 }: ProgressBarProps) {
-  const percentage = Math.min(Math.max((value / max) * 100, 0), 100);
+  const percentage = clampPercentage(value, max);
 
   const sizeStyles = {
     sm: 'h-1',

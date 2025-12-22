@@ -1,5 +1,5 @@
 import ProgressBar from '@/components/ui/ProgressBar';
-import { formatCurrency, formatCompactCurrency } from '@/utils/formatters';
+import { formatCurrency, formatCompactCurrency } from '@/utils/formatting';
 
 interface SavingGoalCardProps {
   title?: string;

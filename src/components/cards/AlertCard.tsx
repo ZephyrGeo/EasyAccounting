@@ -1,5 +1,6 @@
 import React from 'react';
 import { Zap } from 'lucide-react';
+import { formatCurrency } from '@/utils/formatting';
 
 interface AlertCardProps {
   title: string;
@@ -27,7 +28,7 @@ export default function AlertCard({
       <h4 className="font-bold text-lg mb-1">{title}</h4>
       <p className="text-indigo-100 dark:text-indigo-200 text-sm mb-4">{description}</p>
       <div className="flex justify-between items-center">
-        <span className="font-bold text-2xl">¥{amount.toLocaleString()}</span>
+        <span className="font-bold text-2xl">{formatCurrency(amount)}</span>
         <button
           onClick={onAction}
           className="text-xs bg-white text-indigo-600 px-3 py-1.5 rounded-full font-bold hover:bg-indigo-50 dark:hover:bg-white/90 transition"

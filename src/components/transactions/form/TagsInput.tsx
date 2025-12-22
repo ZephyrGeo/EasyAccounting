@@ -1,4 +1,4 @@
-import TagPill from '../TagPill';
+import TagPill from '@/components/transactions/TagPill';
 import { FORM_STYLES } from './formStyles';
 
 interface TagsInputProps {
@@ -27,7 +27,7 @@ export default function TagsInput({
         }`}
       >
         {tags.map((tag) => (
-          <TagPill key={tag} label={tag} onRemove={() => onRemoveTag(tag)} />
+          <TagPill key={tag} tag={tag} onRemove={() => onRemoveTag(tag)} />
         ))}
         <input
           type="text"

@@ -1,7 +1,7 @@
 import { Transaction } from "@/types/transaction";
 import { supabase } from "@/lib/supabase";
 import { DatabaseTransaction } from "./types";
-import { getMonthDateRange } from "@/api/utils/date-helpers";
+import { getMonthDateRange } from "@/utils/date";
 import { mapDatabaseTransactions } from "./mappers";
 
 /**

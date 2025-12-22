@@ -1,6 +1,7 @@
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
-import { getChartColor } from "@/constants/colors";
 import { useCategoryStats } from "@/hooks/useCategoryStats";
+import { transformCategoryDataForChart, calculateTotal } from '@/utils/charts';
+import { formatCompactCurrency, formatCurrency } from '@/utils/formatting';
 
 interface CategoryPieChartProps {
   selectedMonth: string;
@@ -17,18 +18,8 @@ export default function CategoryPieChart({
   } = useCategoryStats(selectedMonth);
 
   // 标准化数据格式并添加颜色
-  const dataWithColors = categoryStats.map((item, index) => {
-    const name = item.category;
-    const value = item.amount;
-
-    return {
-      name,
-      value,
-      color: getChartColor(index),
-    };
-  });
-
-  const total = dataWithColors.reduce((sum, item) => sum + item.value, 0);
+  const dataWithColors = transformCategoryDataForChart(categoryStats);
+  const total = calculateTotal(dataWithColors);
 
   return (
     <div className="group relative col-span-12 lg:col-span-4 bg-white dark:bg-gradient-to-br dark:from-slate-800 dark:to-slate-800/80 p-6 rounded-3xl shadow-[0_2px_10px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.4)] border border-slate-100 dark:border-slate-700/50 flex flex-col hover:-translate-y-1 transition-all duration-300 dark:ring-1 dark:ring-white/5">
@@ -74,7 +65,7 @@ export default function CategoryPieChart({
               <div className="absolute inset-0 flex items-center justify-center flex-col pointer-events-none">
                 <span className="text-xs text-slate-400 dark:text-slate-500">Total</span>
                 <span className="font-bold text-slate-800 dark:text-slate-200 dark:drop-shadow-[0_2px_8px_rgba(255,255,255,0.1)]">
-                  ¥{(total / 1000).toFixed(1)}K
+                  {formatCompactCurrency(total)}
                 </span>
               </div>
             </div>
@@ -94,7 +85,7 @@ export default function CategoryPieChart({
                     <span className="text-slate-600 dark:text-slate-400">{cat.name}</span>
                   </div>
                   <span className="font-semibold text-slate-800 dark:text-slate-200">
-                    ¥{cat.value.toLocaleString()}
+                    {formatCurrency(cat.value)}
                   </span>
                 </div>
               ))}

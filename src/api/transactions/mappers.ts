@@ -14,7 +14,7 @@ export function mapDatabaseTransactions(items: DatabaseTransaction[]): Transacti
     merchant: item.merchant?.name || 'Unknown',
     date: item.date,
     time: item.time,
-    labels: item.labels || [],
+    tags: item.tags || [],
     notes: item.notes || '',
     // 审计字段
     updated_at: item.updated_at,

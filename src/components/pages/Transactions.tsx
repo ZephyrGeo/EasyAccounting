@@ -1,19 +1,18 @@
 import { useState, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import DashboardLayout from '../layout/DashboardLayout';
-import TransactionList from '../transactions/TransactionList';
-import TransactionFilters from '../transactions/TransactionFilters';
-import ActivityHeatmap from '../charts/ActivityHeatmap';
+import DashboardLayout from '@/components/layout/DashboardLayout';
+import TransactionList from '@/components/transactions/TransactionList';
+import TransactionFilters from '@/components/transactions/TransactionFilters';
+import ActivityHeatmap from '@/components/charts/ActivityHeatmap';
 import { useSelectedMonth } from '@/hooks/useSelectedMonth';
 import { useTransactions } from '@/hooks/useTransactions';
-import { isIncomeCategory } from '@/utils/categoryIcons';
-
-type FilterType = 'all' | 'expense' | 'income';
+import { getActiveRoute } from '@/utils/routing';
+import { filterTransactions, type FilterType } from '@/utils/transactions';
 
 export default function Transactions() {
   const location = useLocation();
   const navigate = useNavigate();
-  const activeRoute = location.pathname === '/' ? 'dashboard' : location.pathname.slice(1);
+  const activeRoute = getActiveRoute(location.pathname);
 
   // 获取可用月份和选中月份
   const {
@@ -31,30 +30,10 @@ export default function Transactions() {
   const { data: allTransactions, loading, error, refetch } = useTransactions({ selectedMonth });
 
   // 客户端筛选逻辑
-  const filteredTransactions = useMemo(() => {
-    let result = allTransactions;
-
-    // 类型筛选 - 基于分类而非金额符号（数据库中所有金额都是正数）
-    if (filterType === 'expense') {
-      result = result.filter((tx) => !isIncomeCategory(tx.category));
-    } else if (filterType === 'income') {
-      result = result.filter((tx) => isIncomeCategory(tx.category));
-    }
-
-    // 搜索筛选
-    if (searchQuery.trim()) {
-      const query = searchQuery.toLowerCase();
-      result = result.filter(
-        (tx) =>
-          tx.merchant.toLowerCase().includes(query) ||
-          tx.category.toLowerCase().includes(query) ||
-          (tx.notes?.toLowerCase().includes(query) ?? false) ||
-          (tx.labels?.some((label) => label.toLowerCase().includes(query)) ?? false)
-      );
-    }
-
-    return result;
-  }, [allTransactions, filterType, searchQuery]);
+  const filteredTransactions = useMemo(
+    () => filterTransactions(allTransactions, filterType, searchQuery),
+    [allTransactions, filterType, searchQuery]
+  );
 
   // 如果月份还在加载中，显示加载状态
   if (monthsLoading || !selectedMonth) {
