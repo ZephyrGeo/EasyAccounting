@@ -2,8 +2,6 @@ import React from 'react';
 import {
   Home,
   CreditCard,
-  PieChart,
-  Settings,
   PanelLeft,
   X,
   LucideIcon,
@@ -144,20 +142,6 @@ export default function Sidebar({
             label="Transactions"
             active={activeRoute === "transactions"}
             onClick={() => onNavigate?.("transactions")}
-            collapsed={collapsed}
-          />
-          <NavItem
-            icon={PieChart}
-            label="Analytics"
-            active={activeRoute === "analytics"}
-            onClick={() => onNavigate?.("analytics")}
-            collapsed={collapsed}
-          />
-          <NavItem
-            icon={Settings}
-            label="Settings"
-            active={activeRoute === "settings"}
-            onClick={() => onNavigate?.("settings")}
             collapsed={collapsed}
           />
         </nav>
