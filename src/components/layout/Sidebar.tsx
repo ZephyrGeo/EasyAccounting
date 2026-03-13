@@ -102,7 +102,7 @@ export default function Sidebar({
               collapsed ? "opacity-0 w-0 overflow-hidden" : "opacity-100"
             }`}
           >
-            EasyAccount
+            snowflake
           </span>
           <div className="flex items-center gap-2">
             {/* Close button for mobile */}
