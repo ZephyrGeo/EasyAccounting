@@ -1,5 +1,5 @@
 /**
- * 标签颜色配置
+ * 标签颜色工具
  */
 
 export interface TagColorConfig {
@@ -23,13 +23,13 @@ export const TAG_COLORS: TagColorConfig[] = [
 
 /**
  * 使用确定性哈希函数将标签字符串映射到颜色
- * @param label - 标签文本
+ * @param tag - 标签文本
  * @returns 对应的颜色配置
  */
-export function getColorForLabel(label: string): TagColorConfig {
+export function getColorForTag(tag: string): TagColorConfig {
   let hash = 0;
-  for (let i = 0; i < label.length; i++) {
-    hash = label.charCodeAt(i) + ((hash << 5) - hash);
+  for (let i = 0; i < tag.length; i++) {
+    hash = tag.charCodeAt(i) + ((hash << 5) - hash);
   }
   return TAG_COLORS[Math.abs(hash) % TAG_COLORS.length];
 }

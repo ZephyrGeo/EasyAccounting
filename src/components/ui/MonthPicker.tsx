@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react';
 import { Calendar, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
-import { MONTH_LABELS, ALL_MONTHS, parseYearMonth } from '@/constants/date';
+import { MONTH_LABELS, ALL_MONTHS } from '@/constants/months';
+import { parseYearMonth } from '@/utils/date';
 import { useClickOutside } from '@/hooks/useClickOutside';
 
 interface MonthPickerProps {

@@ -1,18 +1,18 @@
 import { X } from 'lucide-react';
 import { useTheme } from '@/contexts/ThemeContext';
-import { getColorForLabel } from '@/constants/tagColors';
+import { getColorForTag } from '@/utils/colors';
 import { getThemeClass } from '@/utils/theme';
 
 interface TagPillProps {
-  label: string;
+  tag: string;
   variant?: 'default' | 'compact';
   onRemove?: () => void;
 }
 
-export default function TagPill({ label, variant = 'default', onRemove }: TagPillProps) {
+export default function TagPill({ tag, variant = 'default', onRemove }: TagPillProps) {
   const { theme } = useTheme();
   const isDarkMode = theme === 'dark';
-  const color = getColorForLabel(label);
+  const color = getColorForTag(tag);
 
   const sizeClasses = variant === 'compact' ? 'px-2 py-0.5 text-xs' : 'px-2.5 py-1 text-xs';
 
@@ -27,7 +27,7 @@ export default function TagPill({ label, variant = 'default', onRemove }: TagPil
 
   return (
     <span className={tagClasses}>
-      {label}
+      {tag}
       {onRemove && (
         <button
           type="button"

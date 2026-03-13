@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { AlertTriangle, X } from 'lucide-react';
 import { Transaction } from '@/types/transaction';
-import { formatCurrency, formatDate } from '@/utils/formatters';
+import { formatCurrency } from '@/utils/formatting';
+import { formatDate } from '@/utils/date';
 
 interface DeleteConfirmModalProps {
   isOpen: boolean;

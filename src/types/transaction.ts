@@ -5,7 +5,7 @@ export interface Transaction {
   merchant: string;
   date: string;
   time: string;
-  labels?: string[];
+  tags?: string[];
   notes?: string;
   // 审计字段
   updated_at?: string;

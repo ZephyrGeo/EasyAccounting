@@ -18,7 +18,7 @@ export interface DatabaseTransaction {
   category_id: string;
   date: string;
   time: string;
-  labels: string[];
+  tags: string[];
   notes: string | null;
   updated_at: string;
   is_modified: boolean;

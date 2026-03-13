@@ -1,3 +1,6 @@
+/**
+ * 分类颜色和图标工具
+ */
 import {
   ShoppingBag,
   Utensils,
@@ -13,7 +16,7 @@ import { INCOME_CATEGORIES } from '@/constants/categories';
 /**
  * Category 图标和颜色配置
  */
-interface CategoryConfig {
+export interface CategoryConfig {
   icon: LucideIcon;
   bgColor: string; // Tailwind 背景色类
   textColor: string; // Tailwind 文字色类
