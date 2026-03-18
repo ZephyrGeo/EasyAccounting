@@ -1,116 +1,119 @@
-import { useState, useRef } from 'react';
-import { MoreHorizontal, Edit, Trash2 } from 'lucide-react';
+import React, { useState } from 'react';
+import { RefreshCw, Tag as TagIcon, FileText, CreditCard, Trash2 } from 'lucide-react';
 import { Transaction } from '@/types/transaction';
 import { formatCurrency } from '@/utils/formatting';
-import { formatDate } from '@/utils/date';
-import { getCategoryIcon } from '@/utils/colors';
-import { useTheme } from '@/contexts/ThemeContext';
-import { getThemeClass } from '@/utils/theme';
-import { useClickOutside } from '@/hooks/useClickOutside';
 import TagPill from './TagPill';
 
 interface TransactionItemProps {
   transaction: Transaction;
-  onEdit?: (transaction: Transaction) => void;
+  bundle?: Transaction[];
+  onEdit?: (t: Transaction) => void;
   onDelete?: (id: string) => void;
 }
 
-export default function TransactionItem({ transaction, onEdit, onDelete }: TransactionItemProps) {
-  const [showMenu, setShowMenu] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
-  const { theme } = useTheme();
-  const isDarkMode = theme === 'dark';
+export default function TransactionItem({
+  transaction,
+  bundle = [],
+  onEdit,
+  onDelete,
+}: TransactionItemProps) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const isBundle = bundle.length > 1;
+  const displayAmount = isBundle 
+    ? bundle.reduce((sum, t) => sum + t.amount, 0) 
+    : transaction.amount;
 
-  // 根据 category 动态获取图标配置
-  const categoryConfig = getCategoryIcon(transaction.category);
-  const Icon = categoryConfig.icon;
-
-  // 点击外部关闭菜单
-  useClickOutside(menuRef, () => setShowMenu(false), showMenu);
-
-  const handleEdit = () => {
-    setShowMenu(false);
-    onEdit?.(transaction);
-  };
-
-  const handleDelete = () => {
-    setShowMenu(false);
-    onDelete?.(transaction.id);
-  };
-
-  // 如果没有传入 onEdit 和 onDelete，则不显示操作按钮
-  const showActions = onEdit || onDelete;
+  // 获取 Logo URL (从品牌表中获取)
+  const logoUrl = transaction.merchant.brand?.logo_url;
 
   return (
-    <div className="flex items-center justify-between p-3 hover:bg-slate-50 dark:hover:bg-slate-700/50 rounded-xl transition relative">
-      <div className="flex items-center gap-4 flex-1 min-w-0">
-        <div className={`w-10 h-10 rounded-full flex items-center justify-center ${categoryConfig.bgColor}`}>
-          <Icon className={`w-5 h-5 ${categoryConfig.textColor}`} />
-        </div>
-        <div className="flex-1 min-w-0">
-          <p className="font-bold text-slate-900 dark:text-slate-200 text-sm">
-            {transaction.merchant}
-          </p>
-          <div className="flex items-center flex-wrap gap-x-2 gap-y-1 mt-2">
-            <p className="text-xs text-slate-400 dark:text-slate-500">{formatDate(transaction.date)}</p>
-            {transaction.tags && transaction.tags.length > 0 && (
-              <>
-                {transaction.tags.map((tag) => (
-                  <TagPill key={tag} tag={tag} />
-                ))}
-              </>
+    <div className="group border-b border-[#F0F0EA] last:border-0">
+      {/* Main Row */}
+      <div 
+        className="flex items-center justify-between py-4 px-6 hover:bg-[#F7F7F3] transition-colors cursor-pointer"
+        onClick={() => setIsExpanded(!isExpanded)}
+      >
+        <div className="flex items-center gap-5 flex-1">
+          {/* Logo Container - Simplified */}
+          <div className="w-9 h-9 flex-shrink-0 flex items-center justify-center bg-white border border-[#E5E5E0] rounded-md overflow-hidden p-1 shadow-sm">
+            {logoUrl ? (
+              <img 
+                src={logoUrl} 
+                alt={transaction.merchant.brand?.name || transaction.merchant.name}
+                className="w-full h-full object-contain"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).style.display = 'none';
+                }}
+              />
+            ) : (
+              <span className="text-sm opacity-60">❄️</span>
             )}
           </div>
-        </div>
-      </div>
-      <div className="flex items-center gap-4">
-        <div className="text-right min-w-25">
-          <p className="font-bold text-slate-900 dark:text-slate-200 text-base">
-            {formatCurrency(transaction.amount)}
-          </p>
-          <p className="text-xs text-slate-400 dark:text-slate-500">
-            {transaction.category}
-          </p>
-        </div>
+          
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2">
+              <h4 className="text-[14px] font-medium text-[#1A1A1A] truncate">
+                {transaction.merchant.name}
+              </h4>
+              {transaction.is_recurring && (
+                <RefreshCw className="w-3 h-3 text-[#6B6B6B]" title="Subscription" />
+              )}
+            </div>
+            
+            <div className="flex flex-wrap items-center gap-2.5 mt-1.5">
+              {/* Category indicator - more minimal */}
+              <div className="flex items-center gap-1.5">
+                <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: transaction.category.color_code }} />
+                <span className="text-[11px] font-medium text-[#6B6B6B] uppercase tracking-wider">
+                  {transaction.category.name}
+                </span>
+              </div>
 
-        {/* 操作菜单 (Edit/Delete) */}
-        {showActions && (
-          <div className="relative" ref={menuRef}>
-            <button
-              onClick={() => setShowMenu(!showMenu)}
-              className={`p-2 rounded-full transition-colors ${getThemeClass(
-                isDarkMode,
-                'text-slate-400 hover:text-white hover:bg-slate-600',
-                'text-slate-400 hover:text-slate-700 hover:bg-slate-100'
-              )}`}
-            >
-              <MoreHorizontal className="w-5 h-5" />
-            </button>
+              {/* Payment method */}
+              {transaction.payment_method && (
+                <div className="flex items-center gap-1 text-[11px] text-[#8E8E8E] bg-[#F0F0EA] px-1.5 py-0.5 rounded border border-[#E5E5E0]">
+                  <CreditCard className="w-2.5 h-2.5" />
+                  {transaction.payment_method.name}
+                </div>
+              )}
 
-            {showMenu && (
-              <div className="absolute right-0 mt-2 w-32 rounded-lg shadow-lg z-50 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
-                {onEdit && (
-                  <button
-                    onClick={handleEdit}
-                    className="w-full text-left px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center gap-2 text-slate-700 dark:text-slate-300 rounded-t-lg"
-                  >
-                    <Edit className="w-4 h-4" />
-                    Edit
-                  </button>
-                )}
-                {onDelete && (
-                  <button
-                    onClick={handleDelete}
-                    className="w-full text-left px-4 py-2 hover:bg-red-50 dark:hover:bg-red-900/20 flex items-center gap-2 text-red-600 dark:text-red-400 rounded-b-lg"
-                  >
-                    <Trash2 className="w-4 h-4" />
-                    Delete
-                  </button>
-                )}
+              {/* Tags */}
+              {transaction.tags?.map(tag => (
+                <TagPill key={tag} tag={tag} />
+              ))}
+            </div>
+
+            {/* Notes */}
+            {transaction.notes && (
+              <div className="flex items-center gap-1 mt-1.5 text-[12px] text-[#8E8E8E] italic line-clamp-1">
+                <FileText className="w-3 h-3 flex-shrink-0" />
+                {transaction.notes}
               </div>
             )}
           </div>
-        )}
+        </div>
+
+        <div className="text-right ml-4 flex items-center gap-4">
+          <div>
+            <p className={`text-[15px] font-medium tabular-nums font-serif ${displayAmount < 0 ? 'text-[#059669]' : 'text-[#1A1A1A]'}`}>
+              {displayAmount < 0 ? '+' : ''}{formatCurrency(Math.abs(displayAmount))}
+            </p>
+          </div>
+          
+          {/* Delete Action - Subtle */}
+          {onDelete && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                onDelete(transaction.id);
+              }}
+              className="p-2 text-[#8E8E8E] hover:text-[#EF4444] hover:bg-[#FEE2E2] rounded transition-all opacity-0 group-hover:opacity-100"
+              title="Delete transaction"
+            >
+              <Trash2 className="w-3.5 h-3.5" />
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );

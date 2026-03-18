@@ -43,7 +43,6 @@ export default function DeleteConfirmModal({
     setIsLoading(true);
     try {
       await onConfirm();
-      onClose();
     } catch (error) {
       // 错误由父组件处理
     } finally {
@@ -93,7 +92,7 @@ export default function DeleteConfirmModal({
             <div className="flex justify-between items-center">
               <span className="text-sm text-slate-500 dark:text-slate-400">Merchant:</span>
               <span className="text-sm font-medium text-slate-900 dark:text-slate-100">
-                {transaction.merchant}
+                {transaction.merchant.name}
               </span>
             </div>
             <div className="flex justify-between items-center">

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Transaction } from '@/types/transaction';
-import { toDateInputValue, toISOString, getTodayDateString } from '@/utils/date';
+import { toDateInputValue, toISOString, getTodayDateString, getCurrentTimeString } from '@/utils/date';
 
 export interface TransactionFormData {
   type: 'expense' | 'income';
@@ -8,6 +8,7 @@ export interface TransactionFormData {
   category: string;
   merchant: string;
   date: string;
+  time: string;
   tags: string[];
 }
 
@@ -35,6 +36,7 @@ export function useTransactionForm(
     category: 'Other',
     merchant: '',
     date: getTodayDateString(),
+    time: getCurrentTimeString(),
     tags: [],
   });
 
@@ -50,6 +52,7 @@ export function useTransactionForm(
         category: transaction.category,
         merchant: transaction.merchant,
         date: toDateInputValue(transaction.date),
+        time: transaction.time || getCurrentTimeString(),
         tags: transaction.tags || [],
       });
     } else if (isOpen && !transaction) {
@@ -60,6 +63,7 @@ export function useTransactionForm(
         category: 'Other',
         merchant: '',
         date: getTodayDateString(),
+        time: getCurrentTimeString(),
         tags: [],
       });
     }
@@ -94,6 +98,7 @@ export function useTransactionForm(
       category: formData.category,
       merchant: formData.merchant,
       date: toISOString(formData.date),
+      time: formData.time,
       tags: formData.tags.length > 0 ? formData.tags : undefined,
     } as Transaction;
   };

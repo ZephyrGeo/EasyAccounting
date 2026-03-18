@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Sidebar from './Sidebar';
 import Header from './Header';
+import UploadModal from '../transactions/UploadModal';
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -9,6 +10,7 @@ interface DashboardLayoutProps {
   onAddBill?: () => void;
   activeRoute?: string;
   onNavigate?: (route: string) => void;
+  onRefresh?: () => void;
 }
 
 export default function DashboardLayout({
@@ -18,13 +20,10 @@ export default function DashboardLayout({
   onAddBill,
   activeRoute,
   onNavigate,
+  onRefresh,
 }: DashboardLayoutProps) {
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  const handleToggleSidebar = () => {
-    setSidebarCollapsed((prev) => !prev);
-  };
+  const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
 
   const handleMobileMenuToggle = () => {
     setMobileMenuOpen((prev) => !prev);
@@ -35,21 +34,17 @@ export default function DashboardLayout({
   };
 
   return (
-    <div className="flex min-h-screen bg-[#F8F9FC] dark:bg-gradient-to-br dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 font-sans text-slate-800 dark:text-slate-100 transition-colors duration-300">
+    <div className="flex min-h-screen bg-[#F7F7F3] font-sans text-[#1A1A1A] transition-colors duration-300">
       <Sidebar
         activeRoute={activeRoute}
         onNavigate={onNavigate}
-        collapsed={sidebarCollapsed}
-        onToggle={handleToggleSidebar}
+        onUploadClick={() => setIsUploadModalOpen(true)}
         mobileOpen={mobileMenuOpen}
         onMobileClose={handleMobileMenuClose}
       />
 
-      <main className="flex-1 overflow-y-auto p-8 relative">
-        {/* Subtle glow effect in dark mode */}
-        <div className="absolute inset-0 dark:bg-gradient-to-br dark:from-blue-500/5 dark:via-transparent dark:to-purple-500/5 pointer-events-none" />
-
-        <div className="relative z-10">
+      <main className="flex-1 overflow-y-auto p-8 lg:p-12 relative bg-[#F7F7F3]">
+        <div className="max-w-7xl mx-auto relative z-10">
           <Header
             title={title}
             description={description}
@@ -59,6 +54,17 @@ export default function DashboardLayout({
           {children}
         </div>
       </main>
+
+      {/* AI Upload Modal */}
+      <UploadModal
+        isOpen={isUploadModalOpen}
+        onClose={() => setIsUploadModalOpen(false)}
+        onSuccess={() => {
+          if (onRefresh) onRefresh();
+          // 如果在首页，可能也需要刷新
+          window.location.reload(); 
+        }}
+      />
     </div>
   );
 }

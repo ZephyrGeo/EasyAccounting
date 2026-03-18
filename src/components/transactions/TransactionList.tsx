@@ -1,176 +1,144 @@
-import { useState } from 'react';
-import TransactionItem from './TransactionItem';
-import TransactionModal from './TransactionModal';
-import DeleteConfirmModal from './DeleteConfirmModal';
-import { useRecentTransactions } from '@/hooks/useRecentTransactions';
+import React, { useState, useMemo } from 'react';
+import { Search, Calendar } from 'lucide-react';
 import { Transaction } from '@/types/transaction';
-import { updateTransaction, deleteTransaction } from '@/api/transactions/crud';
+import TransactionItem from './TransactionItem';
+import TagFilterBar, { FilterMode } from './TagFilterBar';
 
 interface TransactionListProps {
-  selectedMonth?: string;
-  limit?: number;
+  transactions: Transaction[];
+  className?: string;
   onSeeAll?: () => void;
-  // 新增：支持直接传入交易数据
-  transactions?: Transaction[];
-  loading?: boolean;
-  error?: string | null;
-  // 新增：是否启用编辑/删除功能
-  enableActions?: boolean;
-  // 新增：刷新回调（用于编辑/删除后刷新数据）
-  onRefresh?: () => void;
-  // 新增：是否显示标题
-  showTitle?: boolean;
+  onDelete?: (id: string) => void;
 }
 
 export default function TransactionList({
-  selectedMonth,
-  limit,
-  onSeeAll,
-  transactions: externalTransactions,
-  loading: externalLoading,
-  error: externalError,
-  enableActions = false,
-  onRefresh,
-  showTitle = true,
+  transactions,
+  className = "",
+  onDelete,
 }: TransactionListProps) {
-  // 编辑和删除的状态管理
-  const [editingTransaction, setEditingTransaction] = useState<Transaction | null>(null);
-  const [deletingTransaction, setDeletingTransaction] = useState<Transaction | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [filterMode, setFilterMode] = useState<FilterMode>('AND');
 
-  // 如果传入了 transactions，使用外部数据；否则使用内部 hook 获取
-  const {
-    data: internalTransactions,
-    loading: internalLoading,
-    error: internalError,
-  } = useRecentTransactions({
-    limit,
-    selectedMonth
-  });
+  // 1. 获取所有可用标签
+  const allTags = useMemo(() => {
+    const tagsSet = new Set<string>();
+    if (!transactions) return [];
+    transactions.forEach(t => t.tags?.forEach(tag => tagsSet.add(tag)));
+    return Array.from(tagsSet).sort();
+  }, [transactions]);
 
-  // 优先使用外部传入的数据和状态
-  const transactions = externalTransactions ?? internalTransactions;
-  const loading = externalLoading ?? internalLoading;
-  const error = externalError ?? internalError;
+  // 2. 基础过滤逻辑
+  const filteredTransactions = useMemo(() => {
+    if (!transactions) return [];
+    return transactions.filter((t) => {
+      const merchantName = t.merchant?.name || '';
+      const categoryName = t.category?.name || '';
 
-  // 编辑处理
-  const handleEdit = (transaction: Transaction) => {
-    setEditingTransaction(transaction);
+      const matchesSearch = 
+        merchantName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        categoryName.toLowerCase().includes(searchQuery.toLowerCase());
+      
+      const matchesTags = 
+        selectedTags.length === 0 || 
+        (filterMode === 'AND' 
+          ? selectedTags.every(tag => t.tags?.includes(tag))
+          : selectedTags.some(tag => t.tags?.includes(tag)));
+
+      return matchesSearch && matchesTags;
+    });
+  }, [transactions, searchQuery, selectedTags, filterMode]);
+
+  // 3. 按日期分组
+  const groupedTransactions = useMemo(() => {
+    const groups: { date: string; items: Transaction[] }[] = [];
+    const dateGroups: Record<string, Transaction[]> = {};
+    
+    filteredTransactions.forEach(t => {
+      if (!dateGroups[t.date]) dateGroups[t.date] = [];
+      dateGroups[t.date].push(t);
+    });
+
+    Object.keys(dateGroups).sort((a, b) => b.localeCompare(a)).forEach(date => {
+      groups.push({
+        date,
+        items: dateGroups[date]
+      });
+    });
+
+    return groups;
+  }, [filteredTransactions]);
+
+  const handleTagToggle = (tag: string) => {
+    setSelectedTags(prev => 
+      prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]
+    );
   };
 
-  const handleSaveEdit = async (updatedTransaction: Transaction) => {
-    try {
-      await updateTransaction(updatedTransaction.id, updatedTransaction);
-
-      // 刷新数据（如果提供了刷新回调）
-      if (onRefresh) {
-        onRefresh();
-      }
-    } catch (error) {
-      console.error('Failed to update transaction:', error);
-      // TODO: 显示错误提示给用户
-    } finally {
-      setEditingTransaction(null);
-    }
-  };
-
-  // 删除处理
-  const handleDelete = (id: string) => {
-    const transaction = transactions.find(tx => tx.id === id);
-    if (transaction) {
-      setDeletingTransaction(transaction);
-    }
-  };
-
-  const handleConfirmDelete = async () => {
-    if (!deletingTransaction) return;
-
-    try {
-      await deleteTransaction(deletingTransaction.id);
-
-      // 刷新数据（如果提供了刷新回调）
-      if (onRefresh) {
-        onRefresh();
-      }
-    } catch (error) {
-      console.error('Failed to delete transaction:', error);
-      // TODO: 显示错误提示给用户
-    } finally {
-      setDeletingTransaction(null);
-    }
-  };
   return (
-    <div className="group relative col-span-12 lg:col-span-8 bg-white dark:bg-gradient-to-br dark:from-slate-800 dark:to-slate-800/80 p-6 rounded-3xl shadow-[0_2px_10px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.4)] border-slate-100 dark:border-slate-700/50 hover:-translate-y-1 transition-all duration-300 dark:ring-1 dark:ring-white/5">
-      {/* Hover glow effect */}
-      <div className="absolute inset-0 rounded-3xl opacity-0 dark:group-hover:opacity-100 transition-opacity duration-300 dark:bg-gradient-to-br dark:from-cyan-500/10 dark:via-transparent dark:to-blue-500/10 pointer-events-none" />
-
-      {showTitle && (
-        <div className="flex justify-between items-center mb-4 relative z-10">
-          <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-            Recent Transactions
-          </h3>
-          {onSeeAll && (
-            <button
-              onClick={onSeeAll}
-              className="text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 hover:underline transition-all cursor-pointer"
-            >
-              See all →
-            </button>
-          )}
-        </div>
-      )}
-
-      <div className="relative z-10">
-        {loading ? (
-          <div className="flex items-center justify-center py-8">
-            <div className="text-slate-400 dark:text-slate-500 text-sm">
-              Loading...
-            </div>
+    <div className={`bg-white rounded-lg border border-[#E5E5E0] overflow-hidden flex flex-col min-h-[600px] ${className}`}>
+      {/* Header & Controls */}
+      <div className="p-6 border-b border-[#F0F0EA]">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+          <div>
+            <h3 className="text-[16px] font-medium text-[#1A1A1A]">Transactions</h3>
+            <p className="text-[13px] text-[#6B6B6B] mt-1">Manage your spending records</p>
           </div>
-        ) : error ? (
-          <div className="flex items-center justify-center py-8">
-            <div className="text-red-500 dark:text-red-400 text-sm">
-              {error}
-            </div>
-          </div>
-        ) : transactions.length === 0 ? (
-          <div className="flex items-center justify-center py-8">
-            <div className="text-slate-400 dark:text-slate-500 text-sm">
-              No transactions found
-            </div>
-          </div>
-        ) : (
-          <div className="space-y-4">
-            {transactions.map((tx) => (
-              <TransactionItem
-                key={tx.id}
-                transaction={tx}
-                onEdit={enableActions ? handleEdit : undefined}
-                onDelete={enableActions ? handleDelete : undefined}
+          
+          <div className="flex items-center gap-2">
+            <div className="relative group">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8E8E8E] group-focus-within:text-[#1A1A1A] transition-colors" />
+              <input
+                type="text"
+                placeholder="Search records..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-9 pr-4 py-2 bg-[#F7F7F3] border border-[#E5E5E0] rounded-md text-[13px] focus:outline-none focus:border-[#6B6B6B] transition-all w-full md:w-64 text-[#1A1A1A] placeholder:text-[#8E8E8E]"
               />
-            ))}
+            </div>
           </div>
-        )}
+        </div>
+
+        {/* Tag Cloud Filter */}
+        <TagFilterBar 
+          allTags={allTags}
+          selectedTags={selectedTags}
+          filterMode={filterMode}
+          onTagToggle={handleTagToggle}
+          onClearTags={() => setSelectedTags([])}
+          onModeToggle={() => setFilterMode(prev => prev === 'AND' ? 'OR' : 'AND')}
+        />
       </div>
 
-      {/* 编辑模态框 */}
-      {editingTransaction && (
-        <TransactionModal
-          isOpen={!!editingTransaction}
-          onClose={() => setEditingTransaction(null)}
-          transaction={editingTransaction}
-          onSave={handleSaveEdit}
-        />
-      )}
-
-      {/* 删除确认模态框 */}
-      {deletingTransaction && (
-        <DeleteConfirmModal
-          isOpen={!!deletingTransaction}
-          onClose={() => setDeletingTransaction(null)}
-          onConfirm={handleConfirmDelete}
-          transaction={deletingTransaction}
-        />
-      )}
+      {/* List Area */}
+      <div className="flex-1 overflow-y-auto custom-scrollbar bg-white">
+        {groupedTransactions.length === 0 ? (
+          <div className="flex flex-col items-center justify-center py-24 text-[#8E8E8E]">
+            <Calendar className="w-10 h-10 mb-4 opacity-30" />
+            <p className="text-[14px]">No transactions found</p>
+          </div>
+        ) : (
+          groupedTransactions.map((group) => (
+            <div key={group.date}>
+              <div className="sticky top-0 z-10 bg-[#F7F7F3]/95 backdrop-blur-sm px-6 py-2 border-y border-[#E5E5E0]">
+                <span className="text-[11px] font-bold text-[#6B6B6B] uppercase tracking-wider">
+                  {group.date}
+                </span>
+              </div>
+              
+              <div className="divide-y divide-[#F0F0EA]">
+                {group.items.map((transaction) => (
+                  <TransactionItem 
+                    key={transaction.id}
+                    transaction={transaction}
+                    onDelete={onDelete}
+                  />
+                ))}
+              </div>
+            </div>
+          ))
+        )}
+      </div>
     </div>
   );
 }

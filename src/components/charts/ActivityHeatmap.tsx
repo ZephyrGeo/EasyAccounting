@@ -1,55 +1,82 @@
-import { Activity } from 'lucide-react';
-import MonthPicker from '@/components/ui/MonthPicker';
-import { useActivityHeatmap } from '@/hooks/useActivityHeatmap';
+import React, { useMemo } from 'react';
+import { Calendar, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Transaction } from '@/types/transaction';
+import { 
+  generateHeatmapData, 
+  getDayNames, 
+  MONTH_LABELS,
+  LEVEL_COLORS
+} from '@/utils/heatmap';
 
 interface ActivityHeatmapProps {
-  selectedMonth: string;
-  onMonthChange: (month: string) => void;
-  availableMonths: string[];
+  transactions: Transaction[];
+  className?: string;
 }
 
-export default function ActivityHeatmap({
-  selectedMonth,
-  onMonthChange,
-  availableMonths,
+export default function ActivityHeatmap({ 
+  transactions, 
+  className = "" 
 }: ActivityHeatmapProps) {
-  // 获取该月的交易活动热图数据
-  const heatmapData = useActivityHeatmap(selectedMonth);
+  // 生成热图数据 (这里您可以根据需要调整为显示最近 12 个月或特定区间)
+  const heatmapData = useMemo(() => {
+    return generateHeatmapData(transactions);
+  }, [transactions]);
+
+  const days = getDayNames();
 
   return (
-    <div className="group relative col-span-12 lg:col-span-4 bg-white dark:bg-gradient-to-br dark:from-slate-800 dark:to-slate-800/80 p-6 rounded-3xl shadow-[0_2px_10px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.4)] border border-slate-100 dark:border-slate-700/50 hover:-translate-y-1 transition-all duration-300 dark:ring-1 dark:ring-white/5">
-      {/* Hover glow effect */}
-      <div className="absolute inset-0 rounded-3xl opacity-0 dark:group-hover:opacity-100 transition-opacity duration-300 dark:bg-gradient-to-br dark:from-cyan-500/10 dark:via-transparent dark:to-blue-500/10 pointer-events-none" />
+    <div className={`col-span-12 bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800/50 p-6 shadow-sm ${className}`}>
+      <div className="flex items-center justify-between mb-8">
+        <div>
+          <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+            <Calendar className="w-5 h-5 text-blue-500" />
+            Activity Overview
+          </h3>
+          <p className="text-sm text-slate-500">Your spending frequency</p>
+        </div>
+      </div>
 
-      <div className="relative z-10">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2">
-            <Activity className="w-5 h-5 text-purple-500 dark:text-purple-400" />
-            <h3 className="font-bold text-lg text-slate-800 dark:text-slate-200">Heat Map</h3>
+      <div className="flex flex-col overflow-x-auto custom-scrollbar pb-2">
+        <div className="flex gap-1 mb-2">
+          <div className="w-8" /> {/* Spacer for day labels */}
+          <div className="flex flex-1 justify-between px-1">
+            {MONTH_LABELS.map((month) => (
+              <span key={month} className="text-[10px] font-medium text-slate-400 uppercase">
+                {month}
+              </span>
+            ))}
           </div>
-          <MonthPicker
-            value={selectedMonth}
-            onChange={onMonthChange}
-            availableMonths={availableMonths}
-          />
         </div>
 
-        {/* 热图网格 */}
-        <div className="grid grid-cols-7 gap-2 mb-3">
-          {heatmapData.map((data, i) => (
-            <div
-              key={i}
-              className={`aspect-square rounded transition-all duration-200 ${
-                data.intensity > 2
-                  ? 'bg-purple-500 dark:bg-purple-400'
-                  : data.intensity > 0
-                  ? 'bg-purple-300 dark:bg-purple-600'
-                  : 'bg-slate-100 dark:bg-slate-700'
-              }`}
-              style={{ opacity: data.intensity > 0 ? 0.4 + data.intensity * 0.15 : 0.3 }}
-            />
+        <div className="flex gap-1">
+          <div className="flex flex-col justify-between py-1 h-32">
+            {days.map((day, i) => (
+              <span key={day} className="text-[10px] font-medium text-slate-400 h-3 flex items-center">
+                {i % 2 === 1 ? day : ''}
+              </span>
+            ))}
+          </div>
+
+          <div className="grid grid-flow-col grid-rows-7 gap-1 flex-1">
+            {heatmapData.map((day, i) => (
+              <div
+                key={i}
+                className={`w-3.5 h-3.5 rounded-sm transition-all duration-300 hover:ring-2 hover:ring-blue-500/20 cursor-help ${LEVEL_COLORS[day.level]}`}
+                title={`${day.date}: ${day.count} transactions`}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-6 flex items-center justify-end gap-3">
+        <span className="text-[10px] font-medium text-slate-400 uppercase">Less</span>
+        <div className="flex gap-1">
+          {LEVEL_COLORS.map((color, i) => (
+            <div key={i} className={`w-3 h-3 rounded-sm ${color}`} />
           ))}
         </div>
+        <span className="text-[10px] font-medium text-slate-400 uppercase">More</span>
       </div>
     </div>
   );

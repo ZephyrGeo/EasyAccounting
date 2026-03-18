@@ -2,10 +2,6 @@ import { useState, useEffect } from 'react';
 import { Transaction } from '@/types/transaction';
 import { getTransactions } from '@/api/transactions';
 
-interface UseTransactionsOptions {
-  selectedMonth?: string | null;
-}
-
 interface UseTransactionsResult {
   data: Transaction[];
   loading: boolean;
@@ -14,13 +10,9 @@ interface UseTransactionsResult {
 }
 
 /**
- * 获取所有交易记录（不限制数量）
- * @param options - 配置选项
- * @param options.selectedMonth - 可选的月份筛选（格式：YYYY-MM）
+ * 获取所有交易记录（不限制数量，不筛选日期）
  */
-export function useTransactions({
-  selectedMonth,
-}: UseTransactionsOptions = {}): UseTransactionsResult {
+export function useTransactions(): UseTransactionsResult {
   const [data, setData] = useState<Transaction[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -28,25 +20,12 @@ export function useTransactions({
 
   useEffect(() => {
     async function fetchTransactions() {
-      if (!selectedMonth) {
-        setData([]);
-        setLoading(false);
-        return;
-      }
-
       try {
         setLoading(true);
         setError(null);
-
-        // 解析 "YYYY-MM" 为年份和月份
-        const [year, month] = selectedMonth.split('-');
-        const yearShort = year.slice(2); // "2025" -> "25"
-
-        const transactions = await getTransactions({
-          year: yearShort,
-          month: month,
-        });
-
+        
+        // 直接获取所有记录
+        const transactions = await getTransactions();
         setData(transactions);
       } catch (err) {
         setError(err instanceof Error ? err.message : '获取交易失败');
@@ -57,7 +36,7 @@ export function useTransactions({
     }
 
     fetchTransactions();
-  }, [selectedMonth, refetchTrigger]);
+  }, [refetchTrigger]);
 
   const refetch = () => setRefetchTrigger((prev) => prev + 1);
 

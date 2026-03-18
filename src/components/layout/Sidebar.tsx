@@ -1,51 +1,36 @@
-import React from 'react';
-import {
-  Home,
-  CreditCard,
-  PanelLeft,
-  X,
-  LucideIcon,
-} from "lucide-react";
+import React from "react";
+import { Plus, Home, CreditCard, LucideIcon } from "lucide-react";
 
 interface NavItemProps {
   icon: LucideIcon;
-  label: string;
-  active?: boolean;
+  label: string; // Keep for title/accessibility
   onClick?: () => void;
-  collapsed?: boolean;
+  isPrimary?: boolean;
 }
 
 function NavItem({
   icon: Icon,
   label,
-  active = false,
   onClick,
-  collapsed = false,
+  isPrimary = false,
 }: NavItemProps) {
   return (
     <div
       onClick={onClick}
-      className={`flex items-center rounded-xl cursor-pointer transition-all duration-300 ${
-        active
-          ? "bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400"
-          : "text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-slate-200"
-      } ${
-        collapsed
-          ? active
-            ? "justify-center py-3 px-5"
-            : "justify-center py-3 px-5"
-          : "gap-3 px-4 py-3"
+      className={`flex items-center justify-center cursor-pointer group relative transition-all duration-200 ${
+        isPrimary 
+          ? "bg-[#1A1A1A] text-white hover:bg-[#333333] rounded-full w-9 h-9 mx-auto" 
+          : "text-[#6B6B6B] hover:bg-[#F0F0EA] hover:text-[#1A1A1A] rounded-lg h-9 mx-1.5"
       }`}
-      title={collapsed ? label : undefined}
+      title={label}
     >
-      <Icon className="w-5 h-5 shrink-0" />
-      <span
-        className={`font-medium text-sm truncate transition-all duration-300 ${
-          collapsed ? "opacity-0 w-0 overflow-hidden" : "opacity-100"
-        }`}
-      >
-        {label}
-      </span>
+      <div className="w-8 h-8 flex-shrink-0 flex items-center justify-center">
+        <Icon
+          className={`w-4 h-4 transition-all duration-200 group-hover:scale-110 ${
+            isPrimary ? "text-white" : "text-[#8E8E8E] group-hover:text-[#1A1A1A]"
+          }`}
+        />
+      </div>
     </div>
   );
 }
@@ -53,8 +38,7 @@ function NavItem({
 interface SidebarProps {
   activeRoute?: string;
   onNavigate?: (route: string) => void;
-  collapsed?: boolean;
-  onToggle?: () => void;
+  onUploadClick?: () => void;
   mobileOpen?: boolean;
   onMobileClose?: () => void;
 }
@@ -62,8 +46,7 @@ interface SidebarProps {
 export default function Sidebar({
   activeRoute = "dashboard",
   onNavigate,
-  collapsed = false,
-  onToggle,
+  onUploadClick,
   mobileOpen = false,
   onMobileClose,
 }: SidebarProps) {
@@ -72,81 +55,50 @@ export default function Sidebar({
       {/* Mobile Overlay */}
       {mobileOpen && (
         <div
-          className="fixed inset-0 bg-black/50 dark:bg-black/70 z-40 md:hidden"
+          className="fixed inset-0 bg-black/5 z-40 md:hidden backdrop-blur-[2px]"
           onClick={onMobileClose}
         />
       )}
 
-      {/* Sidebar */}
+      {/* Sidebar - Fixed to mini width */}
       <aside
-        data-collapsible={collapsed ? "icon" : "none"}
-        className={`group/sidebar bg-white dark:bg-gradient-to-b dark:from-slate-800 dark:to-slate-900 border-r border-slate-100 dark:border-slate-700/50 flex flex-col p-6 transition-all duration-300 ease-in-out dark:shadow-[2px_0_10px_rgba(0,0,0,0.3)] ${
-          collapsed ? "w-20" : "w-64"
-        } ${
-          // Desktop: always visible
-          // Mobile: fixed position, slide in from left
+        className={`group/sidebar bg-[#F7F7F3] border-r border-[#E5E5E0] flex flex-col pt-3 pb-3 z-50 transition-all duration-[var(--duration)] ease-[var(--ease)] w-[var(--sb-mini)] min-w-[var(--sb-mini)] ${
           mobileOpen
-            ? "fixed inset-y-0 left-0 z-50 md:relative"
-            : "fixed inset-y-0 -left-64 z-50 md:relative md:left-0"
+            ? "fixed inset-y-0 left-0 md:relative"
+            : "fixed inset-y-0 -left-64 md:relative md:left-0"
         }`}
       >
-      <div className="space-y-4">
-        {/* Logo and Toggle Button */}
-        <div
-          className={`flex items-center transition-all duration-300 ${
-            collapsed ? "justify-center px-5" : "justify-between px-4"
-          }`}
-        >
-          <span
-            className={`text-xl font-bold tracking-tight text-slate-900 dark:text-white transition-all duration-300 ${
-              collapsed ? "opacity-0 w-0 overflow-hidden" : "opacity-100"
-            }`}
-          >
-            snowflake
-          </span>
-          <div className="flex items-center gap-2">
-            {/* Close button for mobile */}
-            {onMobileClose && (
-              <button
-                onClick={onMobileClose}
-                className="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition text-slate-600 dark:text-slate-400 md:hidden"
-                title="Close menu"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            )}
-            {/* Toggle button for desktop */}
-            {onToggle && (
-              <button
-                onClick={onToggle}
-                className="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition text-slate-600 dark:text-slate-400 shrink-0 hidden md:block"
-                title="Toggle sidebar"
-              >
-                <PanelLeft className="w-5 h-5" />
-              </button>
-            )}
+        {/* Logo Area */}
+        <div className="flex flex-col items-center mb-6 px-1.5">
+          <div className="w-8 h-8 flex items-center justify-center">
+            <img src="/favicon.svg" alt="Logo" className="w-6 h-6" />
           </div>
         </div>
 
-        {/* Navigation */}
-        <nav className="space-y-1">
+        {/* Navigation Content */}
+        <div className="flex-1 overflow-y-auto no-scrollbar space-y-2">
+          {/* Add Icon - Now at the top of the list */}
           <NavItem
-            icon={Home}
-            label="Dashboard"
-            active={activeRoute === "dashboard"}
-            onClick={() => onNavigate?.("dashboard")}
-            collapsed={collapsed}
+            icon={Plus}
+            label="Add Bill"
+            onClick={onUploadClick}
+            isPrimary={true}
           />
-          <NavItem
-            icon={CreditCard}
-            label="Transactions"
-            active={activeRoute === "transactions"}
-            onClick={() => onNavigate?.("transactions")}
-            collapsed={collapsed}
-          />
-        </nav>
-      </div>
-    </aside>
+          
+          <div className="pt-2 space-y-1.5">
+            <NavItem
+              icon={Home}
+              label="Dashboard"
+              onClick={() => onNavigate?.("dashboard")}
+            />
+            <NavItem
+              icon={CreditCard}
+              label="Transactions"
+              onClick={() => onNavigate?.("transactions")}
+            />
+          </div>
+        </div>
+      </aside>
     </>
   );
 }

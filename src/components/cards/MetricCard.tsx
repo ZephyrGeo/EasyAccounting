@@ -1,65 +1,68 @@
-import { TrendingDown, TrendingUp } from "lucide-react";
-import MonthPicker from "@/components/ui/MonthPicker";
-import { useSelectedMonthlyTotal } from "@/hooks/useSelectedMonthlyTotal";
-import { formatMonthDisplay } from "@/utils/date";
-import { formatCurrency } from "@/utils/formatting";
+import React from 'react';
+import { CreditCard, Wallet, TrendingUp, DollarSign } from 'lucide-react';
+import { formatCurrency } from '@/utils/formatting';
+import { Transaction } from '@/types/transaction';
 
 interface MetricCardProps {
-  trend: string;
-  trendGood: boolean;
-  subtext: string;
-  selectedMonth: string; // 格式: "2025-11"
-  onMonthChange: (month: string) => void;
-  availableMonths: string[]; // 可用的月份列表
+  transactions: Transaction[];
 }
 
-export default function MetricCard({
-  trend,
-  trendGood,
-  subtext,
-  selectedMonth,
-  onMonthChange,
-  availableMonths,
-}: MetricCardProps) {
-  // 在组件内部获取数据
-  const { total: monthlyTotal, loading: totalLoading } = useSelectedMonthlyTotal(selectedMonth);
+export default function MetricCard({ transactions }: MetricCardProps) {
+  // 计算总支出
+  const totalExpense = Math.abs(
+    transactions
+      .filter(t => t.amount < 0)
+      .reduce((sum, t) => sum + t.amount, 0)
+  );
 
   return (
-    <div className="group relative bg-white dark:bg-gradient-to-br dark:from-slate-800 dark:to-slate-800/80 p-6 rounded-3xl shadow-[0_2px_10px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.4)] border border-slate-100 dark:border-slate-700/50 flex flex-col justify-between hover:-translate-y-1 transition-all duration-300 overflow-visible backdrop-blur-sm dark:ring-1 dark:ring-white/5">
-      {/* Subtle glow effect on hover */}
-      <div className="absolute inset-0 rounded-3xl opacity-0 dark:opacity-0 dark:group-hover:opacity-100 transition-opacity duration-300 dark:bg-gradient-to-br dark:from-blue-500/10 dark:via-transparent dark:to-purple-500/10 pointer-events-none" />
-
-      <div className="overflow-visible relative z-10">
-        <div className="flex items-center justify-between mb-1 overflow-visible">
-          <h4 className="text-slate-500 dark:text-slate-400 font-medium text-sm">
-            Total Expense ({formatMonthDisplay(selectedMonth)})
-          </h4>
-          <MonthPicker
-            value={selectedMonth}
-            onChange={onMonthChange}
-            availableMonths={availableMonths}
-          />
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {/* Total Balance */}
+      <div className="bg-white p-6 rounded-lg border border-[#E5E5E0]">
+        <div className="flex items-center justify-between mb-4">
+          <div className="p-2 bg-[#F7F7F3] rounded-md border border-[#E5E5E0]">
+            <Wallet className="w-4.5 h-4.5 text-[#1A1A1A]" />
+          </div>
+          <span className="text-[11px] font-bold tracking-wider text-[#6B6B6B] uppercase">OVERALL</span>
         </div>
-        <h2 className="text-3xl font-bold text-slate-900 dark:text-white dark:drop-shadow-[0_2px_8px_rgba(255,255,255,0.1)] tracking-tight">
-          {totalLoading ? "Loading..." : formatCurrency(monthlyTotal)}
-        </h2>
+        <p className="text-[#6B6B6B] text-[13px] mb-1">Total Assets</p>
+        <h3 className="text-3xl font-medium text-[#1A1A1A] font-serif tabular-nums">¥1,245,000</h3>
+        <p className="text-[12px] text-[#059669] mt-4 flex items-center gap-1">
+          <TrendingUp className="w-3 h-3" />
+          +2.4% from last period
+        </p>
       </div>
-      <div className="flex items-center gap-2 mt-4 relative z-10">
-        <div
-          className={`flex items-center text-xs font-bold px-2 py-1 rounded-full backdrop-blur-sm ${
-            trendGood
-              ? "bg-green-100 dark:bg-green-500/20 text-green-700 dark:text-green-400 dark:ring-1 dark:ring-green-500/30"
-              : "bg-red-100 dark:bg-red-500/20 text-red-700 dark:text-red-400 dark:ring-1 dark:ring-red-500/30"
-          }`}
-        >
-          {trendGood ? (
-            <TrendingDown className="w-3 h-3 mr-1" />
-          ) : (
-            <TrendingUp className="w-3 h-3 mr-1" />
-          )}
-          {trend}
+
+      {/* Monthly Expense */}
+      <div className="bg-white p-6 rounded-lg border border-[#E5E5E0]">
+        <div className="flex items-center justify-between mb-4">
+          <div className="p-2 bg-[#F7F7F3] rounded-md border border-[#E5E5E0]">
+            <CreditCard className="w-4.5 h-4.5 text-[#1A1A1A]" />
+          </div>
+          <span className="text-[11px] font-bold tracking-wider text-[#6B6B6B] uppercase">EXPENSES</span>
         </div>
-        <span className="text-xs text-slate-400 dark:text-slate-500">{subtext}</span>
+        <p className="text-[#6B6B6B] text-[13px] mb-1">Total Expense</p>
+        <h3 className="text-3xl font-medium text-[#1A1A1A] font-serif tabular-nums">
+          {formatCurrency(totalExpense)}
+        </h3>
+        <p className="text-[12px] text-[#6B6B6B] mt-4">
+          Calculated from all records
+        </p>
+      </div>
+
+      {/* Budget Card */}
+      <div className="bg-white p-6 rounded-lg border border-[#E5E5E0]">
+        <div className="flex items-center justify-between mb-4">
+          <div className="p-2 bg-[#F7F7F3] rounded-md border border-[#E5E5E0]">
+            <DollarSign className="w-4.5 h-4.5 text-[#1A1A1A]" />
+          </div>
+          <span className="text-[11px] font-bold tracking-wider text-[#6B6B6B] uppercase">SAVINGS</span>
+        </div>
+        <p className="text-[#6B6B6B] text-[13px] mb-1">Total Savings</p>
+        <h3 className="text-3xl font-medium text-[#1A1A1A] font-serif tabular-nums">¥258,400</h3>
+        <div className="w-full bg-[#F0F0EA] h-1.5 rounded-full mt-5 overflow-hidden">
+          <div className="bg-[#1A1A1A] h-full w-[65%]" />
+        </div>
       </div>
     </div>
   );

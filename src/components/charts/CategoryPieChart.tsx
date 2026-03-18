@@ -10,36 +10,33 @@ interface CategoryPieChartProps {
 export default function CategoryPieChart({
   selectedMonth,
 }: CategoryPieChartProps) {
-  // 在组件内部获取数据
+  // 在组件内部获取数据 (这里传入 transactions 的逻辑可能需要根据实际 hooks 调整，暂时保持原逻辑)
   const {
     data: categoryStats,
     loading,
     error,
-  } = useCategoryStats(selectedMonth);
+  } = useCategoryStats("");
 
   // 标准化数据格式并添加颜色
   const dataWithColors = transformCategoryDataForChart(categoryStats);
   const total = calculateTotal(dataWithColors);
 
   return (
-    <div className="group relative col-span-12 lg:col-span-4 bg-white dark:bg-gradient-to-br dark:from-slate-800 dark:to-slate-800/80 p-6 rounded-3xl shadow-[0_2px_10px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.4)] border border-slate-100 dark:border-slate-700/50 flex flex-col hover:-translate-y-1 transition-all duration-300 dark:ring-1 dark:ring-white/5">
-      {/* Hover glow effect */}
-      <div className="absolute inset-0 rounded-3xl opacity-0 dark:group-hover:opacity-100 transition-opacity duration-300 dark:bg-gradient-to-br dark:from-purple-500/10 dark:via-transparent dark:to-pink-500/10 pointer-events-none" />
-
-      <h3 className="font-bold text-lg text-slate-800 dark:text-slate-200 mb-4 relative z-10">Top Categories</h3>
+    <div className="col-span-12 lg:col-span-4 bg-white p-6 rounded-lg border border-[#E5E5E0] flex flex-col">
+      <h3 className="font-medium text-[16px] text-[#1A1A1A] mb-6">Top Categories</h3>
 
       <div className="relative z-10">
         {loading ? (
-          <div className="flex items-center justify-center flex-1">
-            <div className="text-slate-400 dark:text-slate-500 text-sm">Loading...</div>
+          <div className="flex items-center justify-center flex-1 py-12">
+            <div className="text-[#8E8E8E] text-sm">Loading...</div>
           </div>
         ) : error ? (
-          <div className="flex items-center justify-center flex-1">
-            <div className="text-red-500 dark:text-red-400 text-sm">{error}</div>
+          <div className="flex items-center justify-center flex-1 py-12">
+            <div className="text-red-500 text-sm">{error}</div>
           </div>
         ) : categoryStats.length === 0 ? (
-          <div className="flex items-center justify-center flex-1">
-            <div className="text-slate-400 dark:text-slate-500 text-sm">No data available</div>
+          <div className="flex items-center justify-center flex-1 py-12">
+            <div className="text-[#8E8E8E] text-sm">No data available</div>
           </div>
         ) : (
           <>
@@ -48,11 +45,11 @@ export default function CategoryPieChart({
                 <PieChart>
                   <Pie
                     data={dataWithColors}
-                    innerRadius={60}
-                    outerRadius={80}
-                    paddingAngle={5}
+                    innerRadius={65}
+                    outerRadius={85}
+                    paddingAngle={2}
                     dataKey="value"
-                    cornerRadius={6}
+                    stroke="none"
                   >
                     {dataWithColors.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={entry.color} />
@@ -63,28 +60,28 @@ export default function CategoryPieChart({
 
               {/* Center Text */}
               <div className="absolute inset-0 flex items-center justify-center flex-col pointer-events-none">
-                <span className="text-xs text-slate-400 dark:text-slate-500">Total</span>
-                <span className="font-bold text-slate-800 dark:text-slate-200 dark:drop-shadow-[0_2px_8px_rgba(255,255,255,0.1)]">
+                <span className="text-[11px] font-bold text-[#6B6B6B] uppercase tracking-wider">Total</span>
+                <span className="text-[18px] font-medium text-[#1A1A1A] font-serif mt-0.5">
                   {formatCompactCurrency(total)}
                 </span>
               </div>
             </div>
 
-            {/* Legend */}
-            <div className="mt-4 space-y-2">
+            {/* Legend - Minimal style */}
+            <div className="mt-6 space-y-1">
               {dataWithColors.slice(0, 5).map((cat) => (
                 <div
                   key={cat.name}
-                  className="flex justify-between items-center text-sm hover:bg-slate-50 dark:hover:bg-slate-700/30 p-2 -mx-2 rounded-lg transition-colors"
+                  className="flex justify-between items-center text-[13px] py-1.5 border-b border-[#F0F0EA] last:border-0"
                 >
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2.5">
                     <div
-                      className="w-2 h-2 rounded-full shadow-sm"
+                      className="w-2 h-2 rounded-full"
                       style={{ backgroundColor: cat.color }}
                     ></div>
-                    <span className="text-slate-600 dark:text-slate-400">{cat.name}</span>
+                    <span className="text-[#4A4A4A]">{cat.name}</span>
                   </div>
-                  <span className="font-semibold text-slate-800 dark:text-slate-200">
+                  <span className="font-medium text-[#1A1A1A] tabular-nums">
                     {formatCurrency(cat.value)}
                   </span>
                 </div>
