@@ -49,10 +49,10 @@ export function useTransactionForm(
       setFormData({
         type: isIncome ? 'income' : 'expense',
         amount: Math.abs(transaction.amount).toString(),
-        category: transaction.category,
-        merchant: transaction.merchant,
+        category: typeof transaction.category === 'string' ? transaction.category : transaction.category.name,
+        merchant: typeof transaction.merchant === 'string' ? transaction.merchant : transaction.merchant.name,
         date: toDateInputValue(transaction.date),
-        time: transaction.time || getCurrentTimeString(),
+        time: getCurrentTimeString(),
         tags: transaction.tags || [],
       });
     } else if (isOpen && !transaction) {
@@ -95,12 +95,19 @@ export function useTransactionForm(
     return {
       id: transactionId || '',
       amount: signedAmount,
-      category: formData.category,
-      merchant: formData.merchant,
+      category: {
+        id: 'temp',
+        name: formData.category,
+        color_code: '#64748B'
+      },
+      merchant: {
+        id: 'temp',
+        name: formData.merchant,
+        brand: null
+      },
       date: toISOString(formData.date),
-      time: formData.time,
-      tags: formData.tags.length > 0 ? formData.tags : undefined,
-    } as Transaction;
+      tags: formData.tags.length > 0 ? formData.tags : [],
+    };
   };
 
   return {

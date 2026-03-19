@@ -3,20 +3,23 @@ import { useCategoryStats } from "@/hooks/useCategoryStats";
 import { transformCategoryDataForChart, calculateTotal } from '@/utils/charts';
 import { formatCompactCurrency, formatCurrency } from '@/utils/formatting';
 
+import { Transaction } from '@/types/transaction';
+
 interface CategoryPieChartProps {
   selectedMonth: string;
+  transactions: Transaction[];
 }
 
 export default function CategoryPieChart({
   selectedMonth,
+  transactions,
 }: CategoryPieChartProps) {
   // 在组件内部获取数据 (这里传入 transactions 的逻辑可能需要根据实际 hooks 调整，暂时保持原逻辑)
   const {
     data: categoryStats,
     loading,
     error,
-  } = useCategoryStats("");
-
+  } = useCategoryStats(selectedMonth); 
   // 标准化数据格式并添加颜色
   const dataWithColors = transformCategoryDataForChart(categoryStats);
   const total = calculateTotal(dataWithColors);

@@ -69,3 +69,24 @@ export interface DatabaseTransaction {
   // 关联表：标签
   transaction_tags: TransactionTagJoin[];
 }
+
+/**
+ * 带有分类信息的交易记录 (用于统计和图表)
+ */
+export interface TransactionWithCategory {
+  id: string;
+  amount: number;
+  date: string;
+  category: {
+    name: string;
+    color_code: string | null;
+  } | null;
+}
+
+/**
+ * 分类统计信息
+ */
+export interface CategoryStat {
+  category: string;
+  amount: number;
+}

@@ -3,13 +3,16 @@ import { useWeeklyComparison } from '@/hooks/useWeeklyComparison';
 import { WEEK_COLORS } from '@/utils/colors';
 import { formatCurrency } from '@/utils/formatting';
 
+import { Transaction } from '@/types/transaction';
+
 interface SpendingTrendChartProps {
   selectedMonth: string;
+  transactions: Transaction[];
 }
 
-export default function SpendingTrendChart({ transactions }: SpendingTrendChartProps) {
+export default function SpendingTrendChart({ selectedMonth, transactions }: SpendingTrendChartProps) {
   // 在组件内部获取数据 (这里传入 transactions 的逻辑可能需要根据实际 hooks 调整，暂时保持原逻辑)
-  const { data, weekCount, loading, error } = useWeeklyComparison(""); 
+  const { data, weekCount, loading, error } = useWeeklyComparison(selectedMonth); 
 
   return (
     <div className="col-span-12 lg:col-span-8 bg-white p-6 rounded-lg border border-[#E5E5E0]">

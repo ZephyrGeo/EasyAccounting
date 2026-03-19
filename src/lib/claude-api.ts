@@ -101,9 +101,9 @@ export async function parseCsvWithClaude(file: File): Promise<ParsedResult> {
   return {
     transactions: allTransactions,
     summary: {
-      totalAmount: allTransactions.reduce((s, t) => s + t.amount, 0),
-      transactionCount: allTransactions.length,
-    },
+      totalAmount: allTransactions.reduce((s: number, t: Transaction) => s + t.amount, 0),
+      transactionCount: allTransactions.length
+    }
   };
 }
 
@@ -139,9 +139,9 @@ export async function parsePdfWithClaude(file: File): Promise<ParsedResult> {
         resolve({
           transactions: mapped,
           summary: {
-            totalAmount: mapped.reduce((s, t) => s + t.amount, 0),
-            transactionCount: mapped.length,
-          },
+            totalAmount: mapped.reduce((s: number, t: Transaction) => s + t.amount, 0),
+            transactionCount: mapped.length
+          }
         });
       } catch (err) {
         reject(err);

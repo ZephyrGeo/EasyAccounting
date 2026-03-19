@@ -50,8 +50,8 @@ export default function Dashboard() {
         </div>
 
         {/* Row 2: Charts (它们现在将分析所有交易数据) */}
-        <SpendingTrendChart transactions={transactions} />
-        <CategoryPieChart transactions={transactions} />
+        <SpendingTrendChart selectedMonth="" transactions={transactions} />
+        <CategoryPieChart selectedMonth="" transactions={transactions} />
 
         {/* Right Column: Goals */}
         <div className="col-span-12 lg:col-span-4">

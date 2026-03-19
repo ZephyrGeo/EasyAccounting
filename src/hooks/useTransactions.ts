@@ -9,10 +9,14 @@ interface UseTransactionsResult {
   refetch: () => void;
 }
 
+interface UseTransactionsFilters {
+  selectedMonth?: string | null;
+}
+
 /**
  * 获取所有交易记录（不限制数量，不筛选日期）
  */
-export function useTransactions(): UseTransactionsResult {
+export function useTransactions(filters: UseTransactionsFilters = {}): UseTransactionsResult {
   const [data, setData] = useState<Transaction[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -26,7 +30,14 @@ export function useTransactions(): UseTransactionsResult {
         
         // 直接获取所有记录
         const transactions = await getTransactions();
-        setData(transactions);
+        
+        // 如果有月份过滤，则在前端过滤（暂时保持原逻辑，以后可优化为 API 过滤）
+        if (filters.selectedMonth) {
+          const filtered = transactions.filter(t => t.date.startsWith(filters.selectedMonth!));
+          setData(filtered);
+        } else {
+          setData(transactions);
+        }
       } catch (err) {
         setError(err instanceof Error ? err.message : '获取交易失败');
         console.error('获取交易失败:', err);
@@ -36,7 +47,7 @@ export function useTransactions(): UseTransactionsResult {
     }
 
     fetchTransactions();
-  }, [refetchTrigger]);
+  }, [refetchTrigger, filters.selectedMonth]);
 
   const refetch = () => setRefetchTrigger((prev) => prev + 1);
 

@@ -56,7 +56,9 @@ export default function TransactionItem({
                 {transaction.merchant.name}
               </h4>
               {transaction.is_recurring && (
-                <RefreshCw className="w-3 h-3 text-[#6B6B6B]" title="Subscription" />
+                <span title="Subscription">
+                  <RefreshCw className="w-3 h-3 text-[#6B6B6B]" />
+                </span>
               )}
             </div>
             
