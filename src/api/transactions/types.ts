@@ -9,46 +9,84 @@ export interface TransactionFilters {
 }
 
 /**
+ * 标签数据库模型
+ */
+export interface DatabaseTag {
+  id: string;
+  name: string;
+  color_code: string;
+}
+
+/**
+ * 关联表中的嵌套结构
+ */
+export interface TransactionTagJoin {
+  tag: DatabaseTag;
+}
+
+/**
  * 数据库交易记录的原始返回类型（从 Supabase 查询返回）
  */
 export interface DatabaseTransaction {
   id: string;
+  user_id: string;
   amount: number;
-  merchant_id: string;
-  category_id: string;
   date: string;
-  time: string;
-  tags: string[];
   notes: string | null;
-  updated_at: string;
+  is_recurring: boolean;
+  ai_metadata: any;
   is_modified: boolean;
   version: number;
-  // 关联表查询结果
+  created_at: string;
+  updated_at: string;
+  
+  // 关联表：分类
   category: {
     id: string;
     name: string;
+    icon_name: string | null;
+    color_code: string | null;
   } | null;
+
+  // 关联表：商户 -> 品牌
   merchant: {
     id: string;
     name: string;
+    brand: {
+      id: string;
+      name: string;
+      logo_url: string | null;
+    } | null;
+  } | null;
+
+  // 关联表：支付方式
+  payment_method: {
+    id: string;
+    name: string;
+    type: string | null;
+  } | null;
+
+  // 关联表：标签
+  transaction_tags: TransactionTagJoin[];
+}
+
+/**
+ * 带有分类信息的交易记录 (用于统计和图表)
+ */
+export interface TransactionWithCategory {
+  id: string;
+  amount: number;
+  date: string;
+  category: {
+    name: string;
+    color_code: string | null;
   } | null;
 }
 
 /**
- * 分类统计数据
+ * 分类统计信息
  */
 export interface CategoryStat {
   category: string;
   amount: number;
-}
-
-/**
- * 分类统计查询的返回类型（从 Supabase 查询返回）
- * 用于 category:categories(name) 这种嵌套查询
- */
-export interface TransactionWithCategory {
-  amount: number;
-  category: {
-    name: string;
-  } | null;
 }

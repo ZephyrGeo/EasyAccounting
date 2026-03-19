@@ -2,10 +2,6 @@ import { useState, useEffect } from 'react';
 import { Transaction } from '@/types/transaction';
 import { getTransactions } from '@/api/transactions';
 
-interface UseTransactionsOptions {
-  selectedMonth?: string | null;
-}
-
 interface UseTransactionsResult {
   data: Transaction[];
   loading: boolean;
@@ -13,14 +9,14 @@ interface UseTransactionsResult {
   refetch: () => void;
 }
 
+interface UseTransactionsFilters {
+  selectedMonth?: string | null;
+}
+
 /**
- * 获取所有交易记录（不限制数量）
- * @param options - 配置选项
- * @param options.selectedMonth - 可选的月份筛选（格式：YYYY-MM）
+ * 获取所有交易记录（不限制数量，不筛选日期）
  */
-export function useTransactions({
-  selectedMonth,
-}: UseTransactionsOptions = {}): UseTransactionsResult {
+export function useTransactions(filters: UseTransactionsFilters = {}): UseTransactionsResult {
   const [data, setData] = useState<Transaction[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -28,26 +24,20 @@ export function useTransactions({
 
   useEffect(() => {
     async function fetchTransactions() {
-      if (!selectedMonth) {
-        setData([]);
-        setLoading(false);
-        return;
-      }
-
       try {
         setLoading(true);
         setError(null);
-
-        // 解析 "YYYY-MM" 为年份和月份
-        const [year, month] = selectedMonth.split('-');
-        const yearShort = year.slice(2); // "2025" -> "25"
-
-        const transactions = await getTransactions({
-          year: yearShort,
-          month: month,
-        });
-
-        setData(transactions);
+        
+        // 直接获取所有记录
+        const transactions = await getTransactions();
+        
+        // 如果有月份过滤，则在前端过滤（暂时保持原逻辑，以后可优化为 API 过滤）
+        if (filters.selectedMonth) {
+          const filtered = transactions.filter(t => t.date.startsWith(filters.selectedMonth!));
+          setData(filtered);
+        } else {
+          setData(transactions);
+        }
       } catch (err) {
         setError(err instanceof Error ? err.message : '获取交易失败');
         console.error('获取交易失败:', err);
@@ -57,7 +47,7 @@ export function useTransactions({
     }
 
     fetchTransactions();
-  }, [selectedMonth, refetchTrigger]);
+  }, [refetchTrigger, filters.selectedMonth]);
 
   const refetch = () => setRefetchTrigger((prev) => prev + 1);
 

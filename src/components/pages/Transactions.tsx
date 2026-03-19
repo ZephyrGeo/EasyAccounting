@@ -1,51 +1,51 @@
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import TransactionList from '@/components/transactions/TransactionList';
-import TransactionFilters from '@/components/transactions/TransactionFilters';
-import ActivityHeatmap from '@/components/charts/ActivityHeatmap';
-import { useSelectedMonth } from '@/hooks/useSelectedMonth';
+import DeleteConfirmModal from '@/components/transactions/DeleteConfirmModal';
 import { useTransactions } from '@/hooks/useTransactions';
+import { deleteTransaction } from '@/api/transactions';
 import { getActiveRoute } from '@/utils/routing';
-import { filterTransactions, type FilterType } from '@/utils/transactions';
+import { Transaction } from '@/types/transaction';
 
 export default function Transactions() {
   const location = useLocation();
   const navigate = useNavigate();
   const activeRoute = getActiveRoute(location.pathname);
 
-  // 获取可用月份和选中月份
-  const {
-    selectedMonth,
-    setSelectedMonth,
-    availableMonths,
-    loading: monthsLoading,
-  } = useSelectedMonth();
+  // 获取数据
+  const { data: allTransactions, loading, refetch } = useTransactions();
 
-  // 筛选和搜索状态
-  const [searchQuery, setSearchQuery] = useState<string>('');
-  const [filterType, setFilterType] = useState<FilterType>('all');
+  // 删除状态 - 存储整个对象以便弹窗显示
+  const [deleteTarget, setDeleteTarget] = useState<Transaction | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
 
-  // 获取所有交易数据
-  const { data: allTransactions, loading, error, refetch } = useTransactions({ selectedMonth });
+  // 执行删除
+  const handleDeleteConfirm = async () => {
+    if (!deleteTarget) return;
+    
+    try {
+      setIsDeleting(true);
+      await deleteTransaction(deleteTarget.id);
+      await refetch(); // 刷新列表
+      setDeleteTarget(null);
+    } catch (error) {
+      console.error('Delete failed:', error);
+      alert('Failed to delete transaction. Please try again.');
+    } finally {
+      setIsDeleting(false);
+    }
+  };
 
-  // 客户端筛选逻辑
-  const filteredTransactions = useMemo(
-    () => filterTransactions(allTransactions, filterType, searchQuery),
-    [allTransactions, filterType, searchQuery]
-  );
-
-  // 如果月份还在加载中，显示加载状态
-  if (monthsLoading || !selectedMonth) {
+  if (loading) {
     return (
       <DashboardLayout
         title="Transactions"
-        description="Manage your financial records."
         activeRoute={activeRoute}
         onNavigate={(route) => navigate(route === 'dashboard' ? '/' : `/${route}`)}
       >
-        <div className="grid grid-cols-12 gap-6">
-          <div className="col-span-12 text-center py-12 text-slate-400">Loading...</div>
+        <div className="flex items-center justify-center py-20">
+          <div className="text-slate-400">Loading...</div>
         </div>
       </DashboardLayout>
     );
@@ -54,36 +54,29 @@ export default function Transactions() {
   return (
     <DashboardLayout
       title="Transactions"
-      description="Manage your financial records."
       activeRoute={activeRoute}
       onNavigate={(route) => navigate(route === 'dashboard' ? '/' : `/${route}`)}
     >
-      <div className="grid grid-cols-12 gap-6">
-        {/* 活动热图 */}
-        <ActivityHeatmap
-          selectedMonth={selectedMonth}
-          onMonthChange={setSelectedMonth}
-          availableMonths={availableMonths}
+      <div className="flex flex-col">
+        <TransactionList
+          transactions={allTransactions}
+          onDelete={(id) => {
+            const target = allTransactions.find(t => t.id === id);
+            if (target) setDeleteTarget(target);
+          }}
+          className="w-full"
         />
-
-        {/* 交易列表卡片 - 全宽 */}
-        <div className="col-span-12 bg-white dark:bg-gradient-to-br dark:from-slate-800 dark:to-slate-800/80 rounded-3xl shadow-[0_2px_10px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.4)] border border-slate-100 dark:border-slate-700/50 overflow-hidden">
-          <TransactionFilters
-            searchQuery={searchQuery}
-            onSearchChange={setSearchQuery}
-            filterType={filterType}
-            onFilterChange={setFilterType}
-          />
-          <TransactionList
-            transactions={filteredTransactions}
-            loading={loading}
-            error={error}
-            enableActions={true}
-            onRefresh={refetch}
-            showTitle={false}
-          />
-        </div>
       </div>
+
+      {/* 删除确认弹窗 */}
+      {deleteTarget && (
+        <DeleteConfirmModal
+          isOpen={!!deleteTarget}
+          onClose={() => setDeleteTarget(null)}
+          onConfirm={handleDeleteConfirm}
+          transaction={deleteTarget}
+        />
+      )}
     </DashboardLayout>
   );
 }

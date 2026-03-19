@@ -1,3 +1,12 @@
 @import "tailwindcss";
 
 @variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    --sb-full: 240px;
+    --sb-mini: 52px;
+    --duration: 0.32s;
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}

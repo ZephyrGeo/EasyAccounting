@@ -106,19 +106,42 @@ export function getCurrentMonth(): string {
 }
 
 /**
- * 计算下个月第一天的日期字符串（用于日期范围查询）
- * @param year - 年份字符串，如 "2025"
- * @param month - 月份字符串，如 "12"
- * @returns 下个月第一天的日期字符串，格式为 "YYYY-MM-01"
- * @example getNextMonth("2025", "12") → "2026-01-01"
- * @example getNextMonth("2025", "06") → "2025-07-01"
+ * 获取指定月份的前一个月（格式：YYYY-MM）
+ * @param selectedMonth - 当前月份 "2025-12"
+ * @returns 前一个月 "2025-11"
+ */
+export function getPreviousMonth(selectedMonth: string): string {
+  if (!selectedMonth || !selectedMonth.includes('-')) return '';
+  const [year, month] = selectedMonth.split('-');
+  const date = new Date(parseInt(year), parseInt(month) - 1, 1);
+  date.setMonth(date.getMonth() - 1);
+  
+  const prevYear = date.getFullYear();
+  const prevMonth = String(date.getMonth() + 1).padStart(2, '0');
+  return `${prevYear}-${prevMonth}`;
+}
+
+/**
+ * 获取指定年月的下个月第一天（格式：YYYY-MM-DD）
+ * @param year - 年份字符串 "2025"
+ * @param month - 月份字符串 "12"
+ * @returns 下个月第一天 "2026-01-01"
  */
 export function getNextMonth(year: string, month: string): string {
-  const date = new Date(`${year}-${month}-01`);
+  const date = new Date(parseInt(year), parseInt(month) - 1, 1);
   date.setMonth(date.getMonth() + 1);
+  
   const nextYear = date.getFullYear();
-  const nextMonth = (date.getMonth() + 1).toString().padStart(2, '0');
+  const nextMonth = String(date.getMonth() + 1).padStart(2, '0');
   return `${nextYear}-${nextMonth}-01`;
+}
+
+/**
+ * 获取当前是该月的第几天（1-31）
+ * @returns 今天的日期 (1-31)
+ */
+export function getTodayDay(): number {
+  return new Date().getDate();
 }
 
 /**
@@ -189,4 +212,16 @@ export function toISOString(dateString: string): string {
  */
 export function getTodayDateString(): string {
   return new Date().toISOString().split('T')[0];
+}
+
+/**
+ * 获取当前时间（HH:mm:ss 格式）
+ * @returns 当前时间字符串，格式为 HH:mm:ss
+ */
+export function getCurrentTimeString(): string {
+  const now = new Date();
+  const hours = String(now.getHours()).padStart(2, '0');
+  const minutes = String(now.getMinutes()).padStart(2, '0');
+  const seconds = String(now.getSeconds()).padStart(2, '0');
+  return `${hours}:${minutes}:${seconds}`;
 }

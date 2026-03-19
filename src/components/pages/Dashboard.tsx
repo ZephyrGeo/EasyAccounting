@@ -3,9 +3,8 @@ import DashboardLayout from '@/components/layout/DashboardLayout';
 import MetricCard from '@/components/cards/MetricCard';
 import SpendingTrendChart from '@/components/charts/SpendingTrendChart';
 import CategoryPieChart from '@/components/charts/CategoryPieChart';
-import TransactionList from '@/components/transactions/TransactionList';
 import SavingGoalCard from '@/components/cards/SavingGoalCard';
-import { useSelectedMonth } from '@/hooks/useSelectedMonth';
+import { useTransactions } from '@/hooks/useTransactions';
 import { getActiveRoute } from '@/utils/routing';
 
 export default function Dashboard() {
@@ -13,21 +12,15 @@ export default function Dashboard() {
   const navigate = useNavigate();
   const activeRoute = getActiveRoute(location.pathname);
 
-  // 获取可用月份和选中月份
-  const {
-    selectedMonth,
-    setSelectedMonth,
-    availableMonths,
-    loading: monthsLoading,
-  } = useSelectedMonth();
+  // 获取所有交易数据
+  const { data: transactions, loading } = useTransactions();
 
-  // 如果月份还在加载中，显示加载状态
-  if (monthsLoading || !selectedMonth) {
+  // 如果数据还在加载中，显示加载状态
+  if (loading) {
     return (
       <DashboardLayout
         title="Dashboard"
-        description="Welcome back, here's your financial overview."
-        onAddBill={() => console.log('Add bill clicked')}
+        description="Calculating your financial overview..."
         activeRoute={activeRoute}
         onNavigate={(route) => navigate(route === 'dashboard' ? '/' : `/${route}`)}
       >
@@ -43,33 +36,22 @@ export default function Dashboard() {
   return (
     <DashboardLayout
       title="Dashboard"
-      description="Welcome back, here's your financial overview."
+      description={`You have ${transactions.length} transactions in total.`}
       onAddBill={() => console.log('Add bill clicked')}
       activeRoute={activeRoute}
       onNavigate={(route) => navigate(route === 'dashboard' ? '/' : `/${route}`)}
     >
       <div className="grid grid-cols-12 gap-6">
-        {/* Row 1: Key Metrics */}
+        {/* Row 1: Key Metrics (已移除日期切换) */}
         <div className="col-span-12 relative z-20">
           <MetricCard
-            trend="-0.8%"
-            trendGood={true}
-            subtext="vs last month"
-            selectedMonth={selectedMonth}
-            onMonthChange={setSelectedMonth}
-            availableMonths={availableMonths}
+            transactions={transactions}
           />
         </div>
 
-        {/* Row 2: Charts */}
-        <SpendingTrendChart selectedMonth={selectedMonth} />
-        <CategoryPieChart selectedMonth={selectedMonth} />
-
-        {/* Row 3: Transactions and Insights */}
-        <TransactionList
-          selectedMonth={selectedMonth}
-          onSeeAll={() => navigate('/transactions')}
-        />
+        {/* Row 2: Charts (它们现在将分析所有交易数据) */}
+        <SpendingTrendChart selectedMonth="" transactions={transactions} />
+        <CategoryPieChart selectedMonth="" transactions={transactions} />
 
         {/* Right Column: Goals */}
         <div className="col-span-12 lg:col-span-4">
