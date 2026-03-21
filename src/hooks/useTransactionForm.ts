@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { Transaction } from "@/types/transaction";
 import { toDateInputValue, toISOString, getTodayDateString, getCurrentTimeString } from "@/utils/date";
-import { EXPENSE_CATEGORIES, INCOME_CATEGORIES } from "@/constants/categories";
+import { EXPENSE_CATEGORIES, INCOME_CATEGORIES, normalizeCategoryName } from "@/constants/categories";
 import { getAllTags, deleteTag as apiDeleteTag } from "@/api/entities/tags";
 
 export interface TransactionFormData {
@@ -27,15 +27,6 @@ interface UseTransactionFormResult {
   prepareTransaction: (transactionId?: string) => Transaction;
 }
 
-// 卫语句映射表：处理历史数据兼容性与 AI 漂移
-const CATEGORY_MAP: Record<string, string> = {
-  Other: "Others",
-  Transport: "Transportation",
-  Medical: "Healthcare",
-  Housing: "Housing",
-  Entertainment: "Entertainment",
-};
-
 /**
  * Custom hook for managing transaction form state and logic
  */
@@ -60,14 +51,10 @@ export function useTransactionForm(transaction?: Transaction, isOpen?: boolean):
       const isIncome = transaction.amount < 0;
       const type = isIncome ? "income" : "expense";
 
-      let rawCategory = typeof transaction.category === "string" ? transaction.category : transaction.category.name;
+      // 核心重构：使用统一的归一化函数处理分类名
+      const rawCategory = typeof transaction.category === "string" ? transaction.category : transaction.category.name;
 
-      // 使用策略模式进行规格化
-      const normalizedCategory = CATEGORY_MAP[rawCategory] || rawCategory;
-
-      const allowedCategories = isIncome ? INCOME_CATEGORIES : EXPENSE_CATEGORIES;
-      const isValid = (allowedCategories as readonly string[]).includes(normalizedCategory);
-      const category = isValid ? normalizedCategory : isIncome ? "Income" : "Others";
+      const category = normalizeCategoryName(rawCategory);
 
       setFormData({
         type,
