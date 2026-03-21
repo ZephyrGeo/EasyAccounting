@@ -1,5 +1,5 @@
-import { Transaction } from "@/types/transaction";
-import { FilterMode } from "@/components/transactions/TagFilterBar";
+import { Transaction } from '@/types/transaction';
+import { FilterMode } from '@/components/transactions/TagFilterBar';
 
 /**
  * 业务工具类：专门处理账单数据的过滤与结构重组
@@ -13,24 +13,33 @@ export function filterTransactions(
   query: string,
   selectedTags: string[],
   mode: FilterMode,
+  selectedCategories: string[] = [] // 现在支持数组多选
 ): Transaction[] {
   if (!transactions) return [];
-
+  
   const search = query.toLowerCase().trim();
-
+  
   return transactions.filter((t) => {
-    // 1. 搜索词匹配 (Merchant 或 Category)
-    const matchesSearch =
-      !search || t.merchant?.name.toLowerCase().includes(search) || t.category?.name.toLowerCase().includes(search);
+    // 1. 分类匹配 (支持多选)
+    const categoryName = typeof t.category === 'string' ? t.category : t.category.name;
+    const matchesCategory = selectedCategories.length === 0 || selectedCategories.includes(categoryName);
+    
+    if (!matchesCategory) return false;
 
-    // 2. 标签匹配
-    const matchesTags =
-      selectedTags.length === 0 ||
-      (mode === "AND"
-        ? selectedTags.every((tag) => t.tags?.includes(tag))
-        : selectedTags.some((tag) => t.tags?.includes(tag)));
+    // 2. 搜索词匹配
+    const matchesSearch = !search || 
+      t.merchant?.name.toLowerCase().includes(search) ||
+      categoryName.toLowerCase().includes(search);
+    
+    if (!matchesSearch) return false;
+    
+    // 3. 标签匹配
+    const matchesTags = selectedTags.length === 0 || 
+      (mode === 'AND' 
+        ? selectedTags.every(tag => t.tags?.includes(tag))
+        : selectedTags.some(tag => t.tags?.includes(tag)));
 
-    return matchesSearch && matchesTags;
+    return matchesTags;
   });
 }
 
@@ -44,16 +53,16 @@ export interface TransactionGroup {
 
 export function groupTransactionsByDate(transactions: Transaction[]): TransactionGroup[] {
   const dateGroups: Record<string, Transaction[]> = {};
-
-  transactions.forEach((t) => {
+  
+  transactions.forEach(t => {
     if (!dateGroups[t.date]) dateGroups[t.date] = [];
     dateGroups[t.date].push(t);
   });
 
   return Object.keys(dateGroups)
     .sort((a, b) => b.localeCompare(a)) // 日期倒序
-    .map((date) => ({
+    .map(date => ({
       date,
-      items: dateGroups[date],
+      items: dateGroups[date]
     }));
 }
