@@ -18,10 +18,6 @@
  * // 浅色模式: 'text-slate-900'
  * ```
  */
-export function getThemeClass(
-  isDark: boolean,
-  darkClass: string,
-  lightClass: string
-): string {
+export function getThemeClass(isDark: boolean, darkClass: string, lightClass: string): string {
   return isDark ? darkClass : lightClass;
 }

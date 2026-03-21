@@ -13,12 +13,12 @@ export interface TagColorConfig {
  * 用于为不同的标签提供一致的视觉识别
  */
 export const TAG_COLORS: TagColorConfig[] = [
-  { bg: 'bg-indigo-500/20', text: 'text-indigo-600', darkText: 'text-indigo-300' },
-  { bg: 'bg-teal-500/20', text: 'text-teal-600', darkText: 'text-teal-300' },
-  { bg: 'bg-pink-500/20', text: 'text-pink-600', darkText: 'text-pink-300' },
-  { bg: 'bg-amber-500/20', text: 'text-amber-600', darkText: 'text-amber-300' },
-  { bg: 'bg-cyan-500/20', text: 'text-cyan-600', darkText: 'text-cyan-300' },
-  { bg: 'bg-purple-500/20', text: 'text-purple-600', darkText: 'text-purple-300' },
+  { bg: "bg-indigo-500/20", text: "text-indigo-600", darkText: "text-indigo-300" },
+  { bg: "bg-teal-500/20", text: "text-teal-600", darkText: "text-teal-300" },
+  { bg: "bg-pink-500/20", text: "text-pink-600", darkText: "text-pink-300" },
+  { bg: "bg-amber-500/20", text: "text-amber-600", darkText: "text-amber-300" },
+  { bg: "bg-cyan-500/20", text: "text-cyan-600", darkText: "text-cyan-300" },
+  { bg: "bg-purple-500/20", text: "text-purple-600", darkText: "text-purple-300" },
 ];
 
 /**

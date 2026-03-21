@@ -1,25 +1,18 @@
-import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
+import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import { useCategoryStats } from "@/hooks/useCategoryStats";
-import { transformCategoryDataForChart, calculateTotal } from '@/utils/charts';
-import { formatCompactCurrency, formatCurrency } from '@/utils/formatting';
+import { transformCategoryDataForChart, calculateTotal } from "@/utils/charts";
+import { formatCompactCurrency, formatCurrency } from "@/utils/formatting";
 
-import { Transaction } from '@/types/transaction';
+import { Transaction } from "@/types/transaction";
 
 interface CategoryPieChartProps {
   selectedMonth: string;
   transactions: Transaction[];
 }
 
-export default function CategoryPieChart({
-  selectedMonth,
-  transactions,
-}: CategoryPieChartProps) {
+export default function CategoryPieChart({ selectedMonth, transactions }: CategoryPieChartProps) {
   // 在组件内部获取数据 (这里传入 transactions 的逻辑可能需要根据实际 hooks 调整，暂时保持原逻辑)
-  const {
-    data: categoryStats,
-    loading,
-    error,
-  } = useCategoryStats(selectedMonth); 
+  const { data: categoryStats, loading, error } = useCategoryStats(selectedMonth);
   // 标准化数据格式并添加颜色
   const dataWithColors = transformCategoryDataForChart(categoryStats);
   const total = calculateTotal(dataWithColors);
@@ -78,15 +71,10 @@ export default function CategoryPieChart({
                   className="flex justify-between items-center text-[13px] py-1.5 border-b border-[#F0F0EA] last:border-0"
                 >
                   <div className="flex items-center gap-2.5">
-                    <div
-                      className="w-2 h-2 rounded-full"
-                      style={{ backgroundColor: cat.color }}
-                    ></div>
+                    <div className="w-2 h-2 rounded-full" style={{ backgroundColor: cat.color }}></div>
                     <span className="text-[#4A4A4A]">{cat.name}</span>
                   </div>
-                  <span className="font-medium text-[#1A1A1A] tabular-nums">
-                    {formatCurrency(cat.value)}
-                  </span>
+                  <span className="font-medium text-[#1A1A1A] tabular-nums">{formatCurrency(cat.value)}</span>
                 </div>
               ))}
             </div>

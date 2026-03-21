@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
-import { createPortal } from 'react-dom';
-import { AlertTriangle, X } from 'lucide-react';
-import { Transaction } from '@/types/transaction';
-import { formatCurrency } from '@/utils/formatting';
-import { formatDate } from '@/utils/date';
+import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
+import { AlertTriangle, X } from "lucide-react";
+import { Transaction } from "@/types/transaction";
+import { formatCurrency } from "@/utils/formatting";
+import { formatDate } from "@/utils/date";
 
 interface DeleteConfirmModalProps {
   isOpen: boolean;
@@ -12,28 +12,23 @@ interface DeleteConfirmModalProps {
   transaction: Transaction;
 }
 
-export default function DeleteConfirmModal({
-  isOpen,
-  onClose,
-  onConfirm,
-  transaction,
-}: DeleteConfirmModalProps) {
+export default function DeleteConfirmModal({ isOpen, onClose, onConfirm, transaction }: DeleteConfirmModalProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   // ESC 键关闭
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isOpen && !isLoading) {
+      if (e.key === "Escape" && isOpen && !isLoading) {
         onClose();
       }
     };
 
     if (isOpen) {
-      document.addEventListener('keydown', handleEsc);
+      document.addEventListener("keydown", handleEsc);
     }
 
     return () => {
-      document.removeEventListener('keydown', handleEsc);
+      document.removeEventListener("keydown", handleEsc);
     };
   }, [isOpen, isLoading, onClose]);
 
@@ -68,9 +63,7 @@ export default function DeleteConfirmModal({
             <div className="w-10 h-10 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center">
               <AlertTriangle className="w-5 h-5 text-red-600 dark:text-red-400" />
             </div>
-            <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-              Delete Transaction
-            </h2>
+            <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100">Delete Transaction</h2>
           </div>
           <button
             onClick={onClose}
@@ -103,9 +96,7 @@ export default function DeleteConfirmModal({
             </div>
             <div className="flex justify-between items-center">
               <span className="text-sm text-slate-500 dark:text-slate-400">Date:</span>
-              <span className="text-sm text-slate-900 dark:text-slate-100">
-                {formatDate(transaction.date)}
-              </span>
+              <span className="text-sm text-slate-900 dark:text-slate-100">{formatDate(transaction.date)}</span>
             </div>
           </div>
         </div>
@@ -130,7 +121,7 @@ export default function DeleteConfirmModal({
                 Deleting...
               </>
             ) : (
-              'Delete'
+              "Delete"
             )}
           </button>
         </div>

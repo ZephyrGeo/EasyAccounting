@@ -1,7 +1,7 @@
-import React from 'react';
-import { CreditCard, Wallet, TrendingUp, DollarSign } from 'lucide-react';
-import { formatCurrency } from '@/utils/formatting';
-import { Transaction } from '@/types/transaction';
+import React from "react";
+import { CreditCard, Wallet, TrendingUp, DollarSign } from "lucide-react";
+import { formatCurrency } from "@/utils/formatting";
+import { Transaction } from "@/types/transaction";
 
 interface MetricCardProps {
   transactions: Transaction[];
@@ -9,11 +9,7 @@ interface MetricCardProps {
 
 export default function MetricCard({ transactions }: MetricCardProps) {
   // 计算总支出
-  const totalExpense = Math.abs(
-    transactions
-      .filter(t => t.amount < 0)
-      .reduce((sum, t) => sum + t.amount, 0)
-  );
+  const totalExpense = Math.abs(transactions.filter((t) => t.amount < 0).reduce((sum, t) => sum + t.amount, 0));
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -42,12 +38,8 @@ export default function MetricCard({ transactions }: MetricCardProps) {
           <span className="text-[11px] font-bold tracking-wider text-[#6B6B6B] uppercase">EXPENSES</span>
         </div>
         <p className="text-[#6B6B6B] text-[13px] mb-1">Total Expense</p>
-        <h3 className="text-3xl font-medium text-[#1A1A1A] font-serif tabular-nums">
-          {formatCurrency(totalExpense)}
-        </h3>
-        <p className="text-[12px] text-[#6B6B6B] mt-4">
-          Calculated from all records
-        </p>
+        <h3 className="text-3xl font-medium text-[#1A1A1A] font-serif tabular-nums">{formatCurrency(totalExpense)}</h3>
+        <p className="text-[12px] text-[#6B6B6B] mt-4">Calculated from all records</p>
       </div>
 
       {/* Budget Card */}

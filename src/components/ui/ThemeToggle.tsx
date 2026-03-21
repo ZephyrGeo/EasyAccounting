@@ -1,5 +1,5 @@
-import { Moon, Sun } from 'lucide-react';
-import { useTheme } from '@/contexts/ThemeContext';
+import { Moon, Sun } from "lucide-react";
+import { useTheme } from "@/contexts/ThemeContext";
 
 const ThemeToggle = () => {
   const { theme, toggleTheme } = useTheme();
@@ -14,7 +14,7 @@ const ThemeToggle = () => {
       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 dark:bg-gradient-to-br dark:from-blue-500/20 dark:to-purple-500/20 rounded-lg" />
 
       <div className="relative z-10">
-        {theme === 'light' ? (
+        {theme === "light" ? (
           <Moon className="w-5 h-5 text-slate-600 dark:text-slate-300 transition-transform duration-300 group-hover:rotate-12" />
         ) : (
           <Sun className="w-5 h-5 text-slate-600 dark:text-amber-400 transition-transform duration-300 group-hover:rotate-90 group-hover:scale-110" />

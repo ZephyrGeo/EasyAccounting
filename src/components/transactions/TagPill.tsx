@@ -1,5 +1,5 @@
-import React from 'react';
-import { X } from 'lucide-react';
+import React from "react";
+import { X } from "lucide-react";
 
 interface TagPillProps {
   tag: string;
@@ -12,6 +12,7 @@ export default function TagPill({ tag, onRemove }: TagPillProps) {
       {tag}
       {onRemove && (
         <button
+          type="button"
           onClick={(e) => {
             e.stopPropagation();
             onRemove();

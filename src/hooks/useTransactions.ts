@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import { Transaction } from '@/types/transaction';
-import { getTransactions } from '@/api/transactions';
+import { useState, useEffect } from "react";
+import { Transaction } from "@/types/transaction";
+import { getTransactions } from "@/api/transactions";
 
 interface UseTransactionsResult {
   data: Transaction[];
@@ -27,20 +27,20 @@ export function useTransactions(filters: UseTransactionsFilters = {}): UseTransa
       try {
         setLoading(true);
         setError(null);
-        
+
         // 直接获取所有记录
         const transactions = await getTransactions();
-        
+
         // 如果有月份过滤，则在前端过滤（暂时保持原逻辑，以后可优化为 API 过滤）
         if (filters.selectedMonth) {
-          const filtered = transactions.filter(t => t.date.startsWith(filters.selectedMonth!));
+          const filtered = transactions.filter((t) => t.date.startsWith(filters.selectedMonth!));
           setData(filtered);
         } else {
           setData(transactions);
         }
       } catch (err) {
-        setError(err instanceof Error ? err.message : '获取交易失败');
-        console.error('获取交易失败:', err);
+        setError(err instanceof Error ? err.message : "获取交易失败");
+        console.error("获取交易失败:", err);
       } finally {
         setLoading(false);
       }

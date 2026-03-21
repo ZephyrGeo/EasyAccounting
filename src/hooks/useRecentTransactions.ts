@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import { Transaction } from '@/types/transaction';
-import { getRecentTransactions } from '@/api/transactions';
+import { useState, useEffect } from "react";
+import { Transaction } from "@/types/transaction";
+import { getRecentTransactions } from "@/api/transactions";
 
 interface UseRecentTransactionsOptions {
   limit?: number;
@@ -35,8 +35,8 @@ export function useRecentTransactions({
         const transactions = await getRecentTransactions(limit, selectedMonth);
         setData(transactions);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to fetch recent transactions');
-        console.error('Failed to fetch recent transactions:', err);
+        setError(err instanceof Error ? err.message : "Failed to fetch recent transactions");
+        console.error("Failed to fetch recent transactions:", err);
       } finally {
         setLoading(false);
       }

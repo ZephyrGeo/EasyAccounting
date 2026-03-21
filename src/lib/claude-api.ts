@@ -53,7 +53,7 @@ function mapToTransaction(t: any): Transaction {
     id: crypto.randomUUID(),
     date: t.date,
     amount: t.amount || 0,
-    notes: t.notes || '',
+    notes: t.notes || "",
     is_recurring: !!t.is_recurring,
     category: {
       id: "temp",
@@ -63,13 +63,9 @@ function mapToTransaction(t: any): Transaction {
     merchant: {
       id: "temp",
       name: t.merchant_name || "Unknown",
-      brand: t.brand_name
-        ? { id: "temp", name: t.brand_name, logo_url: null }
-        : null,
+      brand: t.brand_name ? { id: "temp", name: t.brand_name, logo_url: null } : null,
     },
-    payment_method: t.payment_method_name
-      ? { id: "temp", name: t.payment_method_name }
-      : null,
+    payment_method: t.payment_method_name ? { id: "temp", name: t.payment_method_name } : null,
     tags: [],
   };
 }
@@ -102,8 +98,8 @@ export async function parseCsvWithClaude(file: File): Promise<ParsedResult> {
     transactions: allTransactions,
     summary: {
       totalAmount: allTransactions.reduce((s: number, t: Transaction) => s + t.amount, 0),
-      transactionCount: allTransactions.length
-    }
+      transactionCount: allTransactions.length,
+    },
   };
 }
 
@@ -140,8 +136,8 @@ export async function parsePdfWithClaude(file: File): Promise<ParsedResult> {
           transactions: mapped,
           summary: {
             totalAmount: mapped.reduce((s: number, t: Transaction) => s + t.amount, 0),
-            transactionCount: mapped.length
-          }
+            transactionCount: mapped.length,
+          },
         });
       } catch (err) {
         reject(err);

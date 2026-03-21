@@ -8,14 +8,18 @@ import { supabase } from "@/lib/supabase";
 export async function getOrCreateCategory(categoryName: string): Promise<number | null> {
   if (!categoryName) return null;
 
-  // Hardcoded for testing
-  const userId = 'd1beb15e-f484-49d7-89d9-ccdc622bf2bc';
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) throw new Error("User not authenticated");
+  const userId = user.id;
 
   // 查询是否存在（系统预设的 user_id IS NULL，或者用户自定义的 user_id = userId）
   const { data: existing, error: searchError } = await supabase
-    .from('categories')
-    .select('id')
-    .eq('name', categoryName)
+    .from("categories")
+    .select("id")
+    .eq("name", categoryName)
+    .or(`user_id.is.null,user_id.eq.${userId}`)
     .maybeSingle();
 
   if (searchError) {
@@ -28,12 +32,14 @@ export async function getOrCreateCategory(categoryName: string): Promise<number 
 
   // 不存在则创建（归属于当前用户）
   const { data: newCategory, error } = await supabase
-    .from('categories')
-    .insert([{ 
-      name: categoryName,
-      user_id: userId
-    }])
-    .select('id')
+    .from("categories")
+    .insert([
+      {
+        name: categoryName,
+        user_id: userId,
+      },
+    ])
+    .select("id")
     .single();
 
   if (error || !newCategory) {

@@ -10,9 +10,9 @@ export async function getOrCreateBrand(brandName: string): Promise<number | null
 
   // 查询是否存在
   const { data: existing, error: searchError } = await supabase
-    .from('brands')
-    .select('id')
-    .eq('name', brandName)
+    .from("brands")
+    .select("id")
+    .eq("name", brandName)
     .maybeSingle(); // 使用 maybeSingle 替代 single 避免报错
 
   if (searchError) {
@@ -25,14 +25,14 @@ export async function getOrCreateBrand(brandName: string): Promise<number | null
 
   // 不存在则创建
   const { data: newBrand, error } = await supabase
-    .from('brands')
+    .from("brands")
     .insert([{ name: brandName }])
-    .select('id')
+    .select("id")
     .maybeSingle();
 
   if (error || !newBrand) {
     console.error(`Failed to create brand: ${brandName}`, error);
-    return null; 
+    return null;
   }
 
   return newBrand.id;

@@ -7,10 +7,7 @@ import { supabase } from "@/lib/supabase";
 export async function getAvailableMonths(): Promise<string[]> {
   try {
     // 查询所有不重复的年月
-    const { data, error } = await supabase
-      .from('transactions')
-      .select('date')
-      .order('date', { ascending: false });
+    const { data, error } = await supabase.from("transactions").select("date").order("date", { ascending: false });
 
     if (error) throw error;
 

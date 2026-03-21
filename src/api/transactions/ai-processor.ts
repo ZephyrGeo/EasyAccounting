@@ -9,8 +9,12 @@ import { getOrCreatePaymentMethod } from "../entities/paymentMethods";
  * 这个函数会处理所有外键关联（分类、商户、品牌、支付方式）
  */
 export async function importAITransactions(transactions: Transaction[]): Promise<void> {
-  const userId = 'd1beb15e-f484-49d7-89d9-ccdc622bf2bc';
-  
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) throw new Error("User not authenticated");
+  const userId = user.id;
+
   console.log(`Starting to import ${transactions.length} AI parsed transactions...`);
 
   // 由于存在外键约束，我们需要逐条处理或分批处理，并且先建立关联实体
@@ -20,10 +24,7 @@ export async function importAITransactions(transactions: Transaction[]): Promise
       const categoryId = await getOrCreateCategory(t.category.name);
 
       // 2. 获取或创建 Merchant (及关联的 Brand)
-      const merchantId = await getOrCreateMerchant(
-        t.merchant.name, 
-        t.merchant.brand?.name
-      );
+      const merchantId = await getOrCreateMerchant(t.merchant.name, t.merchant.brand?.name);
 
       // 3. 获取或创建 Payment Method
       let paymentMethodId = null;
@@ -32,9 +33,8 @@ export async function importAITransactions(transactions: Transaction[]): Promise
       }
 
       // 4. 插入主交易记录
-      const { error } = await supabase
-        .from('transactions')
-        .insert([{
+      const { error } = await supabase.from("transactions").insert([
+        {
           user_id: userId,
           amount: t.amount,
           date: t.date,
@@ -43,8 +43,9 @@ export async function importAITransactions(transactions: Transaction[]): Promise
           payment_method_id: paymentMethodId,
           notes: t.notes || null,
           is_recurring: t.is_recurring || false,
-          ai_metadata: { source: 'claude_parsing', confidence: 'high' } // 可以在这里保存AI相关的原始数据
-        }]);
+          ai_metadata: { source: "claude_parsing", confidence: "high" }, // 可以在这里保存AI相关的原始数据
+        },
+      ]);
 
       if (error) {
         console.error(`Failed to insert transaction for merchant ${t.merchant.name}:`, error);

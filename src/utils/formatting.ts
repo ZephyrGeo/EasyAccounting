@@ -8,7 +8,7 @@
  * @param currency - 货币符号，默认为 "¥"
  * @returns 格式化后的金额字符串，例如: "¥1,234"
  */
-export function formatCurrency(amount: number, currency: string = '¥'): string {
+export function formatCurrency(amount: number, currency: string = "¥"): string {
   return `${currency}${Math.abs(amount).toLocaleString()}`;
 }
 
@@ -19,7 +19,7 @@ export function formatCurrency(amount: number, currency: string = '¥'): string 
  * @param currency - 货币符号，默认为 "¥"
  * @returns 紧凑格式的货币字符串
  */
-export function formatCompactCurrency(amount: number, currency: string = '¥'): string {
+export function formatCompactCurrency(amount: number, currency: string = "¥"): string {
   if (amount >= 1000000) {
     return `${currency}${(amount / 1000000).toFixed(1)}M`;
   }
@@ -35,6 +35,6 @@ export function formatCompactCurrency(amount: number, currency: string = '¥'): 
  * @returns 带符号的百分比字符串（例如："+5.2%"）
  */
 export function formatTrend(value: number): string {
-  const sign = value >= 0 ? '+' : '';
+  const sign = value >= 0 ? "+" : "";
   return `${sign}${value.toFixed(1)}%`;
 }

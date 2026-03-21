@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import Sidebar from './Sidebar';
-import Header from './Header';
-import UploadModal from '../transactions/UploadModal';
+import React, { useState } from "react";
+import Sidebar from "./Sidebar";
+import Header from "./Header";
+import UploadModal from "../transactions/UploadModal";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -62,7 +62,7 @@ export default function DashboardLayout({
         onSuccess={() => {
           if (onRefresh) onRefresh();
           // 如果在首页，可能也需要刷新
-          window.location.reload(); 
+          window.location.reload();
         }}
       />
     </div>

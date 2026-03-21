@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { getCategoryStats, CategoryStat } from '@/api/transactions';
+import { useState, useEffect } from "react";
+import { getCategoryStats, CategoryStat } from "@/api/transactions";
 
 interface UseCategoryStatsReturn {
   data: CategoryStat[];
@@ -22,11 +22,11 @@ export function useCategoryStats(selectedMonth: string): UseCategoryStatsReturn 
       setLoading(true);
       setError(null);
       const result = await getCategoryStats(selectedMonth);
-      console.log('Hook received category stats:', result);
+      console.log("Hook received category stats:", result);
       setData(result);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to fetch category stats');
-      console.error('Error fetching category stats:', err);
+      setError(err instanceof Error ? err.message : "Failed to fetch category stats");
+      console.error("Error fetching category stats:", err);
     } finally {
       setLoading(false);
     }

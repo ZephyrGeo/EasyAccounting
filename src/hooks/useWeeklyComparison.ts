@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { getLatestMonthWeeklyComparison } from '@/api/transactions';
+import { useState, useEffect } from "react";
+import { getLatestMonthWeeklyComparison } from "@/api/transactions";
 
 interface WeeklyComparisonData {
   dayOfWeek: string; // "Mon", "Tue", "Wed", etc.
@@ -34,12 +34,12 @@ export function useWeeklyComparison(selectedMonth: string): UseWeeklyComparisonR
       setLoading(true);
       setError(null);
       const result = await getLatestMonthWeeklyComparison(selectedMonth);
-      console.log('Hook received weekly comparison data:', result);
+      console.log("Hook received weekly comparison data:", result);
       setData(result.data);
       setWeekCount(result.weekCount);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to fetch weekly comparison data');
-      console.error('Error fetching weekly comparison:', err);
+      setError(err instanceof Error ? err.message : "Failed to fetch weekly comparison data");
+      console.error("Error fetching weekly comparison:", err);
     } finally {
       setLoading(false);
     }

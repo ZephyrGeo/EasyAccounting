@@ -1,7 +1,8 @@
-import React from 'react';
-import { Tag as TagIcon, X, Layers, Filter } from 'lucide-react';
+import React, { useState } from "react";
+import { Tag as TagIcon, X, Layers, Filter, Settings2 } from "lucide-react";
+import TagManagementModal from "./TagManagementModal";
 
-export type FilterMode = 'AND' | 'OR';
+export type FilterMode = "AND" | "OR";
 
 interface TagFilterBarProps {
   allTags: string[];
@@ -10,6 +11,7 @@ interface TagFilterBarProps {
   onTagToggle: (tag: string) => void;
   onClearTags: () => void;
   onModeToggle: () => void;
+  onTagsUpdated?: () => void;
 }
 
 export default function TagFilterBar({
@@ -19,50 +21,58 @@ export default function TagFilterBar({
   onTagToggle,
   onClearTags,
   onModeToggle,
+  onTagsUpdated,
 }: TagFilterBarProps) {
-  if (allTags.length === 0) return null;
+  const [isManageOpen, setIsManageOpen] = useState(false);
 
   return (
-    <div className="flex flex-col gap-4 mb-6">
+    <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2 px-3 py-1.5 bg-slate-100 dark:bg-slate-800 rounded-full text-slate-500 dark:text-slate-400 text-sm font-medium">
-          <TagIcon className="w-3.5 h-3.5" />
-          <span>Filter by Tags</span>
+        <div className="flex items-center gap-2">
+          <label className="text-[12px] font-medium text-[#6B6B6B]">Tags</label>
         </div>
 
-        {selectedTags.length > 1 && (
+        <div className="flex items-center gap-2">
+          {selectedTags.length > 1 && (
+            <button
+              onClick={onModeToggle}
+              className={`flex items-center gap-1.5 px-2 py-1 rounded text-[10px] font-bold transition-all border ${
+                filterMode === "AND"
+                  ? "bg-indigo-50 border-indigo-200 text-indigo-600 dark:bg-indigo-900/20 dark:border-indigo-800 dark:text-indigo-400"
+                  : "bg-emerald-50 border-emerald-200 text-emerald-600 dark:bg-emerald-900/20 dark:border-emerald-800 dark:text-emerald-400"
+              }`}
+              title={filterMode === "AND" ? "Must include all selected tags" : "Can include any selected tag"}
+            >
+              {filterMode === "AND" ? <Filter className="w-3 h-3" /> : <Layers className="w-3 h-3" />}
+              {filterMode === "AND" ? "AND" : "OR"}
+            </button>
+          )}
+
           <button
-            onClick={onModeToggle}
-            className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold transition-all border ${
-              filterMode === 'AND'
-                ? 'bg-indigo-50 border-indigo-200 text-indigo-600 dark:bg-indigo-900/20 dark:border-indigo-800 dark:text-indigo-400'
-                : 'bg-emerald-50 border-emerald-200 text-emerald-600 dark:bg-emerald-900/20 dark:border-emerald-800 dark:text-emerald-400'
-            }`}
+            onClick={() => setIsManageOpen(true)}
+            className="p-1 text-[#8E8E8E] hover:text-[#1A1A1A] dark:hover:text-white hover:bg-[#F0F0EA] dark:hover:bg-[#2A2A2A] rounded transition-all"
+            title="Manage Tags"
           >
-            {filterMode === 'AND' ? (
-              <Filter className="w-3 h-3" />
-            ) : (
-              <Layers className="w-3 h-3" />
-            )}
-            {filterMode === 'AND' ? 'MATCH ALL (AND)' : 'MATCH ANY (OR)'}
+            <Settings2 className="w-3.5 h-3.5" />
           </button>
-        )}
+        </div>
       </div>
 
-      <div className="flex items-center gap-3 overflow-x-auto pb-2 scrollbar-hide no-scrollbar">
+      <div className="flex flex-wrap gap-2">
         {allTags.map((tag) => {
           const isSelected = selectedTags.includes(tag);
           return (
             <button
               key={tag}
               onClick={() => onTagToggle(tag)}
-              className={`flex-shrink-0 px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 border shadow-sm ${
+              className={`flex items-center px-2.5 py-1 rounded-md text-[12px] font-medium transition-all duration-200 border ${
                 isSelected
-                  ? 'bg-blue-500 border-blue-500 text-white shadow-blue-200 dark:shadow-blue-900/20'
-                  : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-blue-400 hover:text-blue-500'
+                  ? "bg-blue-500 border-blue-500 text-white shadow-sm shadow-blue-200 dark:shadow-none"
+                  : "bg-[#F7F7F3] dark:bg-[#2A2A2A] border-transparent text-[#6B6B6B] dark:text-[#8E8E8E] hover:border-[#E5E5E0] dark:hover:border-[#444444] hover:text-[#1A1A1A] dark:hover:text-white"
               }`}
             >
-              #{tag}
+              <span className="opacity-60 mr-0.5 font-normal">#</span>
+              {tag}
             </button>
           );
         })}
@@ -70,13 +80,22 @@ export default function TagFilterBar({
         {selectedTags.length > 0 && (
           <button
             onClick={onClearTags}
-            className="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300 text-sm font-medium transition-colors"
+            className="flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-medium text-red-500 hover:bg-red-50 dark:hover:bg-red-900/10 transition-colors"
           >
-            <X className="w-3.5 h-3.5" />
-            <span>Clear</span>
+            <X className="w-3 h-3" />
+            Clear
           </button>
         )}
       </div>
+
+      <TagManagementModal
+        isOpen={isManageOpen}
+        onClose={() => setIsManageOpen(false)}
+        allTags={allTags}
+        onTagsUpdated={() => {
+          if (onTagsUpdated) onTagsUpdated();
+        }}
+      />
     </div>
   );
 }
