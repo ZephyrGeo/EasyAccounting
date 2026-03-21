@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { X, Trash2, Tag as TagIcon, Search, AlertCircle } from 'lucide-react';
-import { deleteTag } from '@/api/entities/tags';
+import { useState } from "react";
+import { X, Trash2, Tag as TagIcon, Search, AlertCircle } from "lucide-react";
+import { deleteTag } from "@/api/entities/tags";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -20,25 +20,18 @@ interface TagManagementModalProps {
   onTagsUpdated: () => void;
 }
 
-export default function TagManagementModal({
-  isOpen,
-  onClose,
-  allTags,
-  onTagsUpdated,
-}: TagManagementModalProps) {
-  const [searchTerm, setSearchTerm] = useState('');
+export default function TagManagementModal({ isOpen, onClose, allTags, onTagsUpdated }: TagManagementModalProps) {
+  const [searchTerm, setSearchTerm] = useState("");
   const [tagToDelete, setTagToDelete] = useState<string | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
 
   if (!isOpen) return null;
 
-  const filteredTags = allTags.filter(tag => 
-    tag.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredTags = allTags.filter((tag) => tag.toLowerCase().includes(searchTerm.toLowerCase()));
 
   const handleDelete = async () => {
     if (!tagToDelete) return;
-    
+
     setIsDeleting(true);
     try {
       await deleteTag(tagToDelete);
@@ -54,7 +47,6 @@ export default function TagManagementModal({
   return (
     <div className="fixed inset-0 z-[110] flex items-center justify-center bg-black/50 backdrop-blur-sm animate-in fade-in duration-200">
       <div className="w-full max-w-md bg-white dark:bg-[#1A1A1A] rounded-[24px] shadow-2xl border border-[#E5E5E0] dark:border-[#333333] overflow-hidden flex flex-col max-h-[80vh]">
-        
         {/* Header */}
         <div className="p-6 border-b border-[#F0F0EA] dark:border-[#2A2A2A] flex justify-between items-center bg-[#FBFBFA] dark:bg-[#1E1E1E]">
           <div className="flex items-center gap-2.5">
@@ -66,7 +58,7 @@ export default function TagManagementModal({
               <p className="text-[12px] text-[#8E8E8E]">View and clean up your tag library</p>
             </div>
           </div>
-          <button 
+          <button
             onClick={onClose}
             className="p-1.5 hover:bg-[#F0F0EA] dark:hover:bg-[#2A2A2A] rounded-md transition-colors"
           >
@@ -93,7 +85,7 @@ export default function TagManagementModal({
           {filteredTags.length > 0 ? (
             <div className="grid grid-cols-1 gap-2">
               {filteredTags.map((tag) => (
-                <div 
+                <div
                   key={tag}
                   className="group flex items-center justify-between p-3 rounded-xl hover:bg-[#FBFBFA] dark:hover:bg-[#252525] border border-transparent hover:border-[#E5E5E0] dark:hover:border-[#333333] transition-all"
                 >
@@ -137,13 +129,14 @@ export default function TagManagementModal({
             </div>
             <AlertDialogTitle>Permanent Deletion</AlertDialogTitle>
             <AlertDialogDescription>
-              Are you sure you want to delete <span className="font-bold text-[#1A1A1A] dark:text-white">#{tagToDelete}</span>? 
-              This will remove it from all records and cannot be undone.
+              Are you sure you want to delete{" "}
+              <span className="font-bold text-[#1A1A1A] dark:text-white">#{tagToDelete}</span>? This will remove it from
+              all records and cannot be undone.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel disabled={isDeleting}>Cancel</AlertDialogCancel>
-            <AlertDialogAction 
+            <AlertDialogAction
               onClick={(e) => {
                 e.preventDefault();
                 handleDelete();

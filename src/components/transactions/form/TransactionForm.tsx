@@ -1,15 +1,15 @@
-import { FormEvent } from 'react';
-import { Save } from 'lucide-react';
-import { parseISO } from 'date-fns';
-import { TransactionFormData } from '@/hooks/useTransactionForm';
-import TypeSelector from './TypeSelector';
-import AmountInput from './AmountInput';
-import { DatePicker } from '@/components/ui/date-picker';
-import MerchantInput from './MerchantInput';
-import CategorySelect from './CategorySelect';
-import TagsInput from './TagsInput';
-import { FORM_STYLES } from './formStyles';
-import { formatToLocalDate } from '@/utils/date';
+import { FormEvent } from "react";
+import { Save } from "lucide-react";
+import { parseISO } from "date-fns";
+import { TransactionFormData } from "@/hooks/useTransactionForm";
+import TypeSelector from "./TypeSelector";
+import AmountInput from "./AmountInput";
+import { DatePicker } from "@/components/ui/date-picker";
+import MerchantInput from "./MerchantInput";
+import CategorySelect from "./CategorySelect";
+import TagsInput from "./TagsInput";
+import { FORM_STYLES } from "./formStyles";
+import { formatToLocalDate } from "@/utils/date";
 
 interface TransactionFormProps {
   formData: TransactionFormData;
@@ -40,11 +40,8 @@ export default function TransactionForm({
   isLoading,
   isEdit,
 }: TransactionFormProps) {
-  const handleTypeChange = (type: 'expense' | 'income') => {
-    const newCategory = isEdit
-      ? formData.category
-      : (type === 'income' ? 'Income' : 'Other');
-
+  const handleTypeChange = (type: "expense" | "income") => {
+    const newCategory = isEdit ? formData.category : type === "income" ? "Income" : "Others";
     onFormDataChange({
       ...formData,
       type,
@@ -69,31 +66,19 @@ export default function TransactionForm({
 
       {/* Amount & Date */}
       <div className="grid grid-cols-2 gap-4">
-        <AmountInput
-          value={formData.amount}
-          onChange={handleFieldChange('amount')}
-          disabled={isLoading}
-        />
+        <AmountInput value={formData.amount} onChange={handleFieldChange("amount")} disabled={isLoading} />
         <div className="flex flex-col">
           <label className={FORM_STYLES.label}>Date</label>
-          <DatePicker 
-            date={parseISO(formData.date)} 
-            setDate={handleDateChange}
-            disabled={isLoading}
-          />
+          <DatePicker date={parseISO(formData.date)} setDate={handleDateChange} disabled={isLoading} />
         </div>
       </div>
 
       {/* Merchant & Category */}
       <div className="grid grid-cols-2 gap-4">
-        <MerchantInput
-          value={formData.merchant}
-          onChange={handleFieldChange('merchant')}
-          disabled={isLoading}
-        />
+        <MerchantInput value={formData.merchant} onChange={handleFieldChange("merchant")} disabled={isLoading} />
         <CategorySelect
           value={formData.category}
-          onChange={handleFieldChange('category')}
+          onChange={handleFieldChange("category")}
           type={formData.type}
           disabled={isLoading}
         />
@@ -122,7 +107,7 @@ export default function TransactionForm({
         ) : (
           <>
             <Save className="w-4 h-4" />
-            {isEdit ? 'Update Transaction' : 'Save Transaction'}
+            {isEdit ? "Update Transaction" : "Save Transaction"}
           </>
         )}
       </button>

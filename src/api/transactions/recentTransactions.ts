@@ -10,26 +10,25 @@ import { mapDatabaseTransactions } from "./mappers";
  * @param selectedMonth - 可选的月份筛选（格式：YYYY-MM）
  * @returns 交易记录数组
  */
-export async function getRecentTransactions(
-  limit: number = 5,
-  selectedMonth?: string
-): Promise<Transaction[]> {
+export async function getRecentTransactions(limit: number = 5, selectedMonth?: string): Promise<Transaction[]> {
   try {
     let query = supabase
-      .from('transactions')
-      .select(`
+      .from("transactions")
+      .select(
+        `
         *,
         category:categories(id, name),
         merchant:merchants(id, name)
-      `)
-      .order('date', { ascending: false })
-      .order('time', { ascending: false })
+      `,
+      )
+      .order("date", { ascending: false })
+      .order("time", { ascending: false })
       .limit(limit);
 
     // 如果提供了月份筛选
     if (selectedMonth) {
       const { startDate, endDate } = getMonthDateRange(selectedMonth);
-      query = query.gte('date', startDate).lt('date', endDate);
+      query = query.gte("date", startDate).lt("date", endDate);
     }
 
     const { data, error } = await query;

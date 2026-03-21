@@ -18,7 +18,7 @@ async function fileToText(file: File): Promise<string> {
  */
 async function callClaudeForChunk(chunkContent: string): Promise<any[]> {
   const prompt = `Parse these CSV lines:\n${chunkContent}`;
-  
+
   const response = await fetch(CLAUDE_API_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -58,8 +58,8 @@ async function callClaudeForChunk(chunkContent: string): Promise<any[]> {
  */
 export async function parseAndDownloadJson(file: File) {
   const csvContent = await fileToText(file);
-  const lines = csvContent.split(/\r?\n/).filter(line => line.trim() !== "");
-  
+  const lines = csvContent.split(/\r?\n/).filter((line) => line.trim() !== "");
+
   // 1. 分块 (每 30 行一组)
   const CHUNK_SIZE = 30;
   const chunks = [];
@@ -68,7 +68,7 @@ export async function parseAndDownloadJson(file: File) {
   }
 
   console.log(`Starting chunked processing: ${chunks.length} chunks found.`);
-  
+
   let finalTransactions: any[] = [];
 
   // 2. 依次处理每个分块
@@ -95,8 +95,8 @@ export async function parseAndDownloadJson(file: File) {
     metadata: {
       source_file: file.name,
       processed_at: new Date().toISOString(),
-      total_count: finalTransactions.length
-    }
+      total_count: finalTransactions.length,
+    },
   };
 
   const blob = new Blob([JSON.stringify(finalResult, null, 2)], { type: "application/json" });

@@ -1,28 +1,17 @@
-import React from 'react';
-import { 
-  Select, 
-  SelectContent, 
-  SelectItem, 
-  SelectTrigger, 
-  SelectValue 
-} from '@/components/ui/select';
-import { EXPENSE_CATEGORIES, INCOME_CATEGORIES } from '@/constants/categories';
-import { FORM_STYLES } from './formStyles';
+import React from "react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { EXPENSE_CATEGORIES, INCOME_CATEGORIES } from "@/constants/categories";
+import { FORM_STYLES } from "./formStyles";
 
 interface CategorySelectProps {
   value: string;
   onChange: (value: string) => void;
-  type: 'expense' | 'income';
+  type: "expense" | "income";
   disabled?: boolean;
 }
 
-export default function CategorySelect({
-  value,
-  onChange,
-  type,
-  disabled,
-}: CategorySelectProps) {
-  const categories = type === 'expense' ? EXPENSE_CATEGORIES : INCOME_CATEGORIES;
+export default function CategorySelect({ value, onChange, type, disabled }: CategorySelectProps) {
+  const categories = type === "expense" ? EXPENSE_CATEGORIES : INCOME_CATEGORIES;
 
   return (
     <div>

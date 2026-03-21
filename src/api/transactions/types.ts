@@ -39,7 +39,7 @@ export interface DatabaseTransaction {
   version: number;
   created_at: string;
   updated_at: string;
-  
+
   // 关联表：分类
   category: {
     id: string;

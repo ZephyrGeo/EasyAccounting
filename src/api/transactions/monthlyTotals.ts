@@ -9,7 +9,7 @@ import { getMonthDateRange } from "@/utils/date";
 export async function getSelectedMonthlyTotal(yearMonth: string): Promise<number> {
   try {
     // Validate input
-    if (!yearMonth || !yearMonth.includes('-')) {
+    if (!yearMonth || !yearMonth.includes("-")) {
       console.warn(`Invalid yearMonth format: "${yearMonth}"`);
       return 0;
     }
@@ -19,10 +19,10 @@ export async function getSelectedMonthlyTotal(yearMonth: string): Promise<number
 
     // 查询该月的所有交易
     const { data, error } = await supabase
-      .from('transactions')
-      .select('amount')
-      .gte('date', startDate)
-      .lt('date', endDate);
+      .from("transactions")
+      .select("amount")
+      .gte("date", startDate)
+      .lt("date", endDate);
 
     if (error) throw error;
 

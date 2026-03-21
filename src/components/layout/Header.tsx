@@ -10,12 +10,7 @@ interface HeaderProps {
   onMobileMenuToggle?: () => void;
 }
 
-export default function Header({
-  title,
-  description,
-  onAddBill,
-  onMobileMenuToggle,
-}: HeaderProps) {
+export default function Header({ title, description, onAddBill, onMobileMenuToggle }: HeaderProps) {
   return (
     <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
       <div className="flex items-start gap-4">
@@ -30,14 +25,10 @@ export default function Header({
         )}
         <div>
           {title && (
-            <h1 className="text-[28px] font-medium text-[#1A1A1A] font-serif tracking-tight leading-tight">
-              {title}
-            </h1>
+            <h1 className="text-[28px] font-medium text-[#1A1A1A] font-serif tracking-tight leading-tight">{title}</h1>
           )}
           {description && (
-            <p
-              className={`text-[#6B6B6B] font-normal ${title ? "text-[15px] mt-1.5" : "text-[16px]"}`}
-            >
+            <p className={`text-[#6B6B6B] font-normal ${title ? "text-[15px] mt-1.5" : "text-[16px]"}`}>
               {description}
             </p>
           )}

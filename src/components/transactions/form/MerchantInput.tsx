@@ -1,4 +1,4 @@
-import { FORM_STYLES } from './formStyles';
+import { FORM_STYLES } from "./formStyles";
 
 interface MerchantInputProps {
   value: string;

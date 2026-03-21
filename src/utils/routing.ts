@@ -8,5 +8,5 @@
  * @returns 路由名称（例如：'dashboard'、'transactions'）
  */
 export function getActiveRoute(pathname: string): string {
-  return pathname === '/' ? 'dashboard' : pathname.slice(1);
+  return pathname === "/" ? "dashboard" : pathname.slice(1);
 }

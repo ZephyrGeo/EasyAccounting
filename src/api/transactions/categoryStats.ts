@@ -8,25 +8,25 @@ import type { CategoryStat, TransactionWithCategory } from "./types";
  * @param selectedMonth - 选中的月份，格式为 "YYYY-MM"
  * @returns 分类统计数组，按金额降序排列
  */
-export async function getCategoryStats(
-  selectedMonth: string
-): Promise<CategoryStat[]> {
+export async function getCategoryStats(selectedMonth: string): Promise<CategoryStat[]> {
   try {
     // 计算月份的日期范围
     const { startDate, endDate } = getMonthDateRange(selectedMonth);
 
     // 查询该月份的所有交易，并按分类分组统计
     const { data, error } = await supabase
-      .from('transactions')
-      .select(`
+      .from("transactions")
+      .select(
+        `
         amount,
         category:categories(name)
-      `)
-      .gte('date', startDate)
-      .lt('date', endDate);
+      `,
+      )
+      .gte("date", startDate)
+      .lt("date", endDate);
 
     if (error) {
-      console.error('Failed to fetch category stats:', error);
+      console.error("Failed to fetch category stats:", error);
       throw error;
     }
 
@@ -34,7 +34,7 @@ export async function getCategoryStats(
     const categoryMap = new Map<string, number>();
 
     (data as unknown as TransactionWithCategory[])?.forEach((transaction) => {
-      const categoryName = transaction.category?.name || 'Unknown';
+      const categoryName = transaction.category?.name || "Unknown";
       const amount = Math.abs(transaction.amount); // 使用绝对值
 
       if (categoryMap.has(categoryName)) {
@@ -47,14 +47,14 @@ export async function getCategoryStats(
     // 转换为数组并按金额降序排序，过滤掉金额为0的分类
     const result: CategoryStat[] = Array.from(categoryMap.entries())
       .map(([category, amount]) => ({ category, amount }))
-      .filter(stat => stat.amount > 0)
+      .filter((stat) => stat.amount > 0)
       .sort((a, b) => b.amount - a.amount);
 
-    console.log('Category stats for', selectedMonth, ':', result);
+    console.log("Category stats for", selectedMonth, ":", result);
 
     return result;
   } catch (error) {
-    console.error('Error fetching category stats:', error);
+    console.error("Error fetching category stats:", error);
     return [];
   }
 }

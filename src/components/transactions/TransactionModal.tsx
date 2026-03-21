@@ -1,9 +1,9 @@
-import { useState, useEffect, FormEvent } from 'react';
-import { createPortal } from 'react-dom';
-import { X } from 'lucide-react';
-import { Transaction } from '@/types/transaction';
-import { useTransactionForm } from '@/hooks/useTransactionForm';
-import TransactionForm from './form/TransactionForm';
+import { useState, useEffect, FormEvent } from "react";
+import { createPortal } from "react-dom";
+import { X } from "lucide-react";
+import { Transaction } from "@/types/transaction";
+import { useTransactionForm } from "@/hooks/useTransactionForm";
+import TransactionForm from "./form/TransactionForm";
 
 interface TransactionModalProps {
   isOpen: boolean;
@@ -12,12 +12,7 @@ interface TransactionModalProps {
   onSave: (transaction: Transaction) => Promise<void>;
 }
 
-export default function TransactionModal({
-  isOpen,
-  onClose,
-  transaction,
-  onSave,
-}: TransactionModalProps) {
+export default function TransactionModal({ isOpen, onClose, transaction, onSave }: TransactionModalProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   // Use custom hook for form logic
@@ -37,17 +32,17 @@ export default function TransactionModal({
   // ESC key to close
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isOpen && !isLoading) {
+      if (e.key === "Escape" && isOpen && !isLoading) {
         onClose();
       }
     };
 
     if (isOpen) {
-      document.addEventListener('keydown', handleEsc);
+      document.addEventListener("keydown", handleEsc);
     }
 
     return () => {
-      document.removeEventListener('keydown', handleEsc);
+      document.removeEventListener("keydown", handleEsc);
     };
   }, [isOpen, isLoading, onClose]);
 
@@ -68,7 +63,7 @@ export default function TransactionModal({
       await onSave(updatedTransaction);
       onClose();
     } catch (error) {
-      console.error('Failed to save transaction:', error);
+      console.error("Failed to save transaction:", error);
     } finally {
       setIsLoading(false);
     }
@@ -82,7 +77,7 @@ export default function TransactionModal({
       <div className="w-full max-w-md p-6 rounded-[24px] shadow-2xl scale-100 animate-in zoom-in-95 duration-200 bg-white dark:bg-[#1A1A1A] border border-[#E5E5E0] dark:border-[#333333]">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-[20px] font-medium text-[#1A1A1A] dark:text-white font-serif tracking-tight">
-            {transaction ? 'Edit Transaction' : 'New Transaction'}
+            {transaction ? "Edit Transaction" : "New Transaction"}
           </h2>
           <button
             onClick={onClose}

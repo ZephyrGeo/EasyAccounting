@@ -1,5 +1,5 @@
-import { useState, useEffect, useCallback } from 'react';
-import { getAllTags as apiGetAllTags } from '@/api/entities/tags';
+import { useState, useEffect, useCallback } from "react";
+import { getAllTags as apiGetAllTags } from "@/api/entities/tags";
 
 export function useTags() {
   const [allTags, setAllTags] = useState<string[]>([]);
@@ -12,7 +12,7 @@ export function useTags() {
       const tags = await apiGetAllTags();
       setAllTags(tags);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to fetch tags');
+      setError(err instanceof Error ? err.message : "Failed to fetch tags");
     } finally {
       setLoading(false);
     }
@@ -22,10 +22,10 @@ export function useTags() {
     fetchTags();
   }, [fetchTags]);
 
-  return { 
-    allTags, 
-    loading, 
-    error, 
-    refreshTags: fetchTags 
+  return {
+    allTags,
+    loading,
+    error,
+    refreshTags: fetchTags,
   };
 }

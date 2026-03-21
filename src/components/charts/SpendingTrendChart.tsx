@@ -1,9 +1,9 @@
-import { AreaChart, Area, XAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
-import { useWeeklyComparison } from '@/hooks/useWeeklyComparison';
-import { WEEK_COLORS } from '@/utils/colors';
-import { formatCurrency } from '@/utils/formatting';
+import { AreaChart, Area, XAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
+import { useWeeklyComparison } from "@/hooks/useWeeklyComparison";
+import { WEEK_COLORS } from "@/utils/colors";
+import { formatCurrency } from "@/utils/formatting";
 
-import { Transaction } from '@/types/transaction';
+import { Transaction } from "@/types/transaction";
 
 interface SpendingTrendChartProps {
   selectedMonth: string;
@@ -12,7 +12,7 @@ interface SpendingTrendChartProps {
 
 export default function SpendingTrendChart({ selectedMonth, transactions }: SpendingTrendChartProps) {
   // 在组件内部获取数据 (这里传入 transactions 的逻辑可能需要根据实际 hooks 调整，暂时保持原逻辑)
-  const { data, weekCount, loading, error } = useWeeklyComparison(selectedMonth); 
+  const { data, weekCount, loading, error } = useWeeklyComparison(selectedMonth);
 
   return (
     <div className="col-span-12 lg:col-span-8 bg-white p-6 rounded-lg border border-[#E5E5E0]">
@@ -34,7 +34,7 @@ export default function SpendingTrendChart({ selectedMonth, transactions }: Spen
           <div className="text-[#8E8E8E] text-sm">No data available</div>
         </div>
       ) : (
-        <div style={{ width: '100%', height: 300 }}>
+        <div style={{ width: "100%", height: 300 }}>
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={data} margin={{ left: 0, right: 10, top: 10 }}>
               <defs>
@@ -50,11 +50,11 @@ export default function SpendingTrendChart({ selectedMonth, transactions }: Spen
                 tickLine={false}
                 axisLine={false}
                 tickMargin={12}
-                tick={{ fill: '#8E8E8E', fontSize: 11 }}
+                tick={{ fill: "#8E8E8E", fontSize: 11 }}
                 interval={0}
               />
               <Tooltip
-                cursor={{ stroke: '#E5E5E0', strokeWidth: 1 }}
+                cursor={{ stroke: "#E5E5E0", strokeWidth: 1 }}
                 content={({ active, payload }) => {
                   if (active && payload && payload.length) {
                     return (
@@ -66,9 +66,7 @@ export default function SpendingTrendChart({ selectedMonth, transactions }: Spen
                           <div key={index} className="flex items-center justify-between gap-6 mb-1">
                             <div className="flex items-center gap-2">
                               <div className="w-2 h-2 rounded-full" style={{ backgroundColor: entry.color }} />
-                              <span className="text-[12px] text-[#4A4A4A]">
-                                {entry.name}:
-                              </span>
+                              <span className="text-[12px] text-[#4A4A4A]">{entry.name}:</span>
                             </div>
                             <span className="text-[13px] font-medium text-[#1A1A1A] tabular-nums">
                               {formatCurrency(entry.value as number)}
@@ -86,7 +84,7 @@ export default function SpendingTrendChart({ selectedMonth, transactions }: Spen
                 height={36}
                 iconType="circle"
                 iconSize={8}
-                wrapperStyle={{ fontSize: '11px', paddingTop: '20px', color: '#6B6B6B' }}
+                wrapperStyle={{ fontSize: "11px", paddingTop: "20px", color: "#6B6B6B" }}
               />
               <Area
                 type="monotone"
@@ -98,11 +96,39 @@ export default function SpendingTrendChart({ selectedMonth, transactions }: Spen
                 activeDot={{ r: 4, strokeWidth: 0 }}
               />
               {/* Other Areas simplified for brevity in this replace call, but following the same pattern */}
-              <Area type="monotone" dataKey="week2" name="Week 2" stroke={WEEK_COLORS.week2} strokeWidth={1.5} fill="transparent" />
-              <Area type="monotone" dataKey="week3" name="Week 3" stroke={WEEK_COLORS.week3} strokeWidth={1.5} fill="transparent" />
-              <Area type="monotone" dataKey="week4" name="Week 4" stroke={WEEK_COLORS.week4} strokeWidth={1.5} fill="transparent" />
+              <Area
+                type="monotone"
+                dataKey="week2"
+                name="Week 2"
+                stroke={WEEK_COLORS.week2}
+                strokeWidth={1.5}
+                fill="transparent"
+              />
+              <Area
+                type="monotone"
+                dataKey="week3"
+                name="Week 3"
+                stroke={WEEK_COLORS.week3}
+                strokeWidth={1.5}
+                fill="transparent"
+              />
+              <Area
+                type="monotone"
+                dataKey="week4"
+                name="Week 4"
+                stroke={WEEK_COLORS.week4}
+                strokeWidth={1.5}
+                fill="transparent"
+              />
               {weekCount === 5 && (
-                <Area type="monotone" dataKey="week5" name="Week 5" stroke={WEEK_COLORS.week5} strokeWidth={1.5} fill="transparent" />
+                <Area
+                  type="monotone"
+                  dataKey="week5"
+                  name="Week 5"
+                  stroke={WEEK_COLORS.week5}
+                  strokeWidth={1.5}
+                  fill="transparent"
+                />
               )}
             </AreaChart>
           </ResponsiveContainer>

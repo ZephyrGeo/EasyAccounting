@@ -1,4 +1,4 @@
-import { FORM_STYLES } from './formStyles';
+import { FORM_STYLES } from "./formStyles";
 
 interface AmountInputProps {
   value: string;
@@ -11,9 +11,7 @@ export default function AmountInput({ value, onChange, disabled }: AmountInputPr
     <div>
       <label className={FORM_STYLES.label}>Amount</label>
       <div className="relative">
-        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 font-medium">
-          ¥
-        </span>
+        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 font-medium">¥</span>
         <input
           type="number"
           step="0.01"

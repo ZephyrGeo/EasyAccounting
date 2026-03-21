@@ -1,8 +1,8 @@
 /**
  * 图表数据转换工具函数
  */
-import { getChartColor } from './colors/chart';
-import { CategoryStat } from '@/api/transactions/types';
+import { getChartColor } from "./colors/chart";
+import { CategoryStat } from "@/api/transactions/types";
 
 export interface CategoryData {
   category: string;
@@ -21,9 +21,7 @@ export interface ChartDataPoint {
  * @param categoryStats - 分类统计数据
  * @returns 准备好的图表数据（带颜色）
  */
-export function transformCategoryDataForChart(
-  categoryStats: CategoryStat[] | CategoryData[]
-): ChartDataPoint[] {
+export function transformCategoryDataForChart(categoryStats: CategoryStat[] | CategoryData[]): ChartDataPoint[] {
   return (categoryStats as CategoryData[]).map((item, index) => ({
     name: item.category,
     value: item.amount,

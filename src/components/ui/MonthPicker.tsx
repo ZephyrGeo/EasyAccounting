@@ -1,8 +1,8 @@
-import { useState, useRef } from 'react';
-import { Calendar, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
-import { MONTH_LABELS, ALL_MONTHS } from '@/constants/months';
-import { parseYearMonth } from '@/utils/date';
-import { useClickOutside } from '@/hooks/useClickOutside';
+import { useState, useRef } from "react";
+import { Calendar, ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
+import { MONTH_LABELS, ALL_MONTHS } from "@/constants/months";
+import { parseYearMonth } from "@/utils/date";
+import { useClickOutside } from "@/hooks/useClickOutside";
 
 interface MonthPickerProps {
   value: string; // 格式: "2024-11"
@@ -11,7 +11,7 @@ interface MonthPickerProps {
   className?: string;
 }
 
-export default function MonthPicker({ value, onChange, availableMonths, className = '' }: MonthPickerProps) {
+export default function MonthPicker({ value, onChange, availableMonths, className = "" }: MonthPickerProps) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -20,7 +20,7 @@ export default function MonthPicker({ value, onChange, availableMonths, classNam
 
   // 从可用月份中提取年份和月份映射
   const yearMonthMap: Record<string, string[]> = {};
-  availableMonths.forEach(yearMonth => {
+  availableMonths.forEach((yearMonth) => {
     const { year, month } = parseYearMonth(yearMonth);
     if (!yearMonthMap[year]) {
       yearMonthMap[year] = [];
@@ -50,7 +50,7 @@ export default function MonthPicker({ value, onChange, availableMonths, classNam
     if (newIndex >= 0 && newIndex < availableYears.length) {
       const newYear = availableYears[newIndex];
       // 选择该年份的第一个可用月份
-      const firstMonth = yearMonthMap[newYear]?.[0] || '01';
+      const firstMonth = yearMonthMap[newYear]?.[0] || "01";
       onChange(`${newYear}-${firstMonth}`);
     }
   };
@@ -60,13 +60,13 @@ export default function MonthPicker({ value, onChange, availableMonths, classNam
       {/* Trigger Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`flex items-center gap-2 px-4 py-2 rounded-full border shadow-sm transition-all duration-300 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 ${isOpen ? 'ring-2 ring-blue-500/50 border-transparent' : ''}`}
+        className={`flex items-center gap-2 px-4 py-2 rounded-full border shadow-sm transition-all duration-300 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 ${isOpen ? "ring-2 ring-blue-500/50 border-transparent" : ""}`}
       >
         <Calendar className="w-4 h-4 text-blue-500 dark:text-blue-400" />
         <span className="font-semibold text-sm tabular-nums">
           {MONTH_LABELS[currentMonth]} {currentYear}
         </span>
-        <ChevronDown className={`w-3 h-3 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
+        <ChevronDown className={`w-3 h-3 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`} />
       </button>
 
       {/* Dropdown Panel */}
@@ -104,10 +104,10 @@ export default function MonthPicker({ value, onChange, availableMonths, classNam
                   disabled={!isAvailable}
                   className={`py-2 text-xs font-semibold rounded-lg transition-all duration-200 ${
                     isSelected
-                      ? 'bg-blue-600 dark:bg-blue-500 text-white shadow-lg shadow-blue-200 dark:shadow-blue-900/50'
+                      ? "bg-blue-600 dark:bg-blue-500 text-white shadow-lg shadow-blue-200 dark:shadow-blue-900/50"
                       : isAvailable
-                        ? 'text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700'
-                        : 'text-slate-300 dark:text-slate-600 cursor-not-allowed'
+                        ? "text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700"
+                        : "text-slate-300 dark:text-slate-600 cursor-not-allowed"
                   }`}
                 >
                   {m.name}

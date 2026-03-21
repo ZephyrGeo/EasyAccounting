@@ -1,10 +1,10 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import Dashboard from './components/pages/Dashboard'
-import Transactions from './components/pages/Transactions'
-import Login from './pages/Login'
-import { ThemeProvider } from './contexts/ThemeContext'
-import { AuthProvider, useAuth } from './contexts/AuthContext'
-import { Loader2 } from 'lucide-react'
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Dashboard from "./components/pages/Dashboard";
+import Transactions from "./components/pages/Transactions";
+import Login from "./pages/Login";
+import { ThemeProvider } from "./contexts/ThemeContext";
+import { AuthProvider, useAuth } from "./contexts/AuthContext";
+import { Loader2 } from "lucide-react";
 
 // A wrapper component for routes that require authentication
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
@@ -32,27 +32,27 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/login" element={<Login />} />
-            <Route 
-              path="/" 
+            <Route
+              path="/"
               element={
                 <ProtectedRoute>
                   <Dashboard />
                 </ProtectedRoute>
-              } 
+              }
             />
-            <Route 
-              path="/transactions" 
+            <Route
+              path="/transactions"
               element={
                 <ProtectedRoute>
                   <Transactions />
                 </ProtectedRoute>
-              } 
+              }
             />
           </Routes>
         </BrowserRouter>
       </AuthProvider>
     </ThemeProvider>
-  )
+  );
 }
 
-export default App
+export default App;

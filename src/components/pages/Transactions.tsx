@@ -1,97 +1,41 @@
-import { useState, useMemo, useEffect } from 'react';
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
-import { DateRange } from 'react-day-picker';
-import { startOfMonth, endOfMonth, isWithinInterval, parseISO, format, isValid } from 'date-fns';
-import { Loader2, Search, Filter, Calendar as CalendarIcon } from 'lucide-react';
-import DashboardLayout from '@/components/layout/DashboardLayout';
-import TransactionList from '@/components/transactions/TransactionList';
-import DeleteConfirmModal from '@/components/transactions/DeleteConfirmModal';
-import { DatePickerWithRange } from '@/components/ui/date-range-picker';
-import TagFilterBar, { FilterMode } from '@/components/transactions/TagFilterBar';
-import { useTransactions } from '@/hooks/useTransactions';
-import { deleteTransaction } from '@/api/transactions';
-import { getActiveRoute } from '@/utils/routing';
-import { Transaction } from '@/types/transaction';
+import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Loader2, Search, Filter, Calendar as CalendarIcon } from "lucide-react";
+import DashboardLayout from "@/components/layout/DashboardLayout";
+import TransactionList from "@/components/transactions/TransactionList";
+import DeleteConfirmModal from "@/components/transactions/DeleteConfirmModal";
+import { DatePickerWithRange } from "@/components/ui/date-range-picker";
+import TagFilterBar from "@/components/transactions/TagFilterBar";
+import { useTransactions } from "@/hooks/useTransactions";
+import { useTransactionsFilters } from "@/hooks/useTransactionsFilters";
+import { deleteTransaction } from "@/api/transactions";
+import { getActiveRoute } from "@/utils/routing";
+import { Transaction } from "@/types/transaction";
 
 export default function Transactions() {
   const location = useLocation();
   const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
   const activeRoute = getActiveRoute(location.pathname);
 
-  // Data fetching
+  // 1. 数据获取
   const { data: allTransactions, loading, refetch } = useTransactions();
 
-  // Filters State
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  const [filterMode, setFilterMode] = useState<FilterMode>('AND');
+  // 2. 逻辑中枢：通过自定义 Hook 处理所有过滤、分组与 URL 同步
+  const {
+    searchQuery,
+    setSearchQuery,
+    dateRange,
+    setDateRange,
+    selectedTags,
+    setSelectedTags,
+    filterMode,
+    setFilterMode,
+    availableTags,
+    groupedTransactions, // 已经是按日期分组且过滤后的最终数据
+    handleTagToggle,
+  } = useTransactionsFilters(allTransactions || []);
 
-  // Date Range Initialization
-  const initialRange = useMemo(() => {
-    const fromParam = searchParams.get('from');
-    const toParam = searchParams.get('to');
-    
-    if (fromParam && toParam) {
-      const from = parseISO(fromParam);
-      const to = parseISO(toParam);
-      if (isValid(from) && isValid(to)) return { from, to };
-    }
-
-    if (allTransactions && allTransactions.length > 0) {
-      const latestDate = parseISO(allTransactions[0].date);
-      if (isValid(latestDate)) {
-        return { from: startOfMonth(latestDate), to: endOfMonth(latestDate) };
-      }
-    }
-    
-    return { from: startOfMonth(new Date()), to: endOfMonth(new Date()) };
-  }, [allTransactions, searchParams]);
-
-  const [dateRange, setDateRange] = useState<DateRange | undefined>(initialRange);
-
-  // Sync Date Range to URL
-  useEffect(() => {
-    if (dateRange?.from) {
-      const params = new URLSearchParams(searchParams);
-      params.set('from', format(dateRange.from, 'yyyy-MM-dd'));
-      if (dateRange.to) {
-        params.set('to', format(dateRange.to, 'yyyy-MM-dd'));
-      } else {
-        params.delete('to');
-      }
-      setSearchParams(params, { replace: true });
-    }
-  }, [dateRange, setSearchParams, searchParams]);
-
-  // Derived Tags for Filter Bar
-  const availableTagsInPeriod = useMemo(() => {
-    if (!dateRange?.from || !allTransactions) return [];
-    
-    const tagsSet = new Set<string>();
-    allTransactions.forEach(t => {
-      const txDate = parseISO(t.date);
-      const start = dateRange.from!;
-      const end = dateRange.to || dateRange.from!;
-      if (isWithinInterval(txDate, { start, end })) {
-        t.tags?.forEach(tag => tagsSet.add(tag));
-      }
-    });
-    return Array.from(tagsSet).sort();
-  }, [allTransactions, dateRange]);
-
-  // Combined Date Filter
-  const dateFilteredTransactions = useMemo(() => {
-    if (!dateRange?.from || !allTransactions) return allTransactions;
-    return allTransactions.filter(t => {
-      const txDate = parseISO(t.date);
-      const start = dateRange.from!;
-      const end = dateRange.to || dateRange.from!;
-      return isWithinInterval(txDate, { start, end });
-    });
-  }, [allTransactions, dateRange]);
-
-  // Delete State
+  // 3. 删除逻辑 (局部 UI 状态)
   const [deleteTarget, setDeleteTarget] = useState<Transaction | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
 
@@ -103,16 +47,10 @@ export default function Transactions() {
       await refetch();
       setDeleteTarget(null);
     } catch (error) {
-      console.error('Delete failed:', error);
+      console.error("Delete failed:", error);
     } finally {
       setIsDeleting(false);
     }
-  };
-
-  const handleTagToggle = (tag: string) => {
-    setSelectedTags(prev => 
-      prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]
-    );
   };
 
   if (loading) {
@@ -121,7 +59,7 @@ export default function Transactions() {
         title="Transactions"
         description="Review and manage your complete financial history."
         activeRoute={activeRoute}
-        onNavigate={(route) => navigate(route === 'dashboard' ? '/' : `/${route}`)}
+        onNavigate={(route) => navigate(route === "dashboard" ? "/" : `/${route}`)}
       >
         <div className="flex items-center justify-center py-32 gap-3">
           <Loader2 className="w-5 h-5 animate-spin text-slate-400 dark:text-slate-500" />
@@ -136,29 +74,24 @@ export default function Transactions() {
       title="Transactions"
       description="Review and manage your complete financial history."
       activeRoute={activeRoute}
-      onNavigate={(route) => navigate(route === 'dashboard' ? '/' : `/${route}`)}
+      onNavigate={(route) => navigate(route === "dashboard" ? "/" : `/${route}`)}
     >
       <div className="flex flex-col lg:flex-row gap-8 items-start">
-        
-        {/* Left Column: Transaction List (Main Content) */}
+        {/* Main Content Area (Now a pure renderer) */}
         <div className="w-full lg:flex-1 order-2 lg:order-1">
           <TransactionList
-            transactions={dateFilteredTransactions}
-            searchQuery={searchQuery}
-            selectedTags={selectedTags}
-            filterMode={filterMode}
+            groupedTransactions={groupedTransactions}
             onDelete={(id) => {
-              const target = allTransactions?.find(t => t.id === id);
+              const target = allTransactions?.find((t) => t.id === id);
               if (target) setDeleteTarget(target);
             }}
             onRefresh={refetch}
           />
         </div>
 
-        {/* Right Column: Sidebar Filter Panel */}
+        {/* Sidebar Filter Panel (Controls all logic via Hook) */}
         <aside className="w-full lg:w-[300px] flex-shrink-0 order-1 lg:order-2">
           <div className="bg-[#FBFBFA] dark:bg-[#1E1E1E]/50 rounded-[24px] border border-[#F0F0EA] dark:border-[#2A2A2A] p-6 shadow-sm sticky top-6">
-            
             <div className="flex items-center gap-2 mb-8 border-b border-[#F0F0EA] dark:border-[#2A2A2A] pb-4">
               <div className="p-1.5 bg-white dark:bg-[#2A2A2A] rounded-lg border border-[#F0F0EA] dark:border-[#333333] shadow-sm">
                 <Filter className="w-3.5 h-3.5 text-slate-900 dark:text-white" />
@@ -169,47 +102,43 @@ export default function Transactions() {
             </div>
 
             <div className="space-y-10">
-              {/* Section 1: Keyword Search */}
+              {/* Keyword Search */}
               <div className="space-y-4">
                 <div className="flex items-center justify-between px-1">
-                  <label className="text-[13px] font-semibold text-slate-900 dark:text-white uppercase tracking-wider">Keywords</label>
+                  <label className="text-[13px] font-semibold text-slate-900 dark:text-white uppercase tracking-wider">
+                    Keywords
+                  </label>
                   <Search className="w-3.5 h-3.5 text-slate-300 dark:text-slate-600" />
                 </div>
-                <div className="relative group">
-                  <input
-                    type="text"
-                    placeholder="Search anything..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full px-4 py-3 bg-white dark:bg-[#1A1A1A] border border-[#F0F0EA] dark:border-[#333333] rounded-xl text-[13.5px] outline-none focus:ring-4 focus:ring-blue-500/5 focus:border-blue-500/50 transition-all text-[#1A1A1A] dark:text-white placeholder:text-slate-300 dark:placeholder:text-slate-700 shadow-sm"
-                  />
-                </div>
+                <input
+                  type="text"
+                  placeholder="Search anything..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full px-4 py-3 bg-white dark:bg-[#1A1A1A] border border-[#F0F0EA] dark:border-[#333333] rounded-xl text-[13.5px] outline-none focus:ring-4 focus:ring-blue-500/5 focus:border-blue-500/50 transition-all text-[#1A1A1A] dark:text-white placeholder:text-slate-300 dark:placeholder:text-slate-700 shadow-sm"
+                />
               </div>
 
-              {/* Section 2: Date Range */}
+              {/* Time Selection */}
               <div className="space-y-4">
                 <div className="flex items-center justify-between px-1">
-                  <label className="text-[13px] font-semibold text-slate-900 dark:text-white uppercase tracking-wider">Time Period</label>
+                  <label className="text-[13px] font-semibold text-slate-900 dark:text-white uppercase tracking-wider">
+                    Time Period
+                  </label>
                   <CalendarIcon className="w-3.5 h-3.5 text-slate-300 dark:text-slate-600" />
                 </div>
-                <div className="relative">
-                  <DatePickerWithRange 
-                    date={dateRange} 
-                    setDate={setDateRange} 
-                    className="w-full"
-                  />
-                </div>
+                <DatePickerWithRange date={dateRange} setDate={setDateRange} className="w-full" />
               </div>
 
-              {/* Section 3: Tags */}
+              {/* Tag Selection */}
               <div className="pt-2">
-                <TagFilterBar 
-                  allTags={availableTagsInPeriod}
+                <TagFilterBar
+                  allTags={availableTags}
                   selectedTags={selectedTags}
                   filterMode={filterMode}
                   onTagToggle={handleTagToggle}
                   onClearTags={() => setSelectedTags([])}
-                  onModeToggle={() => setFilterMode(prev => prev === 'AND' ? 'OR' : 'AND')}
+                  onModeToggle={() => setFilterMode((prev) => (prev === "AND" ? "OR" : "AND"))}
                   onTagsUpdated={refetch}
                 />
               </div>
