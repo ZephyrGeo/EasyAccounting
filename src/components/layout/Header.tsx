@@ -1,6 +1,6 @@
 import React from "react";
 import { Search, Bell, Plus, Menu } from "lucide-react";
-import Button from "@/components/ui/Button";
+import { Button } from "@/components/ui/Button";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 
 interface HeaderProps {
