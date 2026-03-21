@@ -12,6 +12,7 @@ export default function TagPill({ tag, onRemove }: TagPillProps) {
       {tag}
       {onRemove && (
         <button
+          type="button"
           onClick={(e) => {
             e.stopPropagation();
             onRemove();

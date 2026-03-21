@@ -13,25 +13,19 @@ interface TransactionItemProps {
 
 export default function TransactionItem({
   transaction,
-  bundle = [],
   onEdit,
   onDelete,
 }: TransactionItemProps) {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const isBundle = bundle.length > 1;
-  const displayAmount = isBundle 
-    ? bundle.reduce((sum, t) => sum + t.amount, 0) 
-    : transaction.amount;
-
   // 获取 Logo URL (从品牌表中获取)
   const logoUrl = transaction.merchant.brand?.logo_url;
+  const displayAmount = transaction.amount;
 
+  // Main Row
   return (
     <div className="group border-b border-[#F0F0EA] last:border-0">
-      {/* Main Row */}
       <div 
         className="flex items-center justify-between py-4 px-6 hover:bg-[#F7F7F3] transition-colors cursor-pointer"
-        onClick={() => setIsExpanded(!isExpanded)}
+        onClick={() => onEdit?.(transaction)}
       >
         <div className="flex items-center gap-5 flex-1">
           {/* Logo Container - Simplified */}

@@ -9,7 +9,9 @@ import { getOrCreatePaymentMethod } from "../entities/paymentMethods";
  * 这个函数会处理所有外键关联（分类、商户、品牌、支付方式）
  */
 export async function importAITransactions(transactions: Transaction[]): Promise<void> {
-  const userId = 'd1beb15e-f484-49d7-89d9-ccdc622bf2bc';
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) throw new Error("User not authenticated");
+  const userId = user.id;
   
   console.log(`Starting to import ${transactions.length} AI parsed transactions...`);
 

@@ -1,6 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Transaction } from '@/types/transaction';
 import { toDateInputValue, toISOString, getTodayDateString, getCurrentTimeString } from '@/utils/date';
+import { EXPENSE_CATEGORIES, INCOME_CATEGORIES } from '@/constants/categories';
+import { getAllTags, deleteTag as apiDeleteTag } from '@/api/entities/tags';
 
 export interface TransactionFormData {
   type: 'expense' | 'income';
@@ -17,7 +19,10 @@ interface UseTransactionFormResult {
   setFormData: React.Dispatch<React.SetStateAction<TransactionFormData>>;
   tagInput: string;
   setTagInput: React.Dispatch<React.SetStateAction<string>>;
+  allAvailableTags: string[];
   handleAddTag: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  handleSelectSuggestion: (tag: string) => void;
+  handleDeleteGlobalTag: (tag: string) => Promise<void>;
   removeTag: (tagToRemove: string) => void;
   prepareTransaction: (transactionId?: string) => Transaction;
 }
@@ -30,6 +35,7 @@ export function useTransactionForm(
   isOpen?: boolean
 ): UseTransactionFormResult {
   const [tagInput, setTagInput] = useState('');
+  const [allAvailableTags, setAllAvailableTags] = useState<string[]>([]);
   const [formData, setFormData] = useState<TransactionFormData>({
     type: 'expense',
     amount: '',
@@ -43,20 +49,31 @@ export function useTransactionForm(
   // Initialize form data when modal opens
   useEffect(() => {
     if (isOpen && transaction) {
-      // Determine type based on amount
-      const isIncome = transaction.amount > 0;
+      const isIncome = transaction.amount < 0;
+      const type = isIncome ? 'income' : 'expense';
+
+      let currentCategoryName = typeof transaction.category === 'string' 
+        ? transaction.category 
+        : transaction.category.name;
+      
+      if (currentCategoryName === 'Others') currentCategoryName = 'Other';
+      if (currentCategoryName === 'Transport') currentCategoryName = 'Transportation';
+      if (currentCategoryName === 'Medical') currentCategoryName = 'Healthcare';
+      
+      const allowedCategories = isIncome ? INCOME_CATEGORIES : EXPENSE_CATEGORIES;
+      const isValidCategory = (allowedCategories as readonly string[]).includes(currentCategoryName);
+      const category = isValidCategory ? currentCategoryName : (isIncome ? 'Income' : 'Other');
 
       setFormData({
-        type: isIncome ? 'income' : 'expense',
+        type,
         amount: Math.abs(transaction.amount).toString(),
-        category: typeof transaction.category === 'string' ? transaction.category : transaction.category.name,
+        category,
         merchant: typeof transaction.merchant === 'string' ? transaction.merchant : transaction.merchant.name,
         date: toDateInputValue(transaction.date),
         time: getCurrentTimeString(),
         tags: transaction.tags || [],
       });
     } else if (isOpen && !transaction) {
-      // Reset form for create mode
       setFormData({
         type: 'expense',
         amount: '',
@@ -70,43 +87,71 @@ export function useTransactionForm(
     setTagInput('');
   }, [isOpen, transaction]);
 
+  // Load available tags for suggestions
+  useEffect(() => {
+    if (isOpen) {
+      getAllTags().then(setAllAvailableTags);
+    }
+  }, [isOpen]);
+
+  const addTag = (tag: string) => {
+    const trimmed = tag.trim();
+    if (trimmed && !formData.tags.includes(trimmed)) {
+      setFormData(prev => ({ ...prev, tags: [...prev.tags, trimmed] }));
+      if (!allAvailableTags.includes(trimmed)) {
+        setAllAvailableTags(prev => [...prev, trimmed].sort());
+      }
+    }
+    setTagInput('');
+  };
+
   const handleAddTag = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && tagInput.trim()) {
       e.preventDefault();
-      if (!formData.tags.includes(tagInput.trim())) {
-        setFormData({ ...formData, tags: [...formData.tags, tagInput.trim()] });
-      }
-      setTagInput('');
+      addTag(tagInput);
     }
   };
 
-  const removeTag = (tagToRemove: string) => {
-    setFormData({
-      ...formData,
-      tags: formData.tags.filter((tag) => tag !== tagToRemove),
-    });
+  const handleSelectSuggestion = (tag: string) => {
+    addTag(tag);
   };
 
+  const handleDeleteGlobalTag = async (tag: string) => {
+    try {
+      await apiDeleteTag(tag);
+      setAllAvailableTags(prev => prev.filter(t => t !== tag));
+      removeTag(tag);
+    } catch (error) {
+      console.error("Delete global tag failed:", error);
+    }
+  };
+
+  const removeTag = useCallback((tagToRemove: string) => {
+    console.log(`[Form] Removing tag: ${tagToRemove}`);
+    setFormData(prev => ({
+      ...prev,
+      tags: prev.tags.filter((tag) => tag !== tagToRemove),
+    }));
+  }, []);
+
   const prepareTransaction = (transactionId?: string): Transaction => {
-    // Determine signed amount
-    const amount = parseFloat(formData.amount);
-    const signedAmount = formData.type === 'income' ? Math.abs(amount) : -Math.abs(amount);
+    const amount = parseFloat(formData.amount) || 0;
+    const signedAmount = formData.type === 'income' ? -Math.abs(amount) : Math.abs(amount);
+
+    // 自动合并输入框中还未按回车的文字
+    const pendingTag = tagInput.trim();
+    const finalTags = [...formData.tags];
+    if (pendingTag && !finalTags.includes(pendingTag)) {
+      finalTags.push(pendingTag);
+    }
 
     return {
       id: transactionId || '',
       amount: signedAmount,
-      category: {
-        id: 'temp',
-        name: formData.category,
-        color_code: '#64748B'
-      },
-      merchant: {
-        id: 'temp',
-        name: formData.merchant,
-        brand: null
-      },
+      category: { id: 'temp', name: formData.category, color_code: '#64748B' },
+      merchant: { id: 'temp', name: formData.merchant, brand: null },
       date: toISOString(formData.date),
-      tags: formData.tags.length > 0 ? formData.tags : [],
+      tags: finalTags,
     };
   };
 
@@ -115,7 +160,10 @@ export function useTransactionForm(
     setFormData,
     tagInput,
     setTagInput,
+    allAvailableTags,
     handleAddTag,
+    handleSelectSuggestion,
+    handleDeleteGlobalTag,
     removeTag,
     prepareTransaction,
   };

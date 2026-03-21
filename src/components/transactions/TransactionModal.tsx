@@ -26,7 +26,10 @@ export default function TransactionModal({
     setFormData,
     tagInput,
     setTagInput,
+    allAvailableTags,
     handleAddTag,
+    handleSelectSuggestion,
+    handleDeleteGlobalTag,
     removeTag,
     prepareTransaction,
   } = useTransactionForm(transaction, isOpen);
@@ -76,17 +79,17 @@ export default function TransactionModal({
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm animate-in fade-in duration-200"
       onClick={handleBackdropClick}
     >
-      <div className="w-full max-w-md p-6 rounded-3xl shadow-2xl scale-100 animate-in zoom-in-95 duration-200 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+      <div className="w-full max-w-md p-6 rounded-[24px] shadow-2xl scale-100 animate-in zoom-in-95 duration-200 bg-white dark:bg-[#1A1A1A] border border-[#E5E5E0] dark:border-[#333333]">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-xl font-bold text-slate-900 dark:text-white">
+          <h2 className="text-[20px] font-medium text-[#1A1A1A] dark:text-white font-serif tracking-tight">
             {transaction ? 'Edit Transaction' : 'New Transaction'}
           </h2>
           <button
             onClick={onClose}
             disabled={isLoading}
-            className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors disabled:opacity-50"
+            className="p-1.5 rounded-md hover:bg-[#F0F0EA] dark:hover:bg-[#2A2A2A] transition-colors disabled:opacity-50"
           >
-            <X className="w-5 h-5 text-slate-400" />
+            <X className="w-5 h-5 text-[#8E8E8E]" />
           </button>
         </div>
 
@@ -95,7 +98,10 @@ export default function TransactionModal({
           onFormDataChange={setFormData}
           tagInput={tagInput}
           onTagInputChange={setTagInput}
+          allAvailableTags={allAvailableTags}
           onAddTag={handleAddTag}
+          onSelectSuggestion={handleSelectSuggestion}
+          onDeleteGlobalTag={handleDeleteGlobalTag}
           onRemoveTag={removeTag}
           onSubmit={handleSubmit}
           isLoading={isLoading}

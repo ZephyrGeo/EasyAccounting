@@ -1,4 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
+import { Loader2 } from 'lucide-react';
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import MetricCard from '@/components/cards/MetricCard';
 import SpendingTrendChart from '@/components/charts/SpendingTrendChart';
@@ -24,11 +25,10 @@ export default function Dashboard() {
         activeRoute={activeRoute}
         onNavigate={(route) => navigate(route === 'dashboard' ? '/' : `/${route}`)}
       >
-        <div className="grid grid-cols-12 gap-6">
-          <div className="col-span-12 text-center py-12 text-slate-400">
-            Loading...
-          </div>
-        </div>
+      <div className="flex items-center justify-center py-32 gap-3">
+        <Loader2 className="w-5 h-5 animate-spin text-slate-400 dark:text-slate-500" />
+        <p className="text-sm font-medium text-slate-400 animate-pulse">Analyzing your finances...</p>
+      </div>
       </DashboardLayout>
     );
   }
@@ -42,14 +42,14 @@ export default function Dashboard() {
       onNavigate={(route) => navigate(route === 'dashboard' ? '/' : `/${route}`)}
     >
       <div className="grid grid-cols-12 gap-6">
-        {/* Row 1: Key Metrics (已移除日期切换) */}
+        {/* Row 1: Key Metrics */}
         <div className="col-span-12 relative z-20">
           <MetricCard
             transactions={transactions}
           />
         </div>
 
-        {/* Row 2: Charts (它们现在将分析所有交易数据) */}
+        {/* Row 2: Charts */}
         <SpendingTrendChart selectedMonth="" transactions={transactions} />
         <CategoryPieChart selectedMonth="" transactions={transactions} />
 

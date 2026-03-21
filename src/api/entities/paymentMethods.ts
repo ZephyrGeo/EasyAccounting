@@ -8,8 +8,9 @@ import { supabase } from "@/lib/supabase";
 export async function getOrCreatePaymentMethod(methodName: string): Promise<number | null> {
   if (!methodName) return null;
 
-  // 获取当前用户ID (Hardcoded for testing)
-  const userId = 'd1beb15e-f484-49d7-89d9-ccdc622bf2bc';
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) throw new Error("User not authenticated");
+  const userId = user.id;
 
   // 查询是否存在
   const { data: existing, error: searchError } = await supabase

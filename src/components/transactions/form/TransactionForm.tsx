@@ -1,20 +1,25 @@
 import { FormEvent } from 'react';
 import { Save } from 'lucide-react';
+import { parseISO } from 'date-fns';
 import { TransactionFormData } from '@/hooks/useTransactionForm';
 import TypeSelector from './TypeSelector';
 import AmountInput from './AmountInput';
-import DateInput from './DateInput';
+import { DatePicker } from '@/components/ui/date-picker';
 import MerchantInput from './MerchantInput';
 import CategorySelect from './CategorySelect';
 import TagsInput from './TagsInput';
 import { FORM_STYLES } from './formStyles';
+import { formatToLocalDate } from '@/utils/date';
 
 interface TransactionFormProps {
   formData: TransactionFormData;
   onFormDataChange: (data: TransactionFormData) => void;
   tagInput: string;
   onTagInputChange: (value: string) => void;
+  allAvailableTags: string[];
   onAddTag: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  onSelectSuggestion: (tag: string) => void;
+  onDeleteGlobalTag: (tag: string) => void;
   onRemoveTag: (tag: string) => void;
   onSubmit: (e: FormEvent) => void;
   isLoading: boolean;
@@ -26,15 +31,16 @@ export default function TransactionForm({
   onFormDataChange,
   tagInput,
   onTagInputChange,
+  allAvailableTags,
   onAddTag,
+  onSelectSuggestion,
+  onDeleteGlobalTag,
   onRemoveTag,
   onSubmit,
   isLoading,
   isEdit,
 }: TransactionFormProps) {
   const handleTypeChange = (type: 'expense' | 'income') => {
-    // In edit mode, preserve the existing category when switching types
-    // In create mode, set default category based on type
     const newCategory = isEdit
       ? formData.category
       : (type === 'income' ? 'Income' : 'Other');
@@ -46,9 +52,14 @@ export default function TransactionForm({
     });
   };
 
-  // Helper function to handle field changes
   const handleFieldChange = (field: keyof TransactionFormData) => (value: string) => {
     onFormDataChange({ ...formData, [field]: value });
+  };
+
+  const handleDateChange = (date: Date | undefined) => {
+    if (date) {
+      onFormDataChange({ ...formData, date: formatToLocalDate(date) });
+    }
   };
 
   return (
@@ -63,11 +74,14 @@ export default function TransactionForm({
           onChange={handleFieldChange('amount')}
           disabled={isLoading}
         />
-        <DateInput
-          value={formData.date}
-          onChange={handleFieldChange('date')}
-          disabled={isLoading}
-        />
+        <div className="flex flex-col">
+          <label className={FORM_STYLES.label}>Date</label>
+          <DatePicker 
+            date={parseISO(formData.date)} 
+            setDate={handleDateChange}
+            disabled={isLoading}
+          />
+        </div>
       </div>
 
       {/* Merchant & Category */}
@@ -89,8 +103,11 @@ export default function TransactionForm({
       <TagsInput
         tags={formData.tags}
         tagInput={tagInput}
+        allAvailableTags={allAvailableTags}
         onTagInputChange={onTagInputChange}
         onAddTag={onAddTag}
+        onSelectSuggestion={onSelectSuggestion}
+        onDeleteGlobalTag={onDeleteGlobalTag}
         onRemoveTag={onRemoveTag}
         disabled={isLoading}
       />
