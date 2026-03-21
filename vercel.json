@@ -1,6 +1,14 @@
 {
   "rewrites": [
     {
+      "source": "/api/anthropic",
+      "destination": "/api/anthropic.js"
+    },
+    {
+      "source": "/api/anthropic/(.*)",
+      "destination": "/api/anthropic.js"
+    },
+    {
       "source": "/favicon.ico",
       "destination": "/favicon.ico"
     },
