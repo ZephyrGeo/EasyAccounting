@@ -22,7 +22,7 @@ export const CATEGORY_COLORS: Record<string, string> = {
   // 支出
   "Food & Drink": "#FF6B6B",
   Shopping: "#4DABF7",
-  Transportation: "#51CF66",
+  Transport: "#51CF66",
   Housing: "#FCC419",
   Healthcare: "#FF922B",
   Entertainment: "#BE4BDB",
@@ -42,7 +42,7 @@ export const CATEGORY_ICONS: Record<string, any> = {
   // 支出
   "Food & Drink": Utensils,
   Shopping: ShoppingBag,
-  Transportation: Car,
+  Transport: Car,
   Housing: Home,
   Healthcare: Activity,
   Entertainment: Gamepad2,

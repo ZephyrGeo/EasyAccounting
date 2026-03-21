@@ -37,11 +37,12 @@ export const EXPORT_PROMPT = `# 角色
 3. brand_name: 提取纯粹的品牌主名，用于 Logo 匹配（如：FamilyMart）。
 4. amount: 必须为浮点数。账单原始金额转为正数；若为负数，则表示收入。
 5. category_name: 必须且只能从以下 8 个分类中选择：
-   [Food & Drink, Transport, Shopping, Entertainment, Housing, Medical, Subscriptions, Others]
+   [Food & Drink, Transport, Shopping, Entertainment, Housing, Healthcare, Subscriptions, Others]
    *分类修正规则*：
    - **便利店强制归类**：所有便利店（如 7-Eleven, FamilyMart, Lawson, Ministop, Seicomart 等）必须归类为 [Food & Drink]，严禁归类为 Shopping 或 Others。
    - **外卖/餐饮识别**：如 "Rocket Now"、"Uber Eats"、"Demae-can" 必须归类为 [Food & Drink]。
    - **交通识别**：所有 ETC、利木津巴士、地铁充值（Suica/Pasmo）归类为 [Transport]。
+   - **医疗识别**：所有药妆店、医院、诊所归类为 [Healthcare]。
 6. is_recurring: 布尔值。识别订阅服务（如 Amazon Prime, Spotify, Netflix）为 true。
 7. payment_method_name: 识别账单中的支付工具或卡号末位。
 

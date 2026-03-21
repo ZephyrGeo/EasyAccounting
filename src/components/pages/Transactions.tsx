@@ -132,9 +132,7 @@ export default function Transactions() {
           <Card className="border-[#F0F0EA] dark:border-[#2A2A2A] shadow-none bg-white dark:bg-[#1A1A1A]">
             <CardContent className="pt-6 space-y-3">
               <div className="px-1">
-                <span className="text-[13px] font-medium text-slate-900 dark:text-white">
-                  Period
-                </span>
+                <span className="text-[13px] font-medium text-slate-900 dark:text-white">Period</span>
               </div>
               <DatePickerWithRange date={dateRange} setDate={setDateRange} className="w-full" />
             </CardContent>
@@ -163,9 +161,7 @@ export default function Transactions() {
 
               <div className="space-y-4">
                 <div className="flex items-center justify-between px-1">
-                  <span className="text-[12px] font-medium text-amber-600 dark:text-amber-500">
-                    Categories
-                  </span>
+                  <span className="text-[12px] font-medium text-amber-600 dark:text-amber-500">Categories</span>
                   {selectedCategories.length > 0 && (
                     <button
                       onClick={() => setSelectedCategories([])}
@@ -179,9 +175,7 @@ export default function Transactions() {
 
                 <div className="space-y-5 max-h-[350px] overflow-y-auto pr-2 custom-scrollbar">
                   <div className="space-y-2">
-                    <p className="text-[11px] font-medium text-slate-400 dark:text-slate-500 ml-1">
-                      Expenses
-                    </p>
+                    <p className="text-[11px] font-medium text-slate-400 dark:text-slate-500 ml-1">Expenses</p>
                     <div className="grid grid-cols-1 gap-1">
                       {EXPENSE_CATEGORIES.map((category) => (
                         <label
@@ -204,9 +198,7 @@ export default function Transactions() {
                   </div>
 
                   <div className="space-y-2">
-                    <p className="text-[11px] font-medium text-slate-400 dark:text-slate-500 ml-1">
-                      Income
-                    </p>
+                    <p className="text-[11px] font-medium text-slate-400 dark:text-slate-500 ml-1">Income</p>
                     <div className="grid grid-cols-1 gap-1">
                       {INCOME_CATEGORIES.map((category) => (
                         <label
@@ -236,9 +228,7 @@ export default function Transactions() {
           <Card className="border-[#F0F0EA] dark:border-[#2A2A2A] shadow-none bg-white dark:bg-[#1A1A1A]">
             <CardContent className="pt-6 space-y-4">
               <div className="flex items-center justify-between px-1">
-                <span className="text-[13px] font-medium text-slate-900 dark:text-white">
-                  Tags
-                </span>
+                <span className="text-[13px] font-medium text-slate-900 dark:text-white">Tags</span>
                 <TagIcon className="w-4 h-4 text-slate-400 dark:text-slate-500" />
               </div>
               <div className="pt-1">
